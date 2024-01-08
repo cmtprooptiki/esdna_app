@@ -195,3 +195,31 @@ Content-Type: application/json
     "password":"123456"
   
 }
+###GET BUILDING metrics id
+GET http://localhost:5000/buildingmetrics/a79ec860-f8db-4f21-b008-5bec53c6120e
+
+### Create a building
+POST http://localhost:5000/createbuildingmetric
+Content-Type: application/json
+
+{
+    "buildingId":1,
+    "metricId":4,
+    "value":54,
+    "year":2023
+
+}
+
+###update single metrics
+PATCH http://localhost:5000/updatebuildingmetric/c8018cf5-d788-494e-84f4-f77abc2cdff5
+Content-Type: application/json
+
+{
+    "value":58,
+    "year":2024
+    
+}
+
+###update single metrics
+DELETE  http://localhost:5000/deletebuildingmetric/c8018cf5-d788-494e-84f4-f77abc2cdff5
+Content-Type: application/json

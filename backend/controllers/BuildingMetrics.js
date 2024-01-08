@@ -11,7 +11,7 @@ export const getBuildingMetrics = async(req,res)=>{
         let response;
         if(req.role === "admin"){
             response=await BuildingMetric.findAll({
-                attributes:['year','value'] ,
+                attributes:['uuid','year','value'] ,
                 include:[
                     {
                     model:Building,
@@ -32,6 +32,120 @@ export const getBuildingMetrics = async(req,res)=>{
         res.status(500).json({msg:error.message});
 
     }
+}
+
+export const getBuildingMetricsById = async(req,res)=>{
+
+    try{
+        const response = await BuildingMetric.findOne({
+            attributes:['uuid','year','value'],
+            include:[
+                {
+                model:Building,
+                attributes:['name','lat','lon'],
+            },
+            {
+                model:Metric,
+                attributes:['name']
+                        
+            }
+            ],    
+            where:{
+                uuid:req.params.id
+            }
+        });
+        res.status(200).json(response);
+
+    } catch (error){
+        res.status(500).json({ msg:error.message });
+    }
+}
+
+export const createBuildingMetric = async(req,res)=>{
+    const {buildingId,metricId,value,year} = req.body
+    // const { name, coordinates } = req.body; // Assuming the request body contains 'name' and 'coordinates' for the building
+
+
+    try {
+        await BuildingMetric.create({
+            buildingId:buildingId,
+            metricId:metricId,
+            value:value,
+            year:year
+        });
+        res.status(201).json({msg:"BuildingMetric Created succesfuly"})
+
+
+    }
+    catch(error){
+        res.status(500).json({msg:error.message});
+
+    }
+    
+}
+
+export const updateBuildingMetric= async(req,res)=>{
+
+    const buildingmetric = await BuildingMetric.findOne({
+        where:{
+            uuid:req.params.id
+        }
+    });
+
+    if (!buildingmetric) return res.status(404).json({msg:"Data not found"})
+    const {value,year} = req.body
+
+    try{
+
+        await BuildingMetric.update({value,year},{
+            where:{
+                id:buildingmetric.id
+            }
+        });
+        
+   
+    
+    // else{
+    //     if (req.userId !== product.userId) return res.status(403).json({msg:"Access is forbidedn"})
+
+    //     await Building.update({name,lat,lon},{
+    //         where:{
+    //             [Op.and]:[{id:building.id},{userId:req.userId}]
+    //         }
+    //     });
+    // }
+    res.status(200).json({msg:"BuildingMetric updated successfulyyy"});
+} catch (error){
+    res.status(500).json({msg:error.message});
+
+}
+}
+
+
+export const deleteBuildingMetric = async(req,res)=>{
+    
+    const buildingmetric = await BuildingMetric.findOne({
+        where:{
+            uuid:req.params.id
+        }
+    });
+    if (!buildingmetric) return res.status(404).json({msg:"BuildingMetric not found"});
+    
+    try{
+        await BuildingMetric.destroy({
+            
+      
+            where:{
+                id:buildingmetric.id
+            }
+        });
+        res.status(200).json({msg:"BuildingMetric deleted"});
+    
+    } catch(error){
+        res.status(400).json({msg:error.message});
+    
+    }
+
 }
 
 // export const getProductById = async(req,res)=>{

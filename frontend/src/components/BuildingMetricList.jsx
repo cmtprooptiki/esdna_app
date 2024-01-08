@@ -14,7 +14,7 @@ const BuildingMetricList = () => {
         setBuildingMetrics(response.data);
     }
     const deleteBuildingMetric = async(buildingmetricId)=>{
-        await axios.delete(`http://localhost:5000/buildingmetrics/${buildingmetricId}`);
+        await axios.delete(`http://localhost:5000/deletebuildingmetric/${buildingmetricId}`);
         getBuildingMetrics();
     }
   return (
@@ -40,8 +40,8 @@ const BuildingMetricList = () => {
                         <td>{buildingmetric.metric.name}</td>
                         <td>{buildingmetric.value}</td>
                         <td>
-                            <Link to={`/buildingmetrics/edit/${buildingmetric.id}`} className='button is-small is-info'>Edit</Link>
-                            <button onClick={()=>deleteBuildingMetric(buildingmetric.id)} className='button is-small is-danger'>Delete</button>
+                            <Link to={`/buildingmetrics/edit/${buildingmetric.uuid}`} className='button is-small is-info'>Edit</Link>
+                            <button onClick={()=>deleteBuildingMetric(buildingmetric.uuid)} className='button is-small is-danger'>Delete</button>
                         </td>
                     </tr>
                 ))}

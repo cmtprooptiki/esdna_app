@@ -1,7 +1,11 @@
 import express from "express";
 
 import {
-    getBuildingMetrics
+    getBuildingMetrics,
+    getBuildingMetricsById,
+    createBuildingMetric,
+    updateBuildingMetric,
+    deleteBuildingMetric
     // getProducts,
     // getProductById,
     // createProduct,
@@ -12,6 +16,10 @@ import { verifyUser } from "../middleware/AuthUser.js";
 const router = express.Router();
 
 router.get('/buildingmetrics',verifyUser,getBuildingMetrics);
+router.get('/buildingmetrics/:id',verifyUser,getBuildingMetricsById);
+router.post('/createbuildingmetric',verifyUser,createBuildingMetric);
+router.patch('/updatebuildingmetric/:id',verifyUser,updateBuildingMetric);
+router.delete('/deletebuildingmetric/:id',verifyUser,deleteBuildingMetric);
 // router.get('/products/:id',verifyUser,getProductById);
 // router.post('/products',verifyUser,createProduct);
 // router.patch('/products/:id',verifyUser,updateProduct);

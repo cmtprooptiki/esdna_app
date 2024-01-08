@@ -17,7 +17,8 @@ import AddMetrics from "./pages/AddMetric";
 import EditMetric from "./pages/EditMetric";
 
 import BuildingMetrics from "./pages/BuildingMetrics";
-
+import AddBuildingMetric from "./pages/AddBuildingMetric";
+import EditBuildingMetric from "./pages/EditBuildingMetric";
 function App() {
   return (
     <div>
@@ -38,6 +39,8 @@ function App() {
           <Route path="/metrics/add" element={<AddMetrics/>}></Route>
           <Route path="/metrics/edit/:id" element={<EditMetric/>}></Route>
           <Route path="/buildingmetrics" element={<BuildingMetrics/>}></Route>
+          <Route path="/buildingmetrics/add" element={<AddBuildingMetric/>}></Route>
+          <Route path="/buildingmetrics/edit/:id" element={<EditBuildingMetric/>}></Route>
 
         </Routes>
       </BrowserRouter>

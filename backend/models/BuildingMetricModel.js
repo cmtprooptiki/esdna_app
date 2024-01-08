@@ -15,7 +15,14 @@ const BuildingMetric = db.define('BuildingMetric', {
         autoIncrement: true,
         allowNull: false
       },
-
+      uuid:{
+        type: DataTypes.STRING,
+        defaultValue: DataTypes.UUIDV4,
+        allowNull: false,
+        validate:{
+            notEmpty: true
+        }
+    },
     buildingId: {
       type: DataTypes.INTEGER,
       references: {
