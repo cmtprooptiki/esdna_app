@@ -1,4 +1,4 @@
 ### node modules
 /node_modules/*
 ###database
-/config/*
+/config/Database.js
