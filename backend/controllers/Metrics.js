@@ -9,7 +9,7 @@ export const getMetrics= async(req,res)=>{
             response=await Metric.findAll({
                 // attributes:['uuid','name', ['ST_X(location)', 'latitude'], ['ST_Y(location)', 'longitude']],
 
-                attributes:['uuid','name'],
+                attributes:['id','uuid','name'],
                 // include:[{
                 //     model:User,
                 //     attributes:['name','email'],
@@ -20,7 +20,7 @@ export const getMetrics= async(req,res)=>{
             response = await Metric.findAll({
                 // attributes:['uuid','name', ['ST_X(location)', 'latitude'], ['ST_Y(location)', 'longitude']],
 
-                attributes:['uuid','name'],
+                attributes:['id','uuid','name'],
 
                 
             });
@@ -36,7 +36,7 @@ export const getMetricById = async(req,res)=>{
 
     try{
         const response = await Metric.findOne({
-            attributes:['uuid','name'],
+            attributes:['id','uuid','name'],
             where:{
                 uuid:req.params.id
             }

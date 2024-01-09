@@ -36,6 +36,7 @@ const BuildingMetric = db.define('BuildingMetric', {
         model: Metrics, // 'Metrics' would also work
         foreignKey: 'id'
       }
+      
     },
     value: {
         type: DataTypes.INTEGER,
@@ -54,13 +55,30 @@ const BuildingMetric = db.define('BuildingMetric', {
       }
 
 
+  },{    
+    // Define a composite unique constraint for year, buildingId, and metricId    
+    indexes: [         
+      {          
+        unique: true,             
+        fields: ['buildingId', 'metricId','year'],
+        name:"unique_building_metric_year"
+      }     
+    ]
   });
 
 
-Buildings.belongsToMany(Metrics, { through: BuildingMetric, foreignKey: 'buildingId' });
-Metrics.belongsToMany(Buildings, { through: BuildingMetric, foreignKey: 'metricId' });
+Buildings.belongsToMany(Metrics, { through: BuildingMetric, foreignKey: 'buildingId'});
+Metrics.belongsToMany(Buildings, { through: BuildingMetric, foreignKey: 'metricId'});
 BuildingMetric.belongsTo(Buildings, { foreignKey: 'buildingId', targetKey: 'id' });
-BuildingMetric.belongsTo(Metrics, { foreignKey: 'metricId', targetKey: 'id' });
+BuildingMetric.belongsTo(Metrics, { foreignKey: 'metricId', targetKey: 'id'});
+// After sequelize.sync
+// await queryInterface.addConstraint('BuildingMetric', {
+//   fields: ['buildingId', 'metricId', 'year'],
+//   type: 'unique',
+//   name: 'BuildingMetrics_metricId_buildingId_unique' // use the same name as the existing index
+// });
+
+
 
 
 export default BuildingMetric;

@@ -9,7 +9,7 @@ export const getBuildings = async(req,res)=>{
             response=await Building.findAll({
                 // attributes:['uuid','name', ['ST_X(location)', 'latitude'], ['ST_Y(location)', 'longitude']],
 
-                attributes:['uuid','name','lat','lon'],
+                attributes:['id','uuid','name','lat','lon'],
                 // include:[{
                 //     model:User,
                 //     attributes:['name','email'],
@@ -20,7 +20,7 @@ export const getBuildings = async(req,res)=>{
             response = await Building.findAll({
                 // attributes:['uuid','name', ['ST_X(location)', 'latitude'], ['ST_Y(location)', 'longitude']],
 
-                attributes:['uuid','name','lat','lon'],
+                attributes:['id','uuid','name','lat','lon'],
 
                 
             });
@@ -36,7 +36,7 @@ export const getBuildingById = async(req,res)=>{
 
     try{
         const response = await Building.findOne({
-            attributes:['uuid','name','lat','lon'],
+            attributes:['id','uuid','name','lat','lon'],
             where:{
                 uuid:req.params.id
             }
