@@ -30,7 +30,7 @@ const BuildingList = () => {
                     <th>Number2</th>
 
                     <th>Building Name</th>
-                    <th>Lat</th>
+                    <th>Latitude</th>
                     <th>Lon</th>
                     <th>Category</th>
 
