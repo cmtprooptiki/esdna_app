@@ -30,6 +30,8 @@ const BuildingList = () => {
                     <th>Building Name</th>
                     <th>Lat</th>
                     <th>Lon</th>
+                    <th>Category</th>
+
                 </tr>
             </thead>
             <tbody>
@@ -39,7 +41,9 @@ const BuildingList = () => {
                         <td>{building.name}</td>
                         <td>{building.lat}</td>
                         <td>{building.lon}</td>
+                        <td>{building.category}</td>
                         <td>
+                            <Link to={`/buildings/profile/${building.uuid}`} className='button is-small is-info'>Profile</Link>
                             <Link to={`/buildings/edit/${building.uuid}`} className='button is-small is-info'>Edit</Link>
                             <button onClick={()=>deleteBuilding(building.uuid)} className='button is-small is-danger'>Delete</button>
                         </td>

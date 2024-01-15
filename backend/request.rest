@@ -223,3 +223,21 @@ Content-Type: application/json
 ###update single metrics
 DELETE  http://localhost:5000/deletebuildingmetric/c8018cf5-d788-494e-84f4-f77abc2cdff5
 Content-Type: application/json
+
+
+####Check wind api
+POST https://api.windy.com/api/point-forecast/v2
+Content-Type: application/json
+
+{
+    "lat": 49.809,
+    "lon": 16.787,
+    "model": "gfs",
+    "parameters": ["wind", "pressure"],
+    "levels": ["surface", "800h", "300h"],
+    "key": "oGbYR2T2f2AFUitdH4pRxCMn6UXyzEPg"
+}
+
+
+####GET AVG GROUP BY 
+GET http://localhost:5000/buildingmetrics-avg

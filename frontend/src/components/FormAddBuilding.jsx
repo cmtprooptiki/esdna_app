@@ -7,6 +7,7 @@ const FormAddBuilding = () => {
     const[name,setName]=useState("");
     const[lat,setLat]=useState("");
     const[lon,setLon]=useState("");
+    const[category,setCategory]=useState("");
     const[msg,setMsg]=useState("");
 
     const navigate = useNavigate();
@@ -17,7 +18,8 @@ const FormAddBuilding = () => {
             await axios.post('http://localhost:5000/buildings', {
                 name:name,
                 lat:lat,
-                lon:lon
+                lon:lon,
+                category:category
             });
             navigate("/buildings");
         }catch(error){
@@ -52,6 +54,12 @@ const FormAddBuilding = () => {
                         <label  className="label">Longitude</label>
                         <div className="control">
                             <input type="text" className="input" value={lon} onChange={(e)=> setLon(e.target.value)} placeholder='Lontitude'/>
+                        </div>
+                    </div>
+                    <div className="field">
+                        <label  className="label">Category</label>
+                        <div className="control">
+                            <input type="text" className="input" value={category} onChange={(e)=> setCategory(e.target.value)} placeholder='Category'/>
                         </div>
                     </div>
                     

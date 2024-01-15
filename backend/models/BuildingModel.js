@@ -43,6 +43,13 @@ const Buildings = db.define('building',{
         validate:{
             notEmpty: true
         }
+    },
+    category:{
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate:{
+            notEmpty: true
+        }
     }
     
 },{

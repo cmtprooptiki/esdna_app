@@ -29,6 +29,7 @@ const BuildingMetricList = () => {
                     <th>Building Name</th>
                     <th>Metric Name</th>
                     <th>Metric value</th>
+                    <th>Year</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -39,6 +40,8 @@ const BuildingMetricList = () => {
                         <td>{buildingmetric.building.name}</td>
                         <td>{buildingmetric.metric.name}</td>
                         <td>{buildingmetric.value}</td>
+                        <td>{buildingmetric.year}</td>
+
                         <td>
                             <Link to={`/buildingmetrics/edit/${buildingmetric.uuid}`} className='button is-small is-info'>Edit</Link>
                             <button onClick={()=>deleteBuildingMetric(buildingmetric.uuid)} className='button is-small is-danger'>Delete</button>

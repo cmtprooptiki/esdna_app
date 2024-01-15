@@ -6,7 +6,10 @@ const FormEditBuilding = () => {
     const[name,setName]=useState("");
     const[lat,setLat]=useState("");
     const[lon,setLon]=useState("");
+    const[category,setCategory]=useState("");
+
     const[msg,setMsg]=useState("");
+
     const navigate = useNavigate();
 
     const{id} = useParams();
@@ -18,6 +21,7 @@ const FormEditBuilding = () => {
                 setName(response.data.name);
                 setLat(response.data.lat);
                 setLon(response.data.lon);
+                setCategory(response.data.category);
             } catch (error) {
                 if(error.response){
                     setMsg(error.response.data.msg);
@@ -33,7 +37,8 @@ const FormEditBuilding = () => {
             await axios.patch(`http://localhost:5000/buildings/${id}`, {
                 name:name,
                 lat:lat,
-                lon:lon
+                lon:lon,
+                category:category
             });
 
             navigate("/buildings");
@@ -68,6 +73,12 @@ const FormEditBuilding = () => {
                         <label  className="label">Longitude</label>
                         <div className="control">
                             <input type="text" className="input" value={lon} onChange={(e)=> setLon(e.target.value)} placeholder='Longitude'/>
+                        </div>
+                    </div>
+                    <div className="field">
+                        <label  className="label">Category</label>
+                        <div className="control">
+                            <input type="text" className="input" value={category} onChange={(e)=> setCategory(e.target.value)} placeholder='Category'/>
                         </div>
                     </div>
                     

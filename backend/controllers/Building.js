@@ -9,7 +9,7 @@ export const getBuildings = async(req,res)=>{
             response=await Building.findAll({
                 // attributes:['uuid','name', ['ST_X(location)', 'latitude'], ['ST_Y(location)', 'longitude']],
 
-                attributes:['id','uuid','name','lat','lon'],
+                attributes:['id','uuid','name','lat','lon','category'],
                 // include:[{
                 //     model:User,
                 //     attributes:['name','email'],
@@ -20,7 +20,7 @@ export const getBuildings = async(req,res)=>{
             response = await Building.findAll({
                 // attributes:['uuid','name', ['ST_X(location)', 'latitude'], ['ST_Y(location)', 'longitude']],
 
-                attributes:['id','uuid','name','lat','lon'],
+                attributes:['id','uuid','name','lat','lon','category'],
 
                 
             });
@@ -36,7 +36,7 @@ export const getBuildingById = async(req,res)=>{
 
     try{
         const response = await Building.findOne({
-            attributes:['id','uuid','name','lat','lon'],
+            attributes:['id','uuid','name','lat','lon','category'],
             where:{
                 uuid:req.params.id
             }
@@ -99,7 +99,7 @@ export const getBuildingById = async(req,res)=>{
 }
 
 export const createBuilding = async(req,res)=>{
-    const {name,lat,lon} = req.body
+    const {name,lat,lon,category} = req.body
     // const { name, coordinates } = req.body; // Assuming the request body contains 'name' and 'coordinates' for the building
 
 
@@ -107,7 +107,8 @@ export const createBuilding = async(req,res)=>{
         await Building.create({
             name:name,
             lat:lat,
-            lon:lon
+            lon:lon,
+            category:category
             // location: {
             //     type: 'Point',
             //     coordinates: coordinates // Array containing latitude and longitude values [latitude, longitude]
@@ -133,11 +134,11 @@ export const updateBuilding= async(req,res)=>{
         });
 
         if (!building) return res.status(404).json({msg:"Data not found"})
-        const {name,lat,lon} = req.body
+        const {name,lat,lon,category} = req.body
 
         try{
 
-            await Building.update({name,lat,lon},{
+            await Building.update({name,lat,lon,category},{
                 where:{
                     id:building.id
                 }

@@ -5,7 +5,8 @@ import {
     getBuildingMetricsById,
     createBuildingMetric,
     updateBuildingMetric,
-    deleteBuildingMetric
+    deleteBuildingMetric,
+    getBuildingMetricsAVG
     // getProducts,
     // getProductById,
     // createProduct,
@@ -16,6 +17,9 @@ import { verifyUser } from "../middleware/AuthUser.js";
 const router = express.Router();
 
 router.get('/buildingmetrics',verifyUser,getBuildingMetrics);
+
+router.get('/buildingmetrics-avg',verifyUser,getBuildingMetricsAVG)
+
 router.get('/buildingmetrics/:id',verifyUser,getBuildingMetricsById);
 router.post('/createbuildingmetric',verifyUser,createBuildingMetric);
 router.patch('/updatebuildingmetric/:id',verifyUser,updateBuildingMetric);

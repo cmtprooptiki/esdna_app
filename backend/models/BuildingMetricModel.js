@@ -55,28 +55,36 @@ const BuildingMetric = db.define('BuildingMetric', {
       }
 
 
-  },{    
-    // Define a composite unique constraint for year, buildingId, and metricId    
-    indexes: [         
-      {          
-        unique: true,             
-        fields: ['buildingId', 'metricId','year'],
-        name:"unique_building_metric_year"
-      }     
-    ]
-  });
+  }
+  // ,
+  // {    
+  //   // Define a composite unique constraint for year, buildingId, and metricId    
+  //   indexes: [         
+  //     {          
+  //       unique: true,             
+  //       fields: ['buildingId', 'metricId','year'],
+  //       name:"unique_building_metric_year"
+  //     }     
+  //   ]
+  // }
+  
+  );
 
 
-Buildings.belongsToMany(Metrics, { through: BuildingMetric, foreignKey: 'buildingId'});
-Metrics.belongsToMany(Buildings, { through: BuildingMetric, foreignKey: 'metricId'});
-BuildingMetric.belongsTo(Buildings, { foreignKey: 'buildingId', targetKey: 'id' });
-BuildingMetric.belongsTo(Metrics, { foreignKey: 'metricId', targetKey: 'id'});
-// After sequelize.sync
-// await queryInterface.addConstraint('BuildingMetric', {
-//   fields: ['buildingId', 'metricId', 'year'],
-//   type: 'unique',
-//   name: 'BuildingMetrics_metricId_buildingId_unique' // use the same name as the existing index
-// });
+
+  Buildings.hasMany(BuildingMetric, { foreignKey: 'buildingId' });
+  Metrics.hasMany(BuildingMetric, { foreignKey: 'metricId' });
+  
+  BuildingMetric.belongsTo(Buildings, { foreignKey: 'buildingId', targetKey: 'id' });
+  BuildingMetric.belongsTo(Metrics, { foreignKey: 'metricId', targetKey: 'id' });
+  
+
+//Restriction for metricID-it cannot multiple same metricid for the same building
+// Buildings.belongsToMany(Metrics, { through: BuildingMetric, foreignKey: 'buildingId'});
+// Metrics.belongsToMany(Buildings, { through: BuildingMetric, foreignKey: 'metricId'});
+// BuildingMetric.belongsTo(Buildings, { foreignKey: 'buildingId', targetKey: 'id' });
+// BuildingMetric.belongsTo(Metrics, { foreignKey: 'metricId', targetKey: 'id'});
+
 
 
 

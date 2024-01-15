@@ -1,0 +1,1 @@
+1.Remove the Index BuildingMetrics_metricId_buildingId_unique  manualy from MySQL database table:BuildingMetrics 

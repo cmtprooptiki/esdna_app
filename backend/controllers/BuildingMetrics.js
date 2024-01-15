@@ -3,8 +3,49 @@ import User from "../models/UserModel.js";
 import Building from "../models/BuildingModel.js"
 import Metric from "../models/MetricModel.js"
 
+import { Sequelize,Op } from "sequelize";
 
-import { Op } from "sequelize";
+
+
+
+
+export const getBuildingMetricsAVG = async (req, res) => {
+    try {
+        let response;
+        const groupAttributes = [
+            'Building.name',
+            'Building.category',
+            'Metric.name',
+            'year',
+        ];
+
+        if (req.role === 'admin') {
+            response = await BuildingMetric.findAll({
+                attributes: [
+                    ...groupAttributes,
+                    [Sequelize.fn('AVG', Sequelize.col('value')), 'mean_value'],
+                ],
+                include: [
+                    {
+                        model: Building,
+                        attributes: ['name', 'lat', 'lon', 'category'],
+                    },
+                    {
+                        model: Metric,
+                        attributes: ['name'],
+                    },
+                ],
+                group: groupAttributes,
+            });
+        }
+
+        res.status(200).json(response);
+    } catch (error) {
+        res.status(500).json({ msg: error.message });
+    }
+}
+
+
 
 export const getBuildingMetrics = async(req,res)=>{
     try{
@@ -15,7 +56,7 @@ export const getBuildingMetrics = async(req,res)=>{
                 include:[
                     {
                     model:Building,
-                    attributes:['name','lat','lon'],
+                    attributes:['name','lat','lon','category'],
                 },
                 {
                     model:Metric,
@@ -42,7 +83,7 @@ export const getBuildingMetricsById = async(req,res)=>{
             include:[
                 {
                 model:Building,
-                attributes:['name','lat','lon'],
+                attributes:['name','lat','lon','category'],
             },
             {
                 model:Metric,

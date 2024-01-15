@@ -10,6 +10,7 @@ import EditProduct from "./pages/EditProduct";
 
 import Buildings from "./pages/Buildings";
 import AddBuilding from "./pages/AddBuilding";
+import ProfileBuilding from "./pages/ProfileBuilding";
 import EditBuilding from "./pages/EditBuilding";
 
 import Metrics from "./pages/Metrics";
@@ -18,6 +19,7 @@ import EditMetric from "./pages/EditMetric";
 
 import BuildingMetrics from "./pages/BuildingMetrics";
 import AddBuildingMetric from "./pages/AddBuildingMetric";
+
 import EditBuildingMetric from "./pages/EditBuildingMetric";
 function App() {
   return (
@@ -34,6 +36,8 @@ function App() {
           <Route path="/products/edit/:id" element={<EditProduct/>}></Route>
           <Route path="/buildings" element={<Buildings/>}></Route>
           <Route path="/buildings/add" element={<AddBuilding/>}></Route>
+          <Route path="/buildings/profile/:id" element={<ProfileBuilding/>}></Route>
+
           <Route path="/buildings/edit/:id" element={<EditBuilding/>}></Route>
           <Route path="/metrics" element={<Metrics/>}></Route>
           <Route path="/metrics/add" element={<AddMetrics/>}></Route>
