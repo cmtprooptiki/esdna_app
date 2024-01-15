@@ -133,7 +133,7 @@ const filterCriteria = {
                 <tr>
                     <th>No</th>
                     <th>Building Name</th>
-                    <th>Metric Name</th>
+                    <th>Metric Name1</th>
                     <th>Metric value</th>
                     <th>Year</th>
                  
