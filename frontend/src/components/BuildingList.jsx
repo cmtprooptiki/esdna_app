@@ -28,7 +28,7 @@ const BuildingList = () => {
                 <tr>
                     <th>No</th>
                     <th>Building Name</th>
-                    <th>Lat</th>
+                    <th>Latitude</th>
                     <th>Lon</th>
                     <th>Category</th>
 
