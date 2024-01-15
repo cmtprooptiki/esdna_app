@@ -6,6 +6,8 @@ import ApexCharts from 'react-apexcharts';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+import ProfileMap from './ProfileMap';
+
 const FormProfileBuilding = () => {
     const[name,setName]=useState("");
     const[lat,setLat]=useState("");
@@ -73,7 +75,8 @@ const pieChartData = {
     <div className="row">
       <div className="col-lg-5 col-md-6">
         <div className="mb-2">
-          <img className="w-25" src="https://bootdey.com/img/Content/avatar/avatar7.png" alt=""/>
+          {/* <img className="w-25" src="https://bootdey.com/img/Content/avatar/avatar7.png" alt=""/> */}
+          {<ProfileMap name={name} lat={lat} lon={lon}></ProfileMap>}
         </div>
         <div className="mb-2 d-flex">
           <h4 className="font-weight-normal">{name}</h4>
@@ -184,6 +187,9 @@ const pieChartData = {
           width="300"
         />
       </div>
+      <div>
+        
+      </div>
     </div>
   </div>
 		</div>
@@ -192,4 +198,4 @@ const pieChartData = {
   
 }
 
-export default FormProfileBuilding
+export default FormProfileBuilding;
