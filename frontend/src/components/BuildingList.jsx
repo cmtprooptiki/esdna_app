@@ -26,7 +26,7 @@ const BuildingList = () => {
         <table className='table is-stripped is-fullwidth'>
             <thead>
                 <tr>
-                    <th>Number</th>
+                    <th>No</th>
                     <th>Building Name</th>
                     <th>Lat</th>
                     <th>Lon</th>
