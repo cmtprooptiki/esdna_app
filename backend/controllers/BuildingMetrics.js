@@ -63,7 +63,10 @@ export const getBuildingMetrics = async(req,res)=>{
                     attributes:['name']
                             
                 }
-           ]
+           ],
+           order: [['year', 'ASC']] // Add this line to order by 'year' in ascending order
+
+
             });
         }
         

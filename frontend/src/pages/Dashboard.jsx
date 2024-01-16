@@ -1,177 +1,322 @@
-import React,{useEffect,useState} from 'react'
-import Layout from './Layout'
-import Welcome from '../components/Welcome'
-import { useDispatch,useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
-import { getMe } from '../features/authSlice'
-import axios from 'axios'
+import React, { useEffect, useState } from 'react';
+import Layout from './Layout';
+import Welcome from '../components/Welcome';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { getMe } from '../features/authSlice';
+import axios from 'axios';
 import ApexCharts from 'react-apexcharts';
+import Select from 'react-select';
 
-
-
- 
 const Dashboard = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const {isError} = useSelector((state=>state.auth));
+  const { isError } = useSelector((state) => state.auth);
 
+  // State for building metrics
+  const [buildingMetrics, setBuildingMetrics] = useState([]);
+  const [uniqueMetricNames, setUniqueMetricNames] = useState(new Set());
+  const [buildingNames, setBuildingNames] = useState(new Set());
+  const [uniqueYears, setUniqueYears] = useState(new Set());
 
-    const [buildingmetrics,setBuildingMetrics]=useState([]);
+  const [firstBuildingData,setFirstBuildingMetrics]=useState([]);
+  // State for LineChart
+  const [chartOptions, setChartOptions] = useState({
+    chart: {
+      type: 'line',
+    },
+    xaxis: {
+      categories: [],
+    },
+    yaxis: {
+      categories: [],
+    },
+    dataLabels: {
+      enabled: false,
+    },
+    stroke: {
+      width: [5, 7, 5],
+      curve: 'straight',
+      dashArray: [0, 8, 5],
+    },
+    title: {
+      text: 'Page Statistics',
+      align: 'left',
+    },
+    legend: {
+      tooltipHoverFormatter: function (val, opts) {
+        return val + ' - <strong>' + opts.w.globals.series[opts.seriesIndex][opts.dataPointIndex] + '</strong>';
+      },
+    },
+    markers: {
+      size: 0,
+      hover: {
+        sizeOffset: 6,
+      },
+    },
+    grid: {
+      borderColor: '#f1f1f1',
+    },
+  });
 
-    const [dataList, setDataList] = useState([]);
+  const [chartSeries, setChartSeries] = useState([]);
 
-    const [filteredData, setFilteredData] = useState([]);
+  // State for BarChart
+  const [chartOptions2, setChartOptions2] = useState({
+    chart: {
+      type: 'bar',
+      height: 350,
+    },
+    xaxis: {
+      categories: [],
+    },
+    dataLabels: {
+      enabled: false,
+    },
+    title: {
+      text: 'Page bar',
+      align: 'left',
+    },
+  });
 
+  const [chartSeries2, setChartSeries2] = useState([]);
 
+  // State for selected metric and period
+  const [selectedMetric, setSelectedMetric] = useState('PM10');
+  const [selectedPeriod, setSelectedPeriod] = useState('2023-01-05');
 
-// State variable for ApexCharts options
-const [chartOptions, setChartOptions] = useState({
-  chart: {
-    type: 'bar',
-  },
-  xaxis: {
-    categories: [],
-  },
-});
-
-
-useEffect(() => {
-  // Function to fetch data from the API and update the state
-  const fetchData = async () => {
-    try {
-      // Make an Axios GET request to the API
-      const response = await axios.get('http://localhost:5000/buildingmetrics');
-
-      // Extract the data from the response
-      const apiData = response.data;
-
-// Example criteria: Filter based on 'category' and 'value'
-const filterCriteria = {
-  metricname: 'PM10',
-  year: 2023,
-};
-
-   // Apply filter with AND operator
-   const filteredData = apiData.filter(
-    item => item.metric.name === filterCriteria.metricname && item.year === filterCriteria.year
-  );
-
-
- // Assuming 'category' is the column you want to filter on, and 'desiredCategory' is the value to filter by
-        // const filteredData = apiData.filter((item => item.metric.name === 'PM10') && (item => item.year===2023)) ;
-        
-
-      // Update the state with the data
-      setDataList(apiData);
-      setFilteredData(filteredData);
-
-      // Update the chart options with category labels
-      setChartOptions({
-        ...chartOptions,
-        xaxis: {
-          categories: filteredData.map(item => item.building.name),
-
-          // categories: apiData.map(item => item.building.name), // Replace 'category' with the actual key in your data
-        },
-      });
-    } catch (error) {
-      // Handle errors
-      console.error('Error fetching data:', error.message);
-      // You might want to handle errors differently based on your needs
-    }
+  const handleMetricChange = (event) => {
+    setSelectedMetric(event.target.value);
   };
 
-  // Call the fetchData function when the component mounts
-  fetchData();
-}, [chartOptions]); // Include chartOptions in the dependency array if you need to re-render the chart when options change
+  const handlePeriodChange = (event) => {
+    setSelectedPeriod(event.target.value);
+  };
 
-
-    useEffect(()=>{
-        getBuildingMetrics()
-
-    },[]);
-
-    const getBuildingMetrics = async() =>{
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
         const response = await axios.get('http://localhost:5000/buildingmetrics');
-        
-        setBuildingMetrics(response.data);
-       
+        const apiData = response.data;
 
+        setBuildingMetrics(apiData);
+
+        const uniqueNamesSet = new Set(apiData.map((item) => item.metric.name));
+        setUniqueMetricNames(uniqueNamesSet);
+
+        const uniqueBuildingNames = Array.from(new Set(apiData.map((item) => item.building.name)));
+        setBuildingNames(uniqueBuildingNames);
+
+        const uniqueYears = Array.from(new Set(apiData.map((item) => item.year)));
+        setUniqueYears(uniqueYears);
+      } catch (error) {
+        console.error('Error fetching data:', error.message);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    dispatch(getMe());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (isError) {
+      navigate('/');
     }
+  }, [isError, navigate]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const chartData = [];
+
+        buildingNames.forEach((buildingName) => {
 
 
+          const buildingData = buildingMetrics.filter(
+            (item) => item.building.name === buildingName && item.metric.name === selectedMetric
+          );
 
-    useEffect(()=>{
-        dispatch(getMe());
-    },[dispatch]);
+          chartData.push({
+            name: buildingName,
+            data: buildingData.map((item) => item.value),
+          });
+        });
 
-    useEffect(()=>{
-        if(isError){
-            navigate("/");
-        }
-    },[isError,navigate]);
+        setChartSeries(chartData);
 
+        const uniqueYears = Array.from(new Set(buildingMetrics.map((item) => item.year)));
 
+        setChartOptions({
+          ...chartOptions,
+          xaxis: {
+            categories: uniqueYears,
+          },
+        });
+      } catch (error) {
+        console.error('Error fetching data for LineChart:', error.message);
+      }
+    };
 
+    fetchData();
+  }, [selectedMetric, buildingNames]);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const filterCriteria = {
+          metricname: selectedMetric,
+          year: selectedPeriod,
+        };
 
+        const firstBuildingData = buildingMetrics.filter(
+          (item) => item.metric.name === filterCriteria.metricname && item.year === filterCriteria.year
+        );
 
+        setFirstBuildingMetrics(firstBuildingData)
+        setChartSeries2([{ name: filterCriteria.metricname, data: firstBuildingData.map((item) => item.value) }]);
 
+        setChartOptions2({
+          ...chartOptions2,
+          xaxis: {
+            categories: Array.from(new Set(firstBuildingData.map((item) => item.building.name))),
+          },
+        });
+      } catch (error) {
+        console.error('Error fetching data for BarChart:', error.message);
+      }
+    };
+
+    fetchData();
+  }, [selectedPeriod, selectedMetric]);
 
   return (
-    <Layout><Welcome/>
-    
-    
-    <div>
-      <h1>Here will be the dashboard</h1>
-      
-<h1>show{buildingmetrics[0]?.building.name}</h1>
-      <table className='table is-stripped is-fullwidth'>
-            <thead>
-                <tr>
-                    <th>No</th>
-                    <th>Building Name</th>
-                    <th>Metric Name1</th>
-                    <th>Metric value</th>
-                    <th>Year</th>
-                 
-                </tr>
-            </thead>
-            <tbody>
-                {buildingmetrics.map((buildingmetric,index)=>(
-                    <tr key={buildingmetric.id}>
-                        <td>{index+1}</td>
-                        <td>{buildingmetric.building.name}</td>
-                        <td>{buildingmetric.metric.name}</td>
-                        <td>{buildingmetric.value}</td>
-                        <td>{buildingmetric.year}</td>
+    <Layout>
+      <Welcome />
+      <div className="dashboard-container">
+      {/* Dropdown for selecting metric */}
+      {/* <div className="box">
+        <label>Select Metric:</label>
+        <select value={selectedMetric} onChange={handleMetricChange}>
+          {[...uniqueMetricNames].map((metricName) => (
+            <option key={metricName} value={metricName}>
+              {metricName}
+            </option>
+          ))}
+        </select>
+      </div> */}
+      <div className="box">
+          <label>Select Metric:</label>
+          <Select
+            value={{ label: selectedMetric, value: selectedMetric }}
+            onChange={(selectedOption) => setSelectedMetric(selectedOption.value)}
+            options={[...uniqueMetricNames].map((metricName) => ({ label: metricName, value: metricName }))}
+          />
+        </div>
 
-                        
-                    </tr>
-                ))}
-                
-            </tbody>
+      {/* Table for displaying building metrics */}
+      <div  className="box">
+        <h1>Building Metrics:</h1>
+        <table className='table is-stripped is-fullwidth'>
+          <thead>
+            <tr>
+              <th>No</th>
+              <th>Building Name</th>
+              <th>Metric Name</th>
+              <th>Metric Value</th>
+              <th>Year</th>
+            </tr>
+          </thead>
+          <tbody>
+            {buildingMetrics.map((buildingMetric, index) => (
+              <tr key={buildingMetric.id}>
+                <td>{index + 1}</td>
+                <td>{buildingMetric.building.name}</td>
+                <td>{buildingMetric.metric.name}</td>
+                <td>{buildingMetric.value}</td>
+                <td>{buildingMetric.year}</td>
+              </tr>
+            ))}
+          </tbody>
         </table>
+      </div>
+
+      {/* LineChart */}
+      <div className="box">
+        <h1>Data List:</h1>
+        <ApexCharts options={chartOptions} series={chartSeries} type='line' height={350} />
+      </div>
+
+      {/* Dropdown for selecting period */}
+      {/* <div className="box">
+        <label>Select Period for Bar:</label>
+        <select value={selectedPeriod} onChange={handlePeriodChange}>
+          {[...uniqueYears].map((uniqueYear) => (
+            <option key={uniqueYear} value={uniqueYear}>
+              {uniqueYear}
+            </option>
+          ))}
+        </select>
+      </div> */}
+
+      {/* <div className="box">
+          <label>Select Period:</label>
+          <Select
+            value={{ label: selectedPeriod, value: selectedPeriod }}
+            onChange={(selectedOption) => setSelectedMetric(selectedOption.value)}
+            options={[...uniqueYears].map((uniqueYear) => ({ label: uniqueYear, value: uniqueYear }))}
+          />
+        </div> */}
+
+        <div className="box">
+          <label>Select Period for Bar:</label>
+          <Select
+            value={{ label: selectedPeriod, value: selectedPeriod }}
+            onChange={(selectedOption) => setSelectedPeriod(selectedOption.value)}
+            options={[...uniqueYears].map((uniqueYear) => ({ label: uniqueYear, value: uniqueYear }))}
+          />
+        </div>
 
 
+      {/* Table for displaying building metrics for selected period */}
+      <div className="box">
+        <h1>Building Metrics:</h1>
+        <table className='table is-stripped is-fullwidth'>
+          <thead>
+            <tr>
+              <th>No</th>
+              <th>Building Name</th>
+              <th>Metric Name</th>
+              <th>Metric Value</th>
+              <th>Year</th>
+            </tr>
+          </thead>
+          <tbody>
+            {firstBuildingData.map((firstBuilding, index) => (
+              <tr key={firstBuilding.id}>
+                <td>{index + 1}</td>
+                <td>{firstBuilding.building.name}</td>
+                <td>{firstBuilding.metric.name}</td>
+                <td>{firstBuilding.value}</td>
+                <td>{firstBuilding.year}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
 
-    </div>
-    <div>
-      <h1>Data List:</h1>
-      <ul>
-        {filteredData.map((item, index) => (
-          <li key={index}>{/* Render your data item here */}</li>
-        ))}
-      </ul>
-      <ApexCharts options={chartOptions} series={[{ data: filteredData.map(item => item.value) }]} type="bar" height={350} />
+      {/* BarChart */}
+      <div className="box">
+        <h1>Bar Plot </h1>
+        <ApexCharts options={chartOptions2} series={chartSeries2} type='bar' height={350} />
+      </div>
 
-      {/* <ApexCharts options={chartOptions} series={[{ data: dataList.map(item => item.value) }]} type="bar" height={350} /> */}
-    </div>
-    
+      </div>
     </Layout>
-  )
-}
+  );
+};
 
-export default Dashboard
+export default Dashboard;
