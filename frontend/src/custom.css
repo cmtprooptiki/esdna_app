@@ -72,3 +72,15 @@ body{
     flex-shrink: 1;
     padding: 2.75rem !important;
 }
+
+.red-text {
+    color: red;
+  }
+  
+  .yellow-text {
+    color: yellow;
+  }
+  
+  .green-text {
+    color: green;
+  }
