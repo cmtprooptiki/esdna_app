@@ -27,7 +27,9 @@ const MetricList = () => {
                 <tr>
                     <th>No</th>
                     <th>Metric Name</th>
-                    <th>Actions</th>
+                    <th>Metric Unit Measure</th>
+                    <th>Metric Description</th>
+
                 </tr>
             </thead>
             <tbody>
@@ -35,6 +37,9 @@ const MetricList = () => {
                     <tr key={metric.uuid}>
                         <td>{index+1}</td>
                         <td>{metric.name}</td>
+                        <td>{metric.unit}</td>
+                        <td>{metric.unit_desc}</td>
+
                         <td>
                             <Link to={`/metrics/edit/${metric.uuid}`} className='button is-small is-info'>Edit</Link>
                             <button onClick={()=>deleteMetric(metric.uuid)} className='button is-small is-danger'>Delete</button>
