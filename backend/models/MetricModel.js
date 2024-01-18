@@ -18,7 +18,23 @@ const Metrics = db.define('metric',{
         allowNull: false,
         validate:{
             notEmpty: true,
-            len: [3, 100]
+            len: [1, 100]
+        }
+    },
+    unit:{
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate:{
+            notEmpty: true,
+            len: [1, 100]
+        }
+    },
+    unit_desc:{
+        type: DataTypes.STRING,
+        allowNull: true,
+        validate:{
+            notEmpty: false,
+            len: [1, 300]
         }
     }
   

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Φιλοξενητής: 127.0.0.1:3308
--- Χρόνος δημιουργίας: 18 Ιαν 2024 στις 08:12:54
+-- Χρόνος δημιουργίας: 18 Ιαν 2024 στις 11:17:39
 -- Έκδοση διακομιστή: 5.7.28
 -- Έκδοση PHP: 7.4.0
 
@@ -108,6 +108,8 @@ CREATE TABLE IF NOT EXISTS `metric` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `uuid` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `unit` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `unit_desc` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `createdAt` datetime NOT NULL,
   `updatedAt` datetime NOT NULL,
   PRIMARY KEY (`id`)
@@ -117,24 +119,24 @@ CREATE TABLE IF NOT EXISTS `metric` (
 -- Άδειασμα δεδομένων του πίνακα `metric`
 --
 
-INSERT INTO `metric` (`id`, `uuid`, `name`, `createdAt`, `updatedAt`) VALUES
-(2, '88f66f33-4b26-490f-b31c-1abb208b191c', 'PM10', '2023-12-21 09:24:49', '2024-01-10 11:29:10'),
-(4, '95cc5867-a1bb-4fef-9cd5-431dbe7f85fc', 'TSP', '2023-12-21 13:46:26', '2024-01-10 11:28:58'),
-(5, '456b52ac-7dab-474a-906e-d3282b0240fc', 'TEQ PCDD/Fs', '2024-01-10 11:28:12', '2024-01-10 11:28:12'),
-(6, '3a5209de-b8a8-4e71-84ea-68ed2349a67a', 'TEQ PCBS', '2024-01-10 11:28:22', '2024-01-10 11:28:22'),
-(7, '3adc381c-bec5-4b6b-9021-5e5b887db377', 'ind PCBs', '2024-01-10 11:28:49', '2024-01-10 11:28:49'),
-(8, 'd1ace8f4-8455-4ef1-abfd-79023d9fcfa3', 'PM2.5', '2024-01-10 11:29:18', '2024-01-10 11:29:18'),
-(9, '1c5f9c02-7b24-4aeb-b376-0917c20a94a7', 'SO2', '2024-01-10 11:29:28', '2024-01-10 11:29:28'),
-(10, '8cea1dbd-da3e-4af7-8e4b-9304f0e3d1ce', 'CO_', '2024-01-10 11:29:45', '2024-01-10 11:29:45'),
-(11, '548c2c2c-401d-4367-a7a5-dd8a2a9d116d', 'NO2', '2024-01-10 11:29:56', '2024-01-10 11:29:56'),
-(12, '8ccfb92c-0c28-4d27-80a2-b40e887068c5', 'NO_', '2024-01-10 11:30:04', '2024-01-10 11:30:04'),
-(13, '0ed3ffb1-f0e9-4d97-bbf6-aae6cd913873', 'As_', '2024-01-10 11:30:15', '2024-01-10 11:30:15'),
-(14, '7f4cdf28-1a7b-4205-bc66-ada7d434bad6', 'Cd_', '2024-01-17 13:44:41', '2024-01-17 13:44:41'),
-(15, '79b4eb75-296a-4b4f-9bf4-112bce3488c6', 'Ni_', '2024-01-17 13:44:48', '2024-01-17 13:44:48'),
-(16, '90948669-248b-456f-ac85-de11d7a115b9', 'Pb_', '2024-01-17 13:44:58', '2024-01-17 13:44:58'),
-(17, '8d846405-7be3-4056-be02-683e27dcf478', 'benzo(a)pyrene', '2024-01-17 13:45:17', '2024-01-17 13:45:17'),
-(18, 'e5080714-c971-4d11-b56e-58eb4bbf38c2', 'benzene', '2024-01-17 13:45:32', '2024-01-17 13:45:32'),
-(19, 'a282c2ae-fd6e-4d10-8910-7938f86b42d1', 'OC/EC', '2024-01-17 13:45:42', '2024-01-17 13:45:42');
+INSERT INTO `metric` (`id`, `uuid`, `name`, `unit`, `unit_desc`, `createdAt`, `updatedAt`) VALUES
+(2, '88f66f33-4b26-490f-b31c-1abb208b191c', 'PM10', 'μg/m3', 'desc pm10', '2023-12-21 09:24:49', '2024-01-10 11:29:10'),
+(4, '95cc5867-a1bb-4fef-9cd5-431dbe7f85fc', 'TSP', 'μg/m3', 'desc tsp', '2023-12-21 13:46:26', '2024-01-10 11:28:58'),
+(5, '456b52ac-7dab-474a-906e-d3282b0240fc', 'TEQ PCDD/Fs', 'fg/m3', 'desc teq', '2024-01-10 11:28:12', '2024-01-10 11:28:12'),
+(6, '3a5209de-b8a8-4e71-84ea-68ed2349a67a', 'TEQ PCBS', 'fg/m3', 'desc teqpcb', '2024-01-10 11:28:22', '2024-01-10 11:28:22'),
+(7, '3adc381c-bec5-4b6b-9021-5e5b887db377', 'ind PCBs', 'pg/m3', 'desc ind', '2024-01-10 11:28:49', '2024-01-10 11:28:49'),
+(8, 'd1ace8f4-8455-4ef1-abfd-79023d9fcfa3', 'PM2.5', 'μg/m3', 'desc PM2.5', '2024-01-10 11:29:18', '2024-01-10 11:29:18'),
+(9, '1c5f9c02-7b24-4aeb-b376-0917c20a94a7', 'SO2', 'μg/m3', 'desc SO2', '2024-01-10 11:29:28', '2024-01-10 11:29:28'),
+(10, '8cea1dbd-da3e-4af7-8e4b-9304f0e3d1ce', 'CO_', 'mg/m3', 'desc CO_', '2024-01-10 11:29:45', '2024-01-10 11:29:45'),
+(11, '548c2c2c-401d-4367-a7a5-dd8a2a9d116d', 'NO2', 'μg/m3', 'desc NO2', '2024-01-10 11:29:56', '2024-01-10 11:29:56'),
+(12, '8ccfb92c-0c28-4d27-80a2-b40e887068c5', 'NO_', 'μg/m3', 'desc NO_', '2024-01-10 11:30:04', '2024-01-10 11:30:04'),
+(13, '0ed3ffb1-f0e9-4d97-bbf6-aae6cd913873', 'As_', 'ng/m3', 'desc As_', '2024-01-10 11:30:15', '2024-01-10 11:30:15'),
+(14, '7f4cdf28-1a7b-4205-bc66-ada7d434bad6', 'Cd_', 'ng/m3', 'desc Cd_', '2024-01-17 13:44:41', '2024-01-17 13:44:41'),
+(15, '79b4eb75-296a-4b4f-9bf4-112bce3488c6', 'Ni_', 'ng/m3', 'desc Ni_', '2024-01-17 13:44:48', '2024-01-17 13:44:48'),
+(16, '90948669-248b-456f-ac85-de11d7a115b9', 'Pb_', 'μg/m3', 'desc Pb_', '2024-01-17 13:44:58', '2024-01-17 13:44:58'),
+(17, '8d846405-7be3-4056-be02-683e27dcf478', 'benzo(a)pyrene', 'ng/m3', 'desc benzo(a)pyrene', '2024-01-17 13:45:17', '2024-01-17 13:45:17'),
+(18, 'e5080714-c971-4d11-b56e-58eb4bbf38c2', 'benzene', 'μg/m3', 'desc benzene', '2024-01-17 13:45:32', '2024-01-17 13:45:32'),
+(19, 'a282c2ae-fd6e-4d10-8910-7938f86b42d1', 'OC/EC', 'μg/m3', 'desc OC/EC', '2024-01-17 13:45:42', '2024-01-17 13:45:42');
 
 -- --------------------------------------------------------
 
@@ -194,7 +196,7 @@ INSERT INTO `sessions` (`sid`, `expires`, `data`, `createdAt`, `updatedAt`) VALU
 ('Ac_xMxb-IL1-IpOMsoQxjSuXxxlyth3-', '2024-01-18 13:45:32', '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\"}}', '2024-01-17 13:45:32', '2024-01-17 13:45:32'),
 ('eNYb0xWQwEVnohXAnm_SpjOHfFGehR8U', '2024-01-18 13:44:48', '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\"}}', '2024-01-17 13:44:48', '2024-01-17 13:44:48'),
 ('gW7n71GaC_qnkIDWrrhkN14sxskGKI4z', '2024-01-18 13:45:42', '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\"}}', '2024-01-17 13:45:42', '2024-01-17 13:45:42'),
-('hAZbPLNveFp4OT6lkxRoTzLH47muWUnT', '2024-01-18 16:00:12', '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"userId\":\"37ca1953-2a98-4623-8a51-99729ca432da\"}', '2024-01-15 08:53:15', '2024-01-17 16:00:12'),
+('hAZbPLNveFp4OT6lkxRoTzLH47muWUnT', '2024-01-19 10:03:15', '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"userId\":\"37ca1953-2a98-4623-8a51-99729ca432da\"}', '2024-01-15 08:53:15', '2024-01-18 10:03:15'),
 ('ihPl1S8_SJn6bR1UyJxxU08r5ga3fJBx', '2024-01-18 13:44:21', '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\"}}', '2024-01-17 13:44:21', '2024-01-17 13:44:21'),
 ('k8jcQXMLEEQ7O4auBHfkuxcT_AzOPO36', '2024-01-18 13:18:00', '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\"}}', '2024-01-17 13:18:00', '2024-01-17 13:18:00'),
 ('lTGD4YGeJGQujmoYcfNa9AOXVQxBntpr', '2024-01-18 13:44:36', '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\"}}', '2024-01-17 13:44:36', '2024-01-17 13:44:36'),
