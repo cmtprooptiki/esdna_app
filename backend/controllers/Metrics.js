@@ -9,7 +9,7 @@ export const getMetrics= async(req,res)=>{
             response=await Metric.findAll({
                 // attributes:['uuid','name', ['ST_X(location)', 'latitude'], ['ST_Y(location)', 'longitude']],
 
-                attributes:['id','uuid','name'],
+                attributes:['id','uuid','name','unit','unit_desc'],
                 // include:[{
                 //     model:User,
                 //     attributes:['name','email'],
@@ -20,7 +20,7 @@ export const getMetrics= async(req,res)=>{
             response = await Metric.findAll({
                 // attributes:['uuid','name', ['ST_X(location)', 'latitude'], ['ST_Y(location)', 'longitude']],
 
-                attributes:['id','uuid','name'],
+                attributes:['id','uuid','name','unit','unit_desc'],
 
                 
             });
@@ -36,7 +36,7 @@ export const getMetricById = async(req,res)=>{
 
     try{
         const response = await Metric.findOne({
-            attributes:['id','uuid','name'],
+            attributes:['id','uuid','name','unit','unit_desc'],
             where:{
                 uuid:req.params.id
             }
@@ -52,12 +52,18 @@ export const getMetricById = async(req,res)=>{
 
 export const createMetric= async(req,res)=>{
     const {name} = req.body
+    const {unit} = req.body
+    const {unit_desc} = req.body
+
     // const { name, coordinates } = req.body; // Assuming the request body contains 'name' and 'coordinates' for the building
 
 
     try {
         await Metric.create({
             name:name,
+            unit:unit,
+            unit_desc:unit_desc,
+
            
             
         });
@@ -82,6 +88,8 @@ export const updateMetric= async(req,res)=>{
 
         if (!metric) return res.status(404).json({msg:"Data not found"})
         const {name} = req.body
+        const {unit} = req.body
+        const {unit_desc} = req.body
 
         try{
 
