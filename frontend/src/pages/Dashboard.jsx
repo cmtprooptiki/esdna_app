@@ -317,12 +317,12 @@ const getLimitAnnotation =(metricname)=>{
             yaxis: [
               {
                 y: getLimitAnnotation(selectedMetric).max,
-                borderColor: '#00E396',
+                borderColor: '#ff0000',
                 label: {
-                  borderColor: '#00E396',
+                  borderColor: '#ff0000',
                   style: {
                     color: '#fff',
-                    background: '#00E396'
+                    background: '#ff0000'
                   },
                   text: 'Max limit '+getLimitAnnotation(selectedMetric).max
                 }
@@ -368,7 +368,7 @@ const getLimitAnnotation =(metricname)=>{
     };
 
     fetchData();
-  }, [selectedPeriod, selectedMetric]);
+  }, [selectedPeriod, selectedMetric2]);
 
 //Filtering logic for mo metrisewn
   useEffect(() => {
