@@ -24,6 +24,8 @@ const Dashboard = () => {
   const [uniqueYears, setUniqueYears] = useState(new Set());
 
   const [firstBuildingData,setFirstBuildingMetrics]=useState([]);
+  const [secondBuildingData,setSecondBuildingMetrics]=useState([]);
+  
   const [filteredData,setFilteredData]=useState([]);
   const [average,setAverage]=useState(0.0);
 
@@ -103,7 +105,58 @@ const getColorClass2 = (value, metricname) => {
       return { label: 'Άγνωστο', className: 'black-text' }; // Default label and class name
   }
 };
-
+const getLimitAnnotation =(metricname)=>{
+  switch (metricname) {
+    case 'PM10':
+      return{
+        max: 50 
+        
+    };
+    case 'PM2.5':
+      return{
+        max:20
+    };
+    case 'SO2':
+      return{
+        max: 125
+    };
+    case 'CO':
+      return{
+        max:10
+    };
+    case 'NO2':
+      return{
+        max:40 
+    };
+    case 'TSP':
+      return {
+        max:8000 
+    };
+    case 'TEC PCDD/Fs':
+      return {
+        max:8000 
+    };
+    case 'TEQ PCBS':
+      return {
+        max:8000 
+    };
+    case 'ind PCBs':
+      return {
+        max:8000 
+    };
+    case 'NO':
+      return {
+        max:8000 
+    };
+    case 'OC/EC':
+      return {
+        max:8000 
+    };
+    // Add more cases as needed
+    default:
+      return { max:0}; // Default label and class name
+  }
+}
 
 
   // State for LineChart
@@ -143,6 +196,22 @@ const getColorClass2 = (value, metricname) => {
     grid: {
       borderColor: '#f1f1f1',
     },
+    // annotations: {
+    //   yaxis: [
+    //     {
+    //       y: 100,
+    //       borderColor: '#00E396',
+    //       label: {
+    //         borderColor: '#00E396',
+    //         style: {
+    //           color: '#fff',
+    //           background: '#00E396'
+    //         },
+    //         text: 'Y-axis annotation on 100'
+    //       }
+    //     }
+    //   ]
+    // }
   });
 
   const [chartSeries, setChartSeries] = useState([]);
@@ -239,12 +308,27 @@ const getColorClass2 = (value, metricname) => {
         setChartSeries(chartData);
 
         const uniqueYears = Array.from(new Set(buildingMetrics.map((item) => item.year)));
-
         setChartOptions({
           ...chartOptions,
           xaxis: {
             categories: uniqueYears,
           },
+          annotations: {
+            yaxis: [
+              {
+                y: getLimitAnnotation(selectedMetric).max,
+                borderColor: '#00E396',
+                label: {
+                  borderColor: '#00E396',
+                  style: {
+                    color: '#fff',
+                    background: '#00E396'
+                  },
+                  text: 'Max limit '+getLimitAnnotation(selectedMetric).max
+                }
+              }
+            ]
+          }
         });
       } catch (error) {
         console.error('Error fetching data for LineChart:', error.message);
@@ -258,15 +342,18 @@ const getColorClass2 = (value, metricname) => {
     const fetchData = async () => {
       try {
         const filterCriteria = {
-          metricname: selectedMetric,
+          metricname: selectedMetric2,
           year: selectedPeriod,
         };
 
         const firstBuildingData = buildingMetrics.filter(
           (item) => item.metric.name === filterCriteria.metricname && item.year === filterCriteria.year
         );
-
+        const secondBuildingData = buildingMetrics.filter(
+          (item) => item.metric.name === filterCriteria.metricname && item.year === filterCriteria.year
+        );
         setFirstBuildingMetrics(firstBuildingData)
+        setSecondBuildingMetrics(secondBuildingData)
         setChartSeries2([{ name: filterCriteria.metricname, data: firstBuildingData.map((item) => item.value) }]);
 
         setChartOptions2({
@@ -323,7 +410,42 @@ const getColorClass2 = (value, metricname) => {
     <Layout>
       <Welcome />
       <div className="dashboard-container">
-    
+
+
+      {/* Table for displaying building metrics */}
+      <div  className="box">
+        <h1>Building Metrics:</h1>
+        <table className='table is-stripped is-fullwidth'>
+          <thead>
+            <tr>
+              <th>No</th>
+              <th>Building Name</th>
+              <th>Metric Name</th>
+              <th>Metric Value</th>
+              <th>concentration</th>
+              <th>Year</th>
+            </tr>
+          </thead>
+          <tbody>
+            {buildingMetrics.map((buildingMetric, index) => (
+              // <tr key={buildingMetric.id}>
+              <tr key={uuidv4()}>
+                <td>{index + 1}</td>
+                <td>{buildingMetric.building.name}</td>
+                <td>{buildingMetric.metric.name}</td>
+                <td>{buildingMetric.value}</td>
+                
+                  <span className={getColorClass2(buildingMetric.value, buildingMetric.metric.name).className}>
+                    <td>{getColorClass2(buildingMetric.value, buildingMetric.metric.name).label}</td>
+                  </span>
+                
+                <td>{buildingMetric.year}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
 
         <div className="columns">
           <div className="column">
@@ -430,36 +552,7 @@ const getColorClass2 = (value, metricname) => {
 
 
 
-      {/* Table for displaying building metrics */}
-      <div  className="box">
-        <h1>Building Metrics:</h1>
-        <table className='table is-stripped is-fullwidth'>
-          <thead>
-            <tr>
-              <th>No</th>
-              <th>Building Name</th>
-              <th>Metric Name</th>
-              <th>Metric Value</th>
-              <th>concentration</th>
-              <th>Year</th>
-            </tr>
-          </thead>
-          <tbody>
-            {buildingMetrics.map((buildingMetric, index) => (
-              // <tr key={buildingMetric.id}>
-              <tr key={uuidv4()}>
-                <td>{index + 1}</td>
-                <td>{buildingMetric.building.name}</td>
-                <td>{buildingMetric.metric.name}</td>
-                <td>{buildingMetric.value}</td>
-                <td>{getColorClass2(buildingMetric.value, buildingMetric.metric.name).label}</td>
-                <td>{buildingMetric.year}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-
+      
       {/* LineChart */}
       <div className="box">
         <h1>Data List:</h1>
@@ -494,10 +587,7 @@ const getColorClass2 = (value, metricname) => {
             onChange={(selectedOption) => setSelectedMetric2(selectedOption.value)}
             options={[...uniqueMetricNames].map((metricName) => ({ label: metricName, value: metricName,key:uuidv4()}))}
           />
-          </div>
 
-
-        <div className="box">
           <label>Select Period for Bar:</label>
           <Select
             value={{ label: selectedPeriod, value: selectedPeriod }}
@@ -521,14 +611,14 @@ const getColorClass2 = (value, metricname) => {
             </tr>
           </thead>
           <tbody>
-            {firstBuildingData.map((firstBuilding, index) => (
+            {secondBuildingData.map((secondBuildingData, index) => (
               // <tr key={firstBuilding.id}>
               <tr key={uuidv4()}>
                 <td>{index + 1}</td>
-                <td>{firstBuilding.building.name}</td>
-                <td>{firstBuilding.metric.name}</td>
-                <td>{firstBuilding.value}</td>
-                <td>{firstBuilding.year}</td>
+                <td>{secondBuildingData.building.name}</td>
+                <td>{secondBuildingData.metric.name}</td>
+                <td>{secondBuildingData.value}</td>
+                <td>{secondBuildingData.year}</td>
               </tr>
             ))}
           </tbody>
