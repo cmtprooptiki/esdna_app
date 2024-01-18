@@ -93,7 +93,7 @@ export const updateMetric= async(req,res)=>{
 
         try{
 
-            await Metric.update({name},{
+            await Metric.update({name,unit,unit_desc},{
                 where:{
                     id:metric.id
                 }
