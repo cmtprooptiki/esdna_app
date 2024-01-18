@@ -7,6 +7,7 @@ import { getMe } from '../features/authSlice';
 import axios from 'axios';
 import ApexCharts from 'react-apexcharts';
 import Select from 'react-select';
+import { v4 as uuidv4 } from 'uuid';
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -46,8 +47,53 @@ const getColorClass2 = (value, metricname) => {
         label: value < 50 ?'Χαμηλή': 'Υψηλή',
         className: value < 50 ? 'green-text' : 'red-text' 
     };
+    case 'PM2.5':
+      return{
+        label: value < 20 ?'Χαμηλή': 'Υψηλή',
+        className: value < 20 ? 'green-text' : 'red-text' 
+    };
+    case 'SO2':
+      return{
+        label: value < 125 ?'Χαμηλή': 'Υψηλή',
+        className: value < 50 ? 'green-text' : 'red-text' 
+    };
+    case 'CO':
+      return{
+        label: value < 10 ?'Χαμηλή': 'Υψηλή',
+        className: value < 10 ? 'green-text' : 'red-text' 
+    };
+    case 'NO2':
+      return{
+        label: value < 40 ?'Χαμηλή': 'Υψηλή',
+        className: value < 40 ? 'green-text' : 'red-text' 
+    };
 
     case 'TSP':
+      return {
+        label:value < 50 ? 'Χαμηλή' : value >= 50 && value <= 80 ? 'Μέτρια' : 'Υψηλή',
+        className: value < 50 ? 'green-text' : value >= 50 && value <= 80 ? 'yellow-text' : 'red-text'
+    };
+    case 'TEC PCDD/Fs':
+      return {
+        label:value < 42 ? 'Χαμηλή' : value >= 150 && value <= 150 ? 'Μέτρια' : 'Υψηλή',
+        className: value < 42 ? 'green-text' : value >= 42 && value <= 150 ? 'yellow-text' : 'red-text'
+    };
+    case 'TEQ PCBS':
+      return {
+        label:value < 10 ? 'Χαμηλή' : value >= 10 && value <= 40 ? 'Μέτρια' : 'Υψηλή',
+        className: value < 10 ? 'green-text' : value >= 10 && value <= 40 ? 'yellow-text' : 'red-text'
+    };
+    case 'ind PCBs':
+      return {
+        label:value < 60 ? 'Χαμηλή' : value >= 60 && value <= 180 ? 'Μέτρια' : 'Υψηλή',
+        className: value < 60 ? 'green-text' : value >= 60 && value <= 180 ? 'yellow-text' : 'red-text'
+    };
+    case 'NO':
+      return {
+        label:value < 10 ? 'Χαμηλή' : value >= 10 && value <= 50 ? 'Μέτρια' : 'Υψηλή',
+        className: value < 10 ? 'green-text' : value >= 10 && value <= 50 ? 'yellow-text' : 'red-text'
+    };
+    case 'OC/EC':
       return {
         label:value < 50 ? 'Χαμηλή' : value >= 50 && value <= 80 ? 'Μέτρια' : 'Υψηλή',
         className: value < 50 ? 'green-text' : value >= 50 && value <= 80 ? 'yellow-text' : 'red-text'
@@ -121,10 +167,11 @@ const getColorClass2 = (value, metricname) => {
 
   const [chartSeries2, setChartSeries2] = useState([]);
 
-  // State for selected metric and period
-  const [selectedMetric, setSelectedMetric] = useState('PM10');
-  const [selectedPeriod, setSelectedPeriod] = useState('2023-01-05');
-  const [selectedBuilding, setSelectedBuilding] = useState('Είσοδος ΧΥΤΑ');
+  // State for selected metric and perio
+  const [selectedMetric, setSelectedMetric] = useState('');
+  const [selectedMetric2,setSelectedMetric2 ] = useState('');
+  const [selectedPeriod, setSelectedPeriod] = useState('');
+  const [selectedBuilding, setSelectedBuilding] = useState('');
   
 
   // const handleMetricChange = (event) => {
@@ -278,21 +325,21 @@ const getColorClass2 = (value, metricname) => {
       <div className="dashboard-container">
     
 
-<div class="columns">
-  <div class="column">
-    <div className="box">
-                  <h3>Συνολικός αριθμός σημείων μέτρησης</h3>
-                  <p>{buildingNames.length}</p>
-                </div> 
-        </div>
-  <div class="column">
-      <div className="box">
-                  <h3>Συνολικός αριθμός Αερίων</h3>
-                  <p>{uniqueMetricNames.size}</p>
-                </div> 
+        <div className="columns">
+          <div className="column">
+            <div className="box">
+              <h3>Συνολικός αριθμός σημείων μέτρησης</h3>
+              <p>{buildingNames.length}</p>
+            </div> 
           </div>
- 
-    </div>
+          <div className="column">
+            <div className="box">
+              <h3>Συνολικός αριθμός Αερίων</h3>
+              <p>{uniqueMetricNames.size}</p>
+            </div> 
+          </div>
+        
+        </div>
 
 
    
@@ -304,7 +351,7 @@ const getColorClass2 = (value, metricname) => {
           <Select
             value={{ label: selectedBuilding, value: selectedBuilding }}
             onChange={(selectedOption) => setSelectedBuilding(selectedOption.value)}
-            options={[...buildingNames].map((buildingName) => ({ label: buildingName, value: buildingName }))}
+            options={[...buildingNames].map((buildingName) => ({ label: buildingName, value: buildingName,key:uuidv4()  }))}
           />
 
 
@@ -313,7 +360,7 @@ const getColorClass2 = (value, metricname) => {
           <Select
             value={{ label: selectedMetric, value: selectedMetric }}
             onChange={(selectedOption) => setSelectedMetric(selectedOption.value)}
-            options={[...uniqueMetricNames].map((metricName) => ({ label: metricName, value: metricName }))}
+            options={[...uniqueMetricNames].map((metricName) => ({ label: metricName, value: metricName,key:uuidv4() }))}
           />
 
           
@@ -335,7 +382,8 @@ const getColorClass2 = (value, metricname) => {
           </thead>
           <tbody>
             {filteredData.map((filterBuilding, index) => (
-              <tr key={filterBuilding.id}>
+              // <tr key={filterBuilding.id}>
+              <tr key={uuidv4()}>
                 <td>{index + 1}</td>
                 <td>{filterBuilding.building.name}</td>
                 <td>{filterBuilding.metric.name}</td>
@@ -348,38 +396,37 @@ const getColorClass2 = (value, metricname) => {
       </div>
         </div>
 
-        <div class="columns">
-  <div class="column">
-    <div className="box">
-                  <h3>Τιμή τελευταίας Μέτρησης</h3>
-                   {filteredData.length > 0 && (
-      <p>{filteredData[filteredData.length - 1].value}</p>
-    )}
-
-                  <h3>Συγκέντρωση</h3>
-                  {filteredData.length > 0 && (
-
-                  <p>
-                  <span className={getColorClass2(filteredData[filteredData.length - 1].value,selectedMetric).className}>
-                
-              
-                   {getColorClass2(filteredData[filteredData.length - 1].value, selectedMetric).label}
-                  </span>
-                  </p>
-                    )}
-
-                </div> 
-        </div>
-
-
-          <div class="column">
+  <div className="columns">
+    <div className="column">
       <div className="box">
-                  <h3>Μ.Ο. Μετρήσεων</h3>
-                  <p>{average}</p>
-                </div> 
-          </div>
- 
+          <h3>Τιμή τελευταίας Μέτρησης</h3>
+          {filteredData.length > 0 && (
+          <p>{filteredData[filteredData.length - 1].value}</p>
+          )}
+
+          <h3>Συγκέντρωση</h3>
+          {filteredData.length > 0 && (
+
+          <p>
+          <span className={getColorClass2(filteredData[filteredData.length - 1].value,selectedMetric).className}>
+        
+      
+          {getColorClass2(filteredData[filteredData.length - 1].value, selectedMetric).label}
+          </span>
+          </p>
+            )}
+
+      </div> 
     </div>
+
+
+    <div className="column">
+      <div className="box">
+          <h3>Μ.Ο. Μετρήσεων</h3>
+          <p>{average}</p>
+        </div> 
+    </div>
+  </div>
 
 
 
@@ -393,16 +440,19 @@ const getColorClass2 = (value, metricname) => {
               <th>Building Name</th>
               <th>Metric Name</th>
               <th>Metric Value</th>
+              <th>concentration</th>
               <th>Year</th>
             </tr>
           </thead>
           <tbody>
             {buildingMetrics.map((buildingMetric, index) => (
-              <tr key={buildingMetric.id}>
+              // <tr key={buildingMetric.id}>
+              <tr key={uuidv4()}>
                 <td>{index + 1}</td>
                 <td>{buildingMetric.building.name}</td>
                 <td>{buildingMetric.metric.name}</td>
                 <td>{buildingMetric.value}</td>
+                <td>{getColorClass2(buildingMetric.value, buildingMetric.metric.name).label}</td>
                 <td>{buildingMetric.year}</td>
               </tr>
             ))}
@@ -440,9 +490,9 @@ const getColorClass2 = (value, metricname) => {
 
         <label>Select Metric for Bar:</label>
           <Select
-            value={{ label: selectedMetric, value: selectedMetric }}
-            onChange={(selectedOption) => setSelectedMetric(selectedOption.value)}
-            options={[...uniqueMetricNames].map((metricName) => ({ label: metricName, value: metricName }))}
+            value={{ label: selectedMetric2, value: selectedMetric2 }}
+            onChange={(selectedOption) => setSelectedMetric2(selectedOption.value)}
+            options={[...uniqueMetricNames].map((metricName) => ({ label: metricName, value: metricName,key:uuidv4()}))}
           />
           </div>
 
@@ -452,7 +502,7 @@ const getColorClass2 = (value, metricname) => {
           <Select
             value={{ label: selectedPeriod, value: selectedPeriod }}
             onChange={(selectedOption) => setSelectedPeriod(selectedOption.value)}
-            options={[...uniqueYears].map((uniqueYear) => ({ label: uniqueYear, value: uniqueYear }))}
+            options={[...uniqueYears].map((uniqueYear) => ({ label: uniqueYear, value: uniqueYear,key:uuidv4() }))}
           />
         </div>
 
@@ -472,7 +522,8 @@ const getColorClass2 = (value, metricname) => {
           </thead>
           <tbody>
             {firstBuildingData.map((firstBuilding, index) => (
-              <tr key={firstBuilding.id}>
+              // <tr key={firstBuilding.id}>
+              <tr key={uuidv4()}>
                 <td>{index + 1}</td>
                 <td>{firstBuilding.building.name}</td>
                 <td>{firstBuilding.metric.name}</td>
