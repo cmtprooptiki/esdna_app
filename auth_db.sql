@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Φιλοξενητής: 127.0.0.1:3308
--- Χρόνος δημιουργίας: 15 Ιαν 2024 στις 09:31:16
+-- Χρόνος δημιουργίας: 18 Ιαν 2024 στις 08:12:54
 -- Έκδοση διακομιστή: 5.7.28
 -- Έκδοση PHP: 7.4.0
 
@@ -46,14 +46,14 @@ CREATE TABLE IF NOT EXISTS `building` (
 --
 
 INSERT INTO `building` (`id`, `uuid`, `name`, `lat`, `lon`, `category`, `createdAt`, `updatedAt`) VALUES
-(1, 'db6bff60-2142-4e2f-96da-207c83c65056', 'Entrance XYTA', '38.06896800', '23.65545900', 'OEDA Dytikis Attikis', '2023-12-20 11:07:46', '2024-01-12 13:00:17'),
-(2, 'a8ea3a6e-db16-4143-afab-f279a1fef9a3', 'EMAK Offices', '38.07269050', '23.65735850', 'OEDA Dytikis Attikis', '2023-12-20 11:11:58', '2024-01-12 13:02:30'),
-(3, '529a60a7-89b6-4251-9655-0ab43c8b33a1', 'EMAK Dialogi', '38.06472785', '23.65248102', 'OEDA Dytikis Attikis', '2023-12-20 13:51:56', '2024-01-11 13:06:19'),
-(4, '46ba7d80-9f0d-4f4d-87fc-35af9354240d', 'Presa', '38.06472785', '23.65248102', 'Stathmos Metafortosis Aporimaton SMA Sxistou', '2023-12-20 15:39:35', '2024-01-11 13:06:48'),
-(5, '2eec2992-0a5d-4c6e-a22e-89dd6fd96108', 'Mixanourgio', '24.44343400', '58.33232500', 'Stathmos Metafortosis Aporimaton SMA Sxisto', '2023-12-21 14:33:39', '2024-01-11 13:06:56'),
-(6, 'a9e8944c-d074-4c6e-9f85-a925b6a456be', 'Plyntirio', '0.54334556', '0.34334556', 'Stathmos Metafortosis Aporimaton SMA Sxistou', '2024-01-10 11:24:55', '2024-01-11 13:07:05'),
-(7, 'aa9b4b47-f82b-4b4a-aa4b-4ca6a2782841', 'Klimakostasio palaiou ktiriou', '38.06854550', '23.64637230', 'Kentrikes Ypiresies', '2024-01-10 11:25:29', '2024-01-12 13:03:18'),
-(8, 'df97fd67-c9e5-49f7-8584-471c97bdf2d5', 'Klimakostasio Neou Ktiriou', '38.06854550', '23.64637230', 'Kentrikes Ypiresies', '2024-01-10 11:26:17', '2024-01-12 13:03:53');
+(1, 'db6bff60-2142-4e2f-96da-207c83c65056', 'Είσοδος ΧΥΤΑ', '38.06896800', '23.65545900', 'ΟΕΔΑ Δυτικής Αττικής', '2023-12-20 11:07:46', '2024-01-16 23:47:36'),
+(2, 'a8ea3a6e-db16-4143-afab-f279a1fef9a3', 'ΕΜΑΚ Γραφεία', '38.07269050', '23.65735850', 'ΟΕΔΑ Δυτικής Αττικής', '2023-12-20 11:11:58', '2024-01-16 23:47:54'),
+(3, '529a60a7-89b6-4251-9655-0ab43c8b33a1', 'ΕΜΑΚ Διαλογή', '38.06472785', '23.65248102', 'ΟΕΔΑ Δυτικής Αττικής', '2023-12-20 13:51:56', '2024-01-16 23:48:21'),
+(4, '46ba7d80-9f0d-4f4d-87fc-35af9354240d', 'Πρέσα', '38.06472785', '23.65248102', 'Σταθμός Μεταφόρτωσης Απορριμμάτων ΣΜΑ Σχιστού', '2023-12-20 15:39:35', '2024-01-16 23:49:05'),
+(5, '2eec2992-0a5d-4c6e-a22e-89dd6fd96108', 'Μηχανουργείο', '24.44343400', '58.33232500', 'Σταθμός Μεταφόρτωσης Απορριμμάτων ΣΜΑ Σχιστού', '2023-12-21 14:33:39', '2024-01-16 23:49:22'),
+(6, 'a9e8944c-d074-4c6e-9f85-a925b6a456be', 'Πλυντήριο', '0.54334556', '0.34334556', 'Σταθμός Μεταφόρτωσης Απορριμμάτων ΣΜΑ Σχιστού', '2024-01-10 11:24:55', '2024-01-16 23:49:37'),
+(7, 'aa9b4b47-f82b-4b4a-aa4b-4ca6a2782841', 'Κλιμακοστάσιο παλαιού κτηρίου', '38.06854550', '23.64637230', 'Κεντρικές Υπηρεσίες', '2024-01-10 11:25:29', '2024-01-16 23:50:44'),
+(8, 'df97fd67-c9e5-49f7-8584-471c97bdf2d5', 'Κλιμακοστάσιο νέου κτηρίου', '38.06854550', '23.64637230', 'Κεντρικές Υπηρεσίες', '2024-01-10 11:26:17', '2024-01-16 23:51:16');
 
 -- --------------------------------------------------------
 
@@ -68,26 +68,34 @@ CREATE TABLE IF NOT EXISTS `buildingmetrics` (
   `buildingId` int(11) DEFAULT NULL,
   `metricId` int(11) DEFAULT NULL,
   `value` int(11) NOT NULL,
-  `year` int(11) NOT NULL,
+  `year` date NOT NULL,
   `createdAt` datetime NOT NULL,
   `updatedAt` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `buildingId` (`buildingId`),
   KEY `metricId` (`metricId`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Άδειασμα δεδομένων του πίνακα `buildingmetrics`
 --
 
 INSERT INTO `buildingmetrics` (`id`, `uuid`, `buildingId`, `metricId`, `value`, `year`, `createdAt`, `updatedAt`) VALUES
-(1, '42bf2a1d-1c19-486d-9cb1-a0c9357fa066', 1, 2, 54, 2023, '2024-01-12 09:32:57', '2024-01-12 09:32:57'),
-(2, '972050dc-0736-4eaa-91b9-9547ee097077', 1, 2, 56, 2023, '2024-01-12 09:33:05', '2024-01-12 09:33:05'),
-(3, '6784a7c0-6a33-4ea0-94d8-26e7376a6968', 1, 2, 58, 2023, '2024-01-12 09:33:18', '2024-01-12 09:33:18'),
-(4, 'ab137621-e806-4826-aa76-091b003ebfe9', 2, 4, 25, 2023, '2024-01-12 10:36:29', '2024-01-12 10:36:29'),
-(5, 'f246645f-8de6-4dce-9f81-702d1669aa5c', 2, 5, 45, 2023, '2024-01-12 10:36:43', '2024-01-12 10:36:43'),
-(6, '0e97ab69-cff7-489a-94d8-995fe2acc02a', 2, 4, 85, 2023, '2024-01-12 10:37:04', '2024-01-12 10:37:04'),
-(7, '9cd5d639-79ea-4aa4-a6db-258f76fc500f', 1, 2, 45, 2024, '2024-01-12 10:37:19', '2024-01-12 10:37:19');
+(2, '8b5465e8-2677-46c6-92f6-3c01fe7186e1', 1, 2, 56, '2023-01-05', '2024-01-16 09:12:59', '2024-01-16 10:40:36'),
+(3, 'c01cab3b-78d3-4030-b8ce-f7cffc680164', 1, 2, 59, '2023-05-01', '2024-01-16 09:14:05', '2024-01-16 10:40:59'),
+(4, '32d65563-562f-404d-8900-2688c4067fe0', 1, 2, 70, '2023-09-05', '2024-01-16 09:14:25', '2024-01-16 10:41:09'),
+(5, 'cee5b3d1-2c0a-44d5-8490-8ace47517a71', 2, 2, 34, '2023-01-05', '2024-01-16 10:22:49', '2024-01-16 10:42:26'),
+(6, 'cce2c1a7-dc4d-4433-afb0-874177c36233', 2, 2, 67, '2023-05-01', '2024-01-16 10:24:14', '2024-01-16 10:42:54'),
+(7, '89dda5c4-c6d3-477e-931d-f4c66adcbcd1', 1, 2, 23, '2024-01-05', '2024-01-16 10:29:02', '2024-01-16 10:41:28'),
+(9, 'ed50cfdf-6b55-4592-9a49-4bd8dce0b7e3', 2, 2, 61, '2024-01-05', '2024-01-16 10:43:42', '2024-01-16 10:43:42'),
+(10, 'f23bec52-87d0-4d26-8352-1f690b34946b', 2, 2, 87, '2023-09-05', '2024-01-16 10:44:47', '2024-01-16 10:44:47'),
+(11, 'b23e1e1f-12b6-4637-91ee-193a66772b56', 1, 4, 34, '2023-01-05', '2024-01-16 13:39:01', '2024-01-16 13:39:01'),
+(12, '9cbf5c45-ad96-43e0-b1cd-ee78ec6b88ce', 1, 4, 51, '2023-05-01', '2024-01-16 13:42:00', '2024-01-17 13:38:35'),
+(13, '892e6fce-c4dc-4265-97fb-1c4bd4a58c27', 2, 4, 78, '2023-01-05', '2024-01-16 14:07:26', '2024-01-16 14:07:26'),
+(14, '84ce95e7-750e-4839-a620-80cebc9fe8a8', 2, 4, 82, '2023-05-01', '2024-01-16 14:08:06', '2024-01-17 13:18:00'),
+(15, 'a2805365-2a80-400f-a5f0-41214f680b6d', 3, 2, 80, '2023-01-05', '2024-01-16 14:22:37', '2024-01-16 14:22:37'),
+(16, '98d0b543-2c8b-45d4-accd-9bae72d8b8a6', 3, 2, 41, '2023-05-01', '2024-01-16 14:22:57', '2024-01-16 14:22:57'),
+(17, 'eff8e354-8195-4b2d-83fe-6de4e303aaf2', 3, 2, 96, '2023-09-05', '2024-01-16 14:23:33', '2024-01-16 14:23:33');
 
 -- --------------------------------------------------------
 
@@ -103,7 +111,7 @@ CREATE TABLE IF NOT EXISTS `metric` (
   `createdAt` datetime NOT NULL,
   `updatedAt` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Άδειασμα δεδομένων του πίνακα `metric`
@@ -120,7 +128,13 @@ INSERT INTO `metric` (`id`, `uuid`, `name`, `createdAt`, `updatedAt`) VALUES
 (10, '8cea1dbd-da3e-4af7-8e4b-9304f0e3d1ce', 'CO_', '2024-01-10 11:29:45', '2024-01-10 11:29:45'),
 (11, '548c2c2c-401d-4367-a7a5-dd8a2a9d116d', 'NO2', '2024-01-10 11:29:56', '2024-01-10 11:29:56'),
 (12, '8ccfb92c-0c28-4d27-80a2-b40e887068c5', 'NO_', '2024-01-10 11:30:04', '2024-01-10 11:30:04'),
-(13, '0ed3ffb1-f0e9-4d97-bbf6-aae6cd913873', 'As_', '2024-01-10 11:30:15', '2024-01-10 11:30:15');
+(13, '0ed3ffb1-f0e9-4d97-bbf6-aae6cd913873', 'As_', '2024-01-10 11:30:15', '2024-01-10 11:30:15'),
+(14, '7f4cdf28-1a7b-4205-bc66-ada7d434bad6', 'Cd_', '2024-01-17 13:44:41', '2024-01-17 13:44:41'),
+(15, '79b4eb75-296a-4b4f-9bf4-112bce3488c6', 'Ni_', '2024-01-17 13:44:48', '2024-01-17 13:44:48'),
+(16, '90948669-248b-456f-ac85-de11d7a115b9', 'Pb_', '2024-01-17 13:44:58', '2024-01-17 13:44:58'),
+(17, '8d846405-7be3-4056-be02-683e27dcf478', 'benzo(a)pyrene', '2024-01-17 13:45:17', '2024-01-17 13:45:17'),
+(18, 'e5080714-c971-4d11-b56e-58eb4bbf38c2', 'benzene', '2024-01-17 13:45:32', '2024-01-17 13:45:32'),
+(19, 'a282c2ae-fd6e-4d10-8910-7938f86b42d1', 'OC/EC', '2024-01-17 13:45:42', '2024-01-17 13:45:42');
 
 -- --------------------------------------------------------
 
@@ -176,11 +190,17 @@ CREATE TABLE IF NOT EXISTS `sessions` (
 --
 
 INSERT INTO `sessions` (`sid`, `expires`, `data`, `createdAt`, `updatedAt`) VALUES
-('1E33w2m-WLFXfXzrqeUj-j90IWHCQSlQ', '2024-01-16 08:53:15', '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\"}}', '2024-01-15 08:53:15', '2024-01-15 08:53:15'),
-('hAZbPLNveFp4OT6lkxRoTzLH47muWUnT', '2024-01-16 09:13:48', '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"userId\":\"37ca1953-2a98-4623-8a51-99729ca432da\"}', '2024-01-15 08:53:15', '2024-01-15 09:13:48'),
-('nOnIljgL1cH6-GI6V0Ejxq6GCIl7OTWu', '2024-01-16 09:13:38', '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\"}}', '2024-01-15 09:13:38', '2024-01-15 09:13:38'),
-('u_eXwwqIiYLAgMEMWuRACD2OLQQjDv_s', '2024-01-16 09:07:53', '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\"}}', '2024-01-15 09:07:53', '2024-01-15 09:07:53'),
-('vo-5e-CQpABPyRwMsC12ngwCeSuQ0tDR', '2024-01-16 09:13:48', '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\"}}', '2024-01-15 09:13:48', '2024-01-15 09:13:48');
+('2p2Uy6E87kn8di4d_4S25FP-jyhLs0MW', '2024-01-18 13:45:17', '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\"}}', '2024-01-17 13:45:17', '2024-01-17 13:45:17'),
+('Ac_xMxb-IL1-IpOMsoQxjSuXxxlyth3-', '2024-01-18 13:45:32', '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\"}}', '2024-01-17 13:45:32', '2024-01-17 13:45:32'),
+('eNYb0xWQwEVnohXAnm_SpjOHfFGehR8U', '2024-01-18 13:44:48', '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\"}}', '2024-01-17 13:44:48', '2024-01-17 13:44:48'),
+('gW7n71GaC_qnkIDWrrhkN14sxskGKI4z', '2024-01-18 13:45:42', '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\"}}', '2024-01-17 13:45:42', '2024-01-17 13:45:42'),
+('hAZbPLNveFp4OT6lkxRoTzLH47muWUnT', '2024-01-18 16:00:12', '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"userId\":\"37ca1953-2a98-4623-8a51-99729ca432da\"}', '2024-01-15 08:53:15', '2024-01-17 16:00:12'),
+('ihPl1S8_SJn6bR1UyJxxU08r5ga3fJBx', '2024-01-18 13:44:21', '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\"}}', '2024-01-17 13:44:21', '2024-01-17 13:44:21'),
+('k8jcQXMLEEQ7O4auBHfkuxcT_AzOPO36', '2024-01-18 13:18:00', '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\"}}', '2024-01-17 13:18:00', '2024-01-17 13:18:00'),
+('lTGD4YGeJGQujmoYcfNa9AOXVQxBntpr', '2024-01-18 13:44:36', '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\"}}', '2024-01-17 13:44:36', '2024-01-17 13:44:36'),
+('rG1cd_mxb61cdpCHxGLrNMkAqSqkpnbv', '2024-01-18 13:44:58', '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\"}}', '2024-01-17 13:44:58', '2024-01-17 13:44:58'),
+('u_h8tePc4yF_niDuoBM1vqcmBGrx36Qr', '2024-01-18 13:38:35', '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\"}}', '2024-01-17 13:38:35', '2024-01-17 13:38:35'),
+('yungjj_4U16Ij-BTwa9QuulE1d_NlVEa', '2024-01-18 13:17:24', '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\"}}', '2024-01-17 13:17:24', '2024-01-17 13:17:24');
 
 -- --------------------------------------------------------
 
