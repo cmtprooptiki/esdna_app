@@ -20,9 +20,9 @@ const Dashboard = () => {
   const [buildingMetrics, setBuildingMetrics] = useState([]);
 
   const [uniqueMetricNames, setUniqueMetricNames] = useState(new Set());
-
-  const [buildingNames, setBuildingNames] = useState(new Set());
   const [uniqueYears, setUniqueYears] = useState(new Set());
+  const [buildingNames, setBuildingNames] = useState(new Set());
+
 
   const [firstBuildingData,setFirstBuildingMetrics]=useState([]);
   const [secondBuildingData,setSecondBuildingMetrics]=useState([]);

@@ -1,6 +1,6 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect,useState } from "react";
 import mapboxgl from "mapbox-gl";
-
+import axios from 'axios'
 // Grab the access token from your Mapbox account
 // I typically like to store sensitive things like this
 // in a .env file
@@ -14,6 +14,25 @@ const coordinates = [
 ];
 
 export const MapPolutionComponent = () => {
+
+
+  const [buildingmetricsGeo,setBuildingMetricsGeo]=useState([]);
+
+    useEffect(()=>{
+      getBuildingMetricsGeo()
+      console.log(getBuildingMetricsGeo())
+    },[]);
+
+    const getBuildingMetricsGeo = async() =>{
+        const response = await axios.get('http://localhost:5000/buildingmetrics-geo');
+        setBuildingMetricsGeo(response.data);
+        console.log(response)
+
+    }
+
+    
+
+
   const mapContainer = useRef();
 
   // this is where all of our map logic is going to live
@@ -36,14 +55,17 @@ export const MapPolutionComponent = () => {
         type: 'geojson',
         data: {
           type: 'FeatureCollection',
-          features: coordinates.map(coord => ({
+          features: buildingmetricsGeo.map(coord => ({
             type: 'Feature',
             geometry: {
               type: 'Point',
-              coordinates: [coord.lng, coord.lat],
+              coordinates: [coord.lon, coord.lat],
             },
             properties: {
-              dbh: coord.dbh,
+              name:coord.metricName,
+              buildingId:coord.buildingName,
+
+              dbh: coord.value,
             },
           })),
         },
@@ -156,7 +178,9 @@ export const MapPolutionComponent = () => {
       map.on('click', 'trees-point', (event) => {
         new mapboxgl.Popup()
           .setLngLat(event.features[0].geometry.coordinates)
-          .setHTML(`<strong>DBH:</strong> ${event.features[0].properties.dbh}`)
+          .setHTML(`<strong>DBH:</strong> ${event.features[0].properties.dbh}
+          <strong>NAME:</strong> ${event.features[0].properties.name}
+          <strong>BuildingID:</strong> ${event.features[0].properties.buildingId}`)
           .addTo(map);
       });
     });

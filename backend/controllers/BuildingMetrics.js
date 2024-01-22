@@ -8,6 +8,51 @@ import { Sequelize,Op } from "sequelize";
 
 
 
+export const getGeoMetrics = async (req, res) => {
+    try {
+        let response;
+        if (req.role === 'admin') {
+
+            response = await BuildingMetric.findAll({
+                attributes: [
+                  'id',
+                  'uuid',
+                  [Building.sequelize.literal('building.id'), 'buildingId'],
+                  [Metric.sequelize.literal('metric.id'), 'metricId'],
+                  [Building.sequelize.literal('building.name'), 'buildingName'],
+                  [Metric.sequelize.literal('metric.name'), 'metricName'],
+                  'value',
+                  'year',
+                  [Building.sequelize.literal('building.lat'), 'lat'],
+                  [Building.sequelize.literal('building.lon'), 'lon']                ],
+                include: [
+                  {
+                    model: Building,
+                    attributes: [],
+                    where: {
+                      id: BuildingMetric.sequelize.col('buildingId')
+                    }
+                  },
+                  {
+                    model: Metric,
+                    attributes: [],
+                    where: {
+                      id: BuildingMetric.sequelize.col('metricId')
+                    }
+                  }
+                ]
+              });
+
+        }
+        res.status(200).json(response);
+
+    }
+    catch (error) {
+        res.status(500).json({ msg: error.message });
+    }
+    
+}
+
 
 export const getBuildingMetricsAVG = async (req, res) => {
     try {

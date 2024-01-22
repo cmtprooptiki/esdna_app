@@ -230,14 +230,17 @@ POST https://api.windy.com/api/point-forecast/v2
 Content-Type: application/json
 
 {
-    "lat": 49.809,
-    "lon": 16.787,
+    "lat": 38.068968,
+    "lon": 23.65545900,
     "model": "gfs",
     "parameters": ["wind", "pressure"],
-    "levels": ["surface", "800h", "300h"],
-    "key": "oGbYR2T2f2AFUitdH4pRxCMn6UXyzEPg"
+    "key": "oChzM4Cv6v280SRmPY3Ok4FptEXxSxcJ"
 }
 
 
 ####GET AVG GROUP BY 
 GET http://localhost:5000/buildingmetrics-avg
+
+####GET AVG GROUP BY 
+GET http://localhost:5000/buildingmetrics-geo
+
