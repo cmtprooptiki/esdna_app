@@ -124,6 +124,8 @@ const setIcon = ({ properties }, latlng) => {
           }
           
           </MarkerClusterGroup>
+          
+
         </MapContainer>
         </div>
     );
