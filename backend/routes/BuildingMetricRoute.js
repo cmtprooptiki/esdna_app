@@ -6,7 +6,8 @@ import {
     createBuildingMetric,
     updateBuildingMetric,
     deleteBuildingMetric,
-    getBuildingMetricsAVG
+    getBuildingMetricsAVG,
+    getGeoMetrics
     // getProducts,
     // getProductById,
     // createProduct,
@@ -19,7 +20,7 @@ const router = express.Router();
 router.get('/buildingmetrics',verifyUser,getBuildingMetrics);
 
 router.get('/buildingmetrics-avg',verifyUser,getBuildingMetricsAVG)
-
+router.get('/buildingmetrics-geo',verifyUser,getGeoMetrics);
 router.get('/buildingmetrics/:id',verifyUser,getBuildingMetricsById);
 router.post('/createbuildingmetric',verifyUser,createBuildingMetric);
 router.patch('/updatebuildingmetric/:id',verifyUser,updateBuildingMetric);
