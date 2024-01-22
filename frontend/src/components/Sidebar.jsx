@@ -20,6 +20,8 @@ export const Sidebar = () => {
             <p className="menu-label">General</p>
             <ul className="menu-list">
                 <li><NavLink to="/dashboard"><IoHome/>Dashboard</NavLink></li>
+                <li><NavLink to="/map"><IoHome/>Map</NavLink></li>
+
                 <li><NavLink to="/products"><IoPricetag/> Products</NavLink></li>
                 <li><NavLink to="/buildings"><IoPricetag/> Buildings</NavLink></li>
                 <li><NavLink to="/metrics"><IoPricetag/> Metrics</NavLink></li>

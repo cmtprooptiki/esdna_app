@@ -21,6 +21,7 @@ import BuildingMetrics from "./pages/BuildingMetrics";
 import AddBuildingMetric from "./pages/AddBuildingMetric";
 
 import EditBuildingMetric from "./pages/EditBuildingMetric";
+import MapPolution from "./pages/MapPolution";
 function App() {
   return (
     <div>
@@ -28,6 +29,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Login/>}></Route>
           <Route path="/dashboard" element={<Dashboard/>}></Route>
+          <Route path="/map" element={<MapPolution/>}></Route>
+
           <Route path="/users" element={<Users/>}></Route>
           <Route path="/users/add" element={<AddUser/>}></Route>
           <Route path="/users/edit/:id" element={<EditUser/>}></Route>

@@ -1,15 +1,20 @@
-import React, { useRef, useEffect } from "react"
-import mapboxgl from "mapbox-gl"
-import { parsePath } from "react-router-dom"
-import path from "./trees.geojson"
+import React, { useRef, useEffect } from "react";
+import mapboxgl from "mapbox-gl";
+
 // Grab the access token from your Mapbox account
 // I typically like to store sensitive things like this
 // in a .env file
 // mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_TOKEN
-mapboxgl.accessToken="pk.eyJ1IjoiY210YWRtaW4iLCJhIjoiY2xyb3Q1bnRrMTlxMjJpcXpnNWh6NjF2aiJ9.dmGnyBg6XFk6LyksCN9tTA"
+mapboxgl.accessToken = "pk.eyJ1IjoiY210YWRtaW4iLCJhIjoiY2xyb3Q1bnRrMTlxMjJpcXpnNWh6NjF2aiJ9.dmGnyBg6XFk6LyksCN9tTA";
 
-export const Map = () => {
-  const mapContainer = useRef()
+const coordinates = [
+  { lng: 23.65545900, lat: 38.068968, dbh: 10 },
+  { lng:  23.64825380, lat:38.06584070 , dbh: 45},
+  { lng:  23.65248102	, lat:38.06472785 , dbh: 50},
+];
+
+export const MapPolutionComponent = () => {
+  const mapContainer = useRef();
 
   // this is where all of our map logic is going to live
   // adding the empty dependency array ensures that the map
@@ -21,31 +26,30 @@ export const Map = () => {
     const map = new mapboxgl.Map({
       container: "map",
       style: 'mapbox://styles/mapbox/dark-v11',
-
-    //   style: "mapbox://styles/mapbox/satellite-streets-v11",
-    center: [-79.999732, 40.4374],
+      center: [23.65545900, 38.068968],
       zoom: 14,
-    })
-
-    // map.on("load", () => {
-    //     map.addSource("mapbox-dem", {
-    //       type: "raster-dem",
-    //       url: "mapbox://mapbox.mapbox-terrain-dem-v1",
-    //       tileSize: 512,
-    //       maxZoom: 16,
-    //     })
-   
+    });
 
     map.on('load', () => {
-        map.addSource('trees', {
-          type: 'geojson',
-          data: path
-        });
-        // add heatmap layer here
-        // add circle layer here
-      
+      // Add a source and layer for heatmap
+      map.addSource('trees', {
+        type: 'geojson',
+        data: {
+          type: 'FeatureCollection',
+          features: coordinates.map(coord => ({
+            type: 'Feature',
+            geometry: {
+              type: 'Point',
+              coordinates: [coord.lng, coord.lat],
+            },
+            properties: {
+              dbh: coord.dbh,
+            },
+          })),
+        },
+      });
 
-    map.addLayer(
+      map.addLayer(
         {
           id: 'trees-heat',
           type: 'heatmap',
@@ -148,16 +152,16 @@ export const Map = () => {
         'waterway-label'
       );
 
+      // Add click event handler for points
       map.on('click', 'trees-point', (event) => {
         new mapboxgl.Popup()
           .setLngLat(event.features[0].geometry.coordinates)
           .setHTML(`<strong>DBH:</strong> ${event.features[0].properties.dbh}`)
           .addTo(map);
       });
-
     });
 
-  }, [])
+  }, []);
 
   return (
     <div
@@ -165,53 +169,5 @@ export const Map = () => {
       ref={mapContainer}
       style={{ width: "100%", height: "100vh" }}
     />
-  )
-}
-
-// export const Map2 = () => {
-//     const mapContainer = useRef()
-  
-//     // this is where all of our map logic is going to live
-//     // adding the empty dependency array ensures that the map
-//     // is only created once
-//     useEffect(() => {
-//       // create the map and configure it
-//       // check out the API reference for more options
-//       // https://docs.mapbox.com/mapbox-gl-js/api/map/
-//       const map = new mapboxgl.Map({
-//         container: "map",
-//         style: "mapbox://styles/mapbox/satellite-streets-v11",
-//         center: [23.65545900,38.068968],
-//         zoom: 14,
-//         pitch: 60,
-//       })
-  
-//       map.on("load", () => {
-//         map.addSource("mapbox-dem", {
-//           type: "raster-dem",
-//           url: "mapbox://mapbox.mapbox-terrain-dem-v1",
-//           tileSize: 512,
-//           maxZoom: 16,
-//         })
-//         map.setTerrain({ source: "mapbox-dem", exaggeration: 1.5 })
-//         map.addLayer({
-//           id: "sky",
-//           type: "sky",
-//           paint: {
-//             "sky-type": "atmosphere",
-//             "sky-atmosphere-sun": [0.0, 90.0],
-//             "sky-atmosphere-sun-intensity": 15,
-//           },
-//         })
-//       })
-//     }, [])
-  
-//     return (
-//       <div
-//         id="map"
-//         ref={mapContainer}
-//         style={{ width: "100%", height: "100vh" }}
-//       />
-//     )
-//   }
-  
+  );
+};
