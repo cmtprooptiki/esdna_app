@@ -7,6 +7,7 @@ import ApexCharts from 'react-apexcharts';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import ProfileMap from './ProfileMap';
+import WeatherComponent from './WeatherComponent';
 
 const FormProfileBuilding = () => {
     const[name,setName]=useState("");
@@ -78,6 +79,11 @@ const pieChartData = {
           {/* <img className="w-25" src="https://bootdey.com/img/Content/avatar/avatar7.png" alt=""/> */}
           {<ProfileMap name={name} lat={lat} lon={lon}></ProfileMap>}
         </div>
+        <div className="mb-2">
+          {/* <img className="w-25" src="https://bootdey.com/img/Content/avatar/avatar7.png" alt=""/> */}
+          {<WeatherComponent lat={lat} lon={lon}></WeatherComponent>}
+        </div>
+
         <div className="mb-2 d-flex">
           <h4 className="font-weight-normal">{name}</h4>
           <div className="social d-flex ml-auto">
@@ -110,14 +116,7 @@ const pieChartData = {
               <span className="w-25 text-black font-weight-normal">Κατηγορία Σημείου Μέτρησης: </span>
               <label className="media-body">{category}</label>
             </li>
-            <li className="media">
-              <span className="w-25 text-black font-weight-normal">Email: </span>
-              <label className="media-body">support@technol.com</label>
-            </li>
-            <li className="media">
-              <span className="w-25 text-black font-weight-normal">Location: </span>
-              <label className="media-body">5557 Cottey St Fort Worth, Texas(TX), 76119, New York, USA</label>
-            </li>
+           
           </ul>
         </div>
       </div>

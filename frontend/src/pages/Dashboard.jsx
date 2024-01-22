@@ -75,9 +75,9 @@ const getColorClass2 = (value, metricname) => {
         label:value < 50 ? 'Χαμηλή' : value >= 50 && value <= 80 ? 'Μέτρια' : 'Υψηλή',
         className: value < 50 ? 'green-text' : value >= 50 && value <= 80 ? 'yellow-text' : 'red-text'
     };
-    case 'TEC PCDD/Fs':
+    case 'TEQ PCDD/Fs':
       return {
-        label:value < 42 ? 'Χαμηλή' : value >= 150 && value <= 150 ? 'Μέτρια' : 'Υψηλή',
+        label:value < 42 ? 'Χαμηλή' : value >= 42 && value <= 150 ? 'Μέτρια' : 'Υψηλή',
         className: value < 42 ? 'green-text' : value >= 42 && value <= 150 ? 'yellow-text' : 'red-text'
     };
     case 'TEQ PCBS':
@@ -130,27 +130,34 @@ const getLimitAnnotation =(metricname)=>{
     };
     case 'TSP':
       return {
-        max:8000 
+        min:50,
+        
+        max:80 
     };
-    case 'TEC PCDD/Fs':
+    case 'TEQ PCDD/Fs':
       return {
-        max:8000 
+        min:42,
+        max:150 
     };
     case 'TEQ PCBS':
       return {
-        max:8000 
+        min:10,
+        max:40 
     };
     case 'ind PCBs':
       return {
-        max:8000 
+        min:60,
+        max:180 
     };
     case 'NO':
       return {
-        max:8000 
+        min:10,
+        max:50 
     };
     case 'OC/EC':
       return {
-        max:8000 
+        min:5/0.5,
+        max:20/2 
     };
     // Add more cases as needed
     default:
@@ -307,28 +314,83 @@ const getLimitAnnotation =(metricname)=>{
 
         setChartSeries(chartData);
 
+
+        const limitAnnotation = getLimitAnnotation(selectedMetric);
+
+
         const uniqueYears = Array.from(new Set(buildingMetrics.map((item) => item.year)));
+
+
+        const annotations = {
+          yaxis: [
+            {
+              y: limitAnnotation.max,
+              borderColor: '#ff0000',
+              label: {
+                borderColor: '#ff0000',
+                style: {
+                  color: '#fff',
+                  background: '#ff0000'
+                },
+                text: `Max limit: ${limitAnnotation.max}`
+              }
+            }
+          ]
+        };
+  
+        // Add the min limit annotation only if it exists
+        if (limitAnnotation.min !== undefined) {
+          annotations.yaxis.push({
+            y: limitAnnotation.min,
+            borderColor: '#00ff00',
+            label: {
+              borderColor: '#00ff00',
+              style: {
+                color: '#fff',
+                background: '#00ff00'
+              },
+              text: `Min limit: ${limitAnnotation.min}`
+            }
+          });
+        }
+
         setChartOptions({
           ...chartOptions,
           xaxis: {
             categories: uniqueYears,
           },
-          annotations: {
-            yaxis: [
-              {
-                y: getLimitAnnotation(selectedMetric).max,
-                borderColor: '#ff0000',
-                label: {
-                  borderColor: '#ff0000',
-                  style: {
-                    color: '#fff',
-                    background: '#ff0000'
-                  },
-                  text: 'Max limit '+getLimitAnnotation(selectedMetric).max
-                }
-              }
-            ]
-          }
+          annotations,
+          // annotations: {
+          //   yaxis: [
+          //     {
+          //       y: getLimitAnnotation(selectedMetric).max,
+          //       borderColor: '#ff0000',
+          //       label: {
+          //         borderColor: '#ff0000',
+          //         style: {
+          //           color: '#fff',
+          //           background: '#ff0000'
+          //         },
+          //         text: 'Max limit '+getLimitAnnotation(selectedMetric).max
+          //       }
+          //     },
+          //     {
+          //       y: getLimitAnnotation(selectedMetric).min,
+          //       borderColor: '#ff0000',
+          //       label: {
+          //         borderColor: '#ff0000',
+          //         style: {
+          //           color: '#fff',
+          //           background: '#ff0000'
+          //         },
+          //         text: 'Min limit '+getLimitAnnotation(selectedMetric).min
+          //       }
+          //     },
+
+
+
+          //   ]
+          // }
         });
       } catch (error) {
         console.error('Error fetching data for LineChart:', error.message);
