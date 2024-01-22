@@ -1,5 +1,6 @@
 import React, { useRef, useEffect } from "react"
 import mapboxgl from "mapbox-gl"
+import { parsePath } from "react-router-dom"
 
 // Grab the access token from your Mapbox account
 // I typically like to store sensitive things like this
@@ -33,7 +34,7 @@ export const Map = () => {
     //       tileSize: 512,
     //       maxZoom: 16,
     //     })
-
+   
 
     map.on('load', () => {
         map.addSource('trees', {
@@ -42,7 +43,7 @@ export const Map = () => {
         });
         // add heatmap layer here
         // add circle layer here
-      });
+      
 
     map.addLayer(
         {
@@ -101,7 +102,7 @@ export const Map = () => {
           }
         },
         'waterway-label'
-      );
+      );});
 
   }, [])
 
