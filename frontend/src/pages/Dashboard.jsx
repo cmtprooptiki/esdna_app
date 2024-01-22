@@ -8,6 +8,7 @@ import axios from 'axios';
 import ApexCharts from 'react-apexcharts';
 import Select from 'react-select';
 import { v4 as uuidv4 } from 'uuid';
+import {Map} from '../components/MapComponent';
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -472,7 +473,7 @@ const getLimitAnnotation =(metricname)=>{
     <Layout>
       <Welcome />
       <div className="dashboard-container">
-
+    <Map></Map>
 
       {/* Table for displaying building metrics */}
       <div  className="box">

@@ -49,7 +49,7 @@ const WeatherComponent = (props) => {
             // // const apiKey = 'YOUR_API_KEY'; // Replace with your actual API key
             // console.log(latitude,longitude)
             const response = await axios.get(
-                "https://api.openweathermap.org/data/2.5/weather?lat=38.068968&lon=23.65545900&units=metric&APPID=3673af9d459c8c8f04991f992ffb9dc9",
+                `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric&APPID=3673af9d459c8c8f04991f992ffb9dc9`,
                 {
                     withCredentials: false,
                   }
