@@ -114,50 +114,50 @@ export const Map = () => {
   )
 }
 
-export const Map2 = () => {
-    const mapContainer = useRef()
+// export const Map2 = () => {
+//     const mapContainer = useRef()
   
-    // this is where all of our map logic is going to live
-    // adding the empty dependency array ensures that the map
-    // is only created once
-    useEffect(() => {
-      // create the map and configure it
-      // check out the API reference for more options
-      // https://docs.mapbox.com/mapbox-gl-js/api/map/
-      const map = new mapboxgl.Map({
-        container: "map",
-        style: "mapbox://styles/mapbox/satellite-streets-v11",
-        center: [23.65545900,38.068968],
-        zoom: 14,
-        pitch: 60,
-      })
+//     // this is where all of our map logic is going to live
+//     // adding the empty dependency array ensures that the map
+//     // is only created once
+//     useEffect(() => {
+//       // create the map and configure it
+//       // check out the API reference for more options
+//       // https://docs.mapbox.com/mapbox-gl-js/api/map/
+//       const map = new mapboxgl.Map({
+//         container: "map",
+//         style: "mapbox://styles/mapbox/satellite-streets-v11",
+//         center: [23.65545900,38.068968],
+//         zoom: 14,
+//         pitch: 60,
+//       })
   
-      map.on("load", () => {
-        map.addSource("mapbox-dem", {
-          type: "raster-dem",
-          url: "mapbox://mapbox.mapbox-terrain-dem-v1",
-          tileSize: 512,
-          maxZoom: 16,
-        })
-        map.setTerrain({ source: "mapbox-dem", exaggeration: 1.5 })
-        map.addLayer({
-          id: "sky",
-          type: "sky",
-          paint: {
-            "sky-type": "atmosphere",
-            "sky-atmosphere-sun": [0.0, 90.0],
-            "sky-atmosphere-sun-intensity": 15,
-          },
-        })
-      })
-    }, [])
+//       map.on("load", () => {
+//         map.addSource("mapbox-dem", {
+//           type: "raster-dem",
+//           url: "mapbox://mapbox.mapbox-terrain-dem-v1",
+//           tileSize: 512,
+//           maxZoom: 16,
+//         })
+//         map.setTerrain({ source: "mapbox-dem", exaggeration: 1.5 })
+//         map.addLayer({
+//           id: "sky",
+//           type: "sky",
+//           paint: {
+//             "sky-type": "atmosphere",
+//             "sky-atmosphere-sun": [0.0, 90.0],
+//             "sky-atmosphere-sun-intensity": 15,
+//           },
+//         })
+//       })
+//     }, [])
   
-    return (
-      <div
-        id="map"
-        ref={mapContainer}
-        style={{ width: "100%", height: "100vh" }}
-      />
-    )
-  }
+//     return (
+//       <div
+//         id="map"
+//         ref={mapContainer}
+//         style={{ width: "100%", height: "100vh" }}
+//       />
+//     )
+//   }
   
