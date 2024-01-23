@@ -13,20 +13,41 @@ const coordinates = [
   { lng:  23.65248102	, lat:38.06472785 , dbh: 50},
 ];
 
-export const MapPolutionComponent = () => {
-
+export const MapPolutionComponent = (props) => {
+  const metricName=props.metricName;
+  const year=props.year
+  
 
   const [buildingmetricsGeo,setBuildingMetricsGeo]=useState([]);
 
     useEffect(()=>{
-      getBuildingMetricsGeo()
-      console.log(getBuildingMetricsGeo())
-    },[]);
+      getBuildingMetricsGeo(metricName,year)
+      // console.log(getBuildingMetricsGeo())
+      
+    },[metricName,year]);
 
-    const getBuildingMetricsGeo = async() =>{
+    const getBuildingMetricsGeo = async(metricName,year) =>{
+
+      try {
         const response = await axios.get('http://localhost:5000/buildingmetrics-geo');
-        setBuildingMetricsGeo(response.data);
-        console.log(response)
+
+        const filterCriteria = {
+          metricname: metricName,
+          year: year,
+        };
+
+       
+        const filterdata = response.data.filter(
+          (item) => item.metricName === filterCriteria.metricname && item.year === filterCriteria.year
+        );
+        
+
+        setBuildingMetricsGeo(filterdata);
+        // console.log(filterdata)
+      } catch (error) {
+        console.error('Error fetching data for Map:', error.message);
+      }
+        
 
     }
 
@@ -39,14 +60,20 @@ export const MapPolutionComponent = () => {
   // adding the empty dependency array ensures that the map
   // is only created once
   useEffect(() => {
+    console.log(buildingmetricsGeo)
+    getMapPoints(buildingmetricsGeo)
     // create the map and configure it
     // check out the API reference for more options
     // https://docs.mapbox.com/mapbox-gl-js/api/map/
+    
+
+  }, [buildingmetricsGeo]);
+  const getMapPoints = async(buildingmetricsGeo) =>{
     const map = new mapboxgl.Map({
       container: "map",
       style: 'mapbox://styles/mapbox/dark-v11',
       center: [23.65545900, 38.068968],
-      zoom: 14,
+      zoom: 12,
     });
 
     map.on('load', () => {
@@ -65,7 +92,7 @@ export const MapPolutionComponent = () => {
               name:coord.metricName,
               buildingId:coord.buildingName,
 
-              dbh: coord.value,
+              value: coord.value,
             },
           })),
         },
@@ -76,22 +103,29 @@ export const MapPolutionComponent = () => {
           id: 'trees-heat',
           type: 'heatmap',
           source: 'trees',
-          maxzoom: 15,
+          maxzoom: 20,
           paint: {
             // increase weight as diameter breast height increases
             'heatmap-weight': {
-              property: 'dbh',
+              property: 'value',
               type: 'exponential',
               stops: [
                 [1, 0],
                 [62, 1]
+                // [1,0],
+                // [15,20],
+                // [30,40],
+                // [45,60],
+                // [60,80]
+                
               ]
             },
             // increase intensity as zoom level increases
             'heatmap-intensity': {
               stops: [
-                [11, 1],
-                [15, 3]
+                [11, 2],
+                [18, 5],
+                [20,15]
               ]
             },
             // assign color values be applied to points depending on their density
@@ -99,24 +133,47 @@ export const MapPolutionComponent = () => {
               'interpolate',
               ['linear'],
               ['heatmap-density'],
+              // 0,
+              // 'rgba(236,222,239,0)',
+              // 0.2,
+              // 'rgb(208,209,230)',
+              // 0.4,
+              // 'rgb(166,189,219)',
+              // 0.6,
+              // 'rgb(103,169,207)',
+              // 0.8,
+              // 'rgb(28,144,153)'
               0,
-              'rgba(236,222,239,0)',
-              0.2,
-              'rgb(208,209,230)',
-              0.4,
-              'rgb(255, 0, 0)',
+              'rgba(0, 0, 255, 0)',    // Adjusted color to emphasize heatmap effect
+              0.1,
+              'rgb(0, 0, 255)',
+              0.3,
+              'rgb(0, 255, 0)',
               0.6,
-              'rgb(103,169,207)',
+              'rgb(255, 255, 0)',
               0.8,
-              'rgb(28,144,153)'
+              'rgb(255, 165, 0)',
+              1,
+              'rgb(255, 0, 0)'
             ],
             // increase radius as zoom increases
             'heatmap-radius': {
               stops: [
-                [11, 15],
-                [15, 20]
+                // [1, 25],
+                [11, 30],
+                [18, 60],
+                [20,90]
               ]
             },
+            // 'heatmap-radius': [
+            //   'interpolate',
+            //   ['linear'],
+            //   ['zoom'],
+            //   0,
+            //   2,
+            //   9,
+            //   20
+            //   ],
             // decrease opacity to transition into the circle layer
             'heatmap-opacity': {
               default: 1,
@@ -125,6 +182,8 @@ export const MapPolutionComponent = () => {
                 [15, 0]
               ]
             }
+            
+               
           }
         },
         'waterway-label'
@@ -139,13 +198,19 @@ export const MapPolutionComponent = () => {
           paint: {
             // increase the radius of the circle as the zoom level and dbh value increases
             'circle-radius': {
-              property: 'dbh',
+              property: 'value',
               type: 'exponential',
               stops: [
-                [{ zoom: 15, value: 1 }, 5],
-                [{ zoom: 15, value: 62 }, 10],
-                [{ zoom: 22, value: 1 }, 20],
-                [{ zoom: 22, value: 62 }, 50]
+                // [{ zoom: 12, value: 1 }, 5],
+                // [{ zoom: 12, value: 62 }, 10*2],
+                // [{ zoom: 22, value: 1 }, 20],
+                // [{ zoom: 22, value: 62 }, 50*2]
+                [{ zoom: 9, value: 1 }, 1],
+                [{ zoom: 9, value: 100 }, 10],
+                [{ zoom: 20, value: 1 }, 3],
+                [{ zoom: 20, value: 100 }, 30]
+                // [{ zoom: 20, value: 100 }, 3]
+                // [{ zoom: 20, value: 100 }, 30]
               ]
             },
             'circle-color': {
@@ -156,17 +221,18 @@ export const MapPolutionComponent = () => {
                 [10, 'rgb(236,222,239)'],
                 [20, 'rgb(208,209,230)'],
                 [30, 'rgb(166,189,219)'],
-                [40, 'rgb(255, 0, 0)'],
-                [50, 'rgb(255, 0, 0)'],
-                [60, 'rgb(255, 0, 0)']
+                [40, 'rgb(103,169,207)'],
+                [50, 'rgb(28,144,153)'],
+                [60, 'rgb(1,108,89)']
               ]
             },
             'circle-stroke-color': 'white',
             'circle-stroke-width': 1,
             'circle-opacity': {
               stops: [
-                [14, 0],
-                [15, 1]
+                [14, 1],
+                [15, 0.5],  // Adjust opacity at zoom level 15 to make circles less visible
+                [18, 0]     // Set opacity to 0 at zoom level 18 to make circles fully transparent
               ]
             }
           }
@@ -178,14 +244,17 @@ export const MapPolutionComponent = () => {
       map.on('click', 'trees-point', (event) => {
         new mapboxgl.Popup()
           .setLngLat(event.features[0].geometry.coordinates)
-          .setHTML(`<strong>DBH:</strong> ${event.features[0].properties.dbh}
+          .setHTML(`
+          <strong>BuildingID:</strong> ${event.features[0].properties.buildingId}
           <strong>NAME:</strong> ${event.features[0].properties.name}
-          <strong>BuildingID:</strong> ${event.features[0].properties.buildingId}`)
+          <strong>VALUE:</strong> ${event.features[0].properties.value}`)
           .addTo(map);
       });
-    });
 
-  }, []);
+      
+
+    });
+  }
 
   return (
     <div

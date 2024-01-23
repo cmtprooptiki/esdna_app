@@ -45,7 +45,7 @@ const MapPolution = () => {
       try {
         const response = await axios.get('http://localhost:5000/buildingmetrics');
         const apiData = response.data;
-
+        
         setBuildingMetrics(apiData);
 
         const uniqueNamesSet = new Set(apiData.map((item) => item.metric.name));
@@ -87,6 +87,7 @@ const MapPolution = () => {
     };
 
     fetchData();
+    
   }, [selectedPeriod, selectedMetric2]);
 
 
@@ -114,7 +115,7 @@ const MapPolution = () => {
 </div>
 
 
-    <MapPolutionComponent></MapPolutionComponent>
+    {<MapPolutionComponent metricName={selectedMetric2} year={selectedPeriod} test="11"></MapPolutionComponent> }
   </div>
     </Layout>
   );
