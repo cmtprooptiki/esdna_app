@@ -6,7 +6,52 @@ import Metric from "../models/MetricModel.js"
 import { Sequelize,Op } from "sequelize";
 
 
+export const importFromCSV = async(req,res)=>{
+    // const {buildingId,metricId,value,year} = req.body
+    // // const { name, coordinates } = req.body; // Assuming the request body contains 'name' and 'coordinates' for the building
 
+
+    // try {
+    //     await BuildingMetric.create({
+    //         buildingId:buildingId,
+    //         metricId:metricId,
+    //         value:value,
+    //         year:year
+    //     });
+    //     res.status(201).json({msg:"BuildingMetric Created succesfuly"})
+
+
+    // }
+    // catch(error){
+    //     res.status(500).json({msg:error.message});
+
+    // }
+    console.log("mpike edw")
+    const data = req.body.data;
+    console.log(data)
+    try {
+      // Bulk insert the data into the database
+      console.log("Bike kai edw")
+      await BuildingMetric.bulkCreate([
+        {  "uuid":"ea4d3725-9830-4565-a6ba-970188dsfse5c",
+          "buildingId": "4",
+          "metricId": "12",
+          "value": "120",
+          "year": "2023-05-01"
+        }
+      ],{ fields: ['uuid','buildingId','metricId','value','year' ] });
+  
+      res.status(200).json({ message: 'Data imported successfully.' });
+    } 
+    catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+
+
+    
+    
+}
 
 export const getGeoMetrics = async (req, res) => {
     try {

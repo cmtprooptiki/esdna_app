@@ -7,7 +7,8 @@ import {
     updateBuildingMetric,
     deleteBuildingMetric,
     getBuildingMetricsAVG,
-    getGeoMetrics
+    getGeoMetrics,
+    importFromCSV
     // getProducts,
     // getProductById,
     // createProduct,
@@ -23,6 +24,7 @@ router.get('/buildingmetrics-avg',verifyUser,getBuildingMetricsAVG)
 router.get('/buildingmetrics-geo',verifyUser,getGeoMetrics);
 router.get('/buildingmetrics/:id',verifyUser,getBuildingMetricsById);
 router.post('/createbuildingmetric',verifyUser,createBuildingMetric);
+router.post('/upload-csv',verifyUser,importFromCSV);
 router.patch('/updatebuildingmetric/:id',verifyUser,updateBuildingMetric);
 router.delete('/deletebuildingmetric/:id',verifyUser,deleteBuildingMetric);
 // router.get('/products/:id',verifyUser,getProductById);

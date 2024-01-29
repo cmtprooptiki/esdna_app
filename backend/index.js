@@ -10,11 +10,13 @@ import BuildingRoute from "./routes/BuildingRoute.js"
 import MetricRoute from "./routes/MetricRoute.js"
 import BuildingMetricRoute from "./routes/BuildingMetricRoute.js";
 import AuthRoute from "./routes/AuthRoute.js";
-
+import bodyParser from "body-parser";
 
 dotenv.config();
 
 const app = express();
+app.use(bodyParser.json());
+
 const sessionStore=SequelizeStore(session.Store);
 
 const store = new sessionStore({
