@@ -27,19 +27,28 @@ export const importFromCSV = async(req,res)=>{
 
     // }
     console.log("mpike edw")
-    const data = req.body.data;
+    const rawdata = req.body.data;
+    console.log(rawdata);
+    const data=convertCSVToJSON(rawdata);
     console.log(data)
     try {
       // Bulk insert the data into the database
       console.log("Bike kai edw")
-      await BuildingMetric.bulkCreate([
-        {  "uuid":"ea4d3725-9830-4565-a6ba-970188dsfse5c",
-          "buildingId": "4",
-          "metricId": "12",
-          "value": "120",
-          "year": "2023-05-01"
-        }
-      ],{ fields: ['uuid','buildingId','metricId','value','year' ] });
+      await BuildingMetric.bulkCreate(data
+        // {
+        //   "buildingId": "4",
+        //   "metricId": "12",
+        //   "value": "120",
+        //   "year": "2023-05-01"
+        // },
+        // {
+        //     "buildingId": "4",
+        //     "metricId": "12",
+        //     "value": "180",
+        //     "year": "2023-05-01"
+        //   }
+      ,{ fields: ['buildingId','metricId','value','year' ],
+      individualHooks: true, });
   
       res.status(200).json({ message: 'Data imported successfully.' });
     } 
@@ -52,6 +61,29 @@ export const importFromCSV = async(req,res)=>{
     
     
 }
+
+
+// Helper function to convert CSV data to JSON
+const convertCSVToJSON = (csvData) => {
+    const headers = csvData[0]; // First array contains headers
+    const jsonData = [];
+  
+    for (let i = 1; i < csvData.length; i++) {
+      const row = csvData[i];
+      const rowData = {};
+  
+      for (let j = 0; j < headers.length; j++) {
+        rowData[headers[j]] = row[j];
+      }
+  
+      jsonData.push(rowData);
+    }
+  
+    return jsonData;
+  };
+
+
+
 
 export const getGeoMetrics = async (req, res) => {
     try {

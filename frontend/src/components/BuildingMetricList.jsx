@@ -21,8 +21,21 @@ const BuildingMetricList = () => {
     <div>
         <h1 className='title'>Overview</h1>
         <h2 className='subtitle'>List of Buildings-Metrics</h2>
-        <Link to={"/buildingmetrics/add"} className='button is-primary mb-2'>Add New</Link>
-        <CSVReaderComponent/>
+
+        <div className="columns">
+          <div className="column">
+            
+                <Link to={"/buildingmetrics/add"} className='button is-primary mb-2'>Add New</Link>
+            
+          </div>
+          <div className="column">
+            
+            <CSVReaderComponent/>
+           
+          </div>
+        
+        </div>
+
 
         <table className='table is-stripped is-fullwidth'>
             <thead>
