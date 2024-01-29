@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from 'react'
 import {Link} from "react-router-dom"
 import axios from 'axios'
-
+import CSVReaderComponent from './CSVReaderComponent'
 const BuildingMetricList = () => {
     const [buildingmetrics,setBuildingMetrics]=useState([]);
 
@@ -22,6 +22,8 @@ const BuildingMetricList = () => {
         <h1 className='title'>Overview</h1>
         <h2 className='subtitle'>List of Buildings-Metrics</h2>
         <Link to={"/buildingmetrics/add"} className='button is-primary mb-2'>Add New</Link>
+        <CSVReaderComponent/>
+
         <table className='table is-stripped is-fullwidth'>
             <thead>
                 <tr>
