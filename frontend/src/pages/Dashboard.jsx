@@ -8,6 +8,8 @@ import axios from 'axios';
 import ApexCharts from 'react-apexcharts';
 import Select from 'react-select';
 import { v4 as uuidv4 } from 'uuid';
+import BuildingMetricsTable from '../components/BuildingMetricsTable';
+
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -474,7 +476,7 @@ const getLimitAnnotation =(metricname)=>{
       <div className="dashboard-container">
 
       {/* Table for displaying building metrics */}
-      <div  className="box">
+      {/*<div  className="box">
         <h1>Building Metrics:</h1>
         <table className='table is-stripped is-fullwidth'>
           <thead>
@@ -505,8 +507,8 @@ const getLimitAnnotation =(metricname)=>{
             ))}
           </tbody>
         </table>
-      </div>
-
+            </div>*/}
+      {<BuildingMetricsTable buildingMetrics={buildingMetrics}></BuildingMetricsTable>}
 
         <div className="columns">
           <div className="column">
