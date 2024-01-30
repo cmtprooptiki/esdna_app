@@ -31,16 +31,6 @@ const Dashboard = () => {
   const [filteredData,setFilteredData]=useState([]);
   const [average,setAverage]=useState(0.0);
 
-// Function to determine text color based on value show status
-const getColorClass = (value) => {
-  if (value < 50) {
-    return 'red-text';
-  } else if (value >= 50 && value < 80) {
-    return 'yellow-text';
-  } else {
-    return 'green-text';
-  }
-};
 
 
 const getColorClass2 = (value, metricname) => {
@@ -224,6 +214,42 @@ const getLimitAnnotation =(metricname)=>{
   });
 
   const [chartSeries, setChartSeries] = useState([]);
+  const [chartSeries3, setChartSeries3] = useState([]);
+
+ // State for RadarChart
+ const [chartOptions3, setChartOptions3] = useState({
+  chart: {
+    height: 350,
+    type: 'radar',
+    dropShadow: {
+      enabled: true,
+      blur: 1,
+      left: 1,
+      top: 1
+    }
+  },
+
+  title: {
+    text: 'Radar Chart - Multi Series'
+  },
+  stroke: {
+    width: 2
+  },
+  fill: {
+    opacity: 0.1
+  },
+  markers: {
+    size: 0
+  },
+  xaxis: {
+    categories: [],
+  }
+
+
+});
+
+
+
 
   // State for BarChart
   const [chartOptions2, setChartOptions2] = useState({
@@ -315,7 +341,8 @@ const getLimitAnnotation =(metricname)=>{
         });
 
         setChartSeries(chartData);
-
+        setChartSeries3(chartData);
+        console.log(chartData);
 
         const limitAnnotation = getLimitAnnotation(selectedMetric);
 
@@ -394,6 +421,17 @@ const getLimitAnnotation =(metricname)=>{
           //   ]
           // }
         });
+
+
+        setChartOptions3({
+          ...chartOptions3,
+          xaxis: {
+            categories: uniqueYears,
+          },
+       
+         
+        });
+
       } catch (error) {
         console.error('Error fetching data for LineChart:', error.message);
       }
@@ -620,6 +658,11 @@ const getLimitAnnotation =(metricname)=>{
       <div className="box">
         <h1>Data List:</h1>
         <ApexCharts options={chartOptions} series={chartSeries} type='line' height={350} />
+      </div>
+
+      <div className="box">
+        <h1>Radar Chart:</h1>
+        <ApexCharts options={chartOptions3} series={chartSeries3} type='radar' height={350} />
       </div>
 
       {/* Dropdown for selecting period */}
