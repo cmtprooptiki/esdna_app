@@ -10,7 +10,7 @@ const CSVReaderComponent = () => {
 
     // Show alert before sending data
     // Show confirmation dialog before sending data
-    const userConfirmed = window.confirm('Are you sure you want to upload this data?');
+    const userConfirmed = window.confirm('Είστε σίγουρος οτι θέλετε να ανεβάσετε τα δεδομένα;');
 
     if (userConfirmed) {
         console.log(data)
@@ -23,7 +23,7 @@ const CSVReaderComponent = () => {
         });
     }else{
     // User clicked "Cancel," do nothing or handle as needed
-    console.log('User canceled upload.');
+    console.log('Ο Χρήστης ακύρωσε την διαδικασία εισαγωγής.');
     }
   };
 

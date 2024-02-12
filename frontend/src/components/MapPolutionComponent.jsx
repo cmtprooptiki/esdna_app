@@ -1,21 +1,44 @@
 import React, { useRef, useEffect,useState } from "react";
 import mapboxgl from "mapbox-gl";
-import axios from 'axios'
+import axios from 'axios';
+import ReactDOM from "react-dom";
+import LineChartComponent from './LineChartComponent';
+
+
 // Grab the access token from your Mapbox account
 // I typically like to store sensitive things like this
 // in a .env file
 // mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_TOKEN
 mapboxgl.accessToken = "pk.eyJ1IjoiY210YWRtaW4iLCJhIjoiY2xyb3Q1bnRrMTlxMjJpcXpnNWh6NjF2aiJ9.dmGnyBg6XFk6LyksCN9tTA";
 
-const coordinates = [
-  { lng: 23.65545900, lat: 38.068968, dbh: 10 },
-  { lng:  23.64825380, lat:38.06584070 , dbh: 45},
-  { lng:  23.65248102	, lat:38.06472785 , dbh: 50},
-];
+// const coordinates = [
+//   { lng: 23.65545900, lat: 38.068968, dbh: 10 },
+//   { lng:  23.64825380, lat:38.06584070 , dbh: 45},
+//   { lng:  23.65248102	, lat:38.06472785 , dbh: 50},
+// ];
 
 export const MapPolutionComponent = (props) => {
   const metricName=props.metricName;
   const year=props.year
+
+
+  function Popup({ buildingname, metricname, metricvalue }) {
+    return (
+      <div className="box">
+        <LineChartComponent selectedMetric={metricName} buildingname={buildingname} />
+  
+        <h3 className="route-name"><strong>{buildingname}</strong></h3>
+        <div className="route-metric-row">
+          <h4 className="row-title"><strong>Ρύπος: </strong>{metricname}</h4>
+        </div>
+        <div className="route-metric-row">
+          <h4 className="row-title"><strong>Τιμή για την επιλεγμένη περίοδο: </strong>{metricvalue}</h4>
+        </div>
+  
+      </div>
+    );
+  }
+
   
 
   const [buildingmetricsGeo,setBuildingMetricsGeo]=useState([]);
@@ -55,6 +78,7 @@ export const MapPolutionComponent = (props) => {
 
 
   const mapContainer = useRef();
+  const popUpRef = useRef(new mapboxgl.Popup({ maxWidth: '600px' }))
 
   // this is where all of our map logic is going to live
   // adding the empty dependency array ensures that the map
@@ -68,6 +92,8 @@ export const MapPolutionComponent = (props) => {
     
 
   }, [buildingmetricsGeo]);
+
+
   const getMapPoints = async(buildingmetricsGeo) =>{
     const map = new mapboxgl.Map({
       // container: "map",
@@ -319,13 +345,30 @@ antialias: true
 
       // Add click event handler for points
       map.on('click', 'trees-point', (event) => {
-        new mapboxgl.Popup()
-          .setLngLat(event.features[0].geometry.coordinates)
-          .setHTML(`
-          <strong>BuildingID:</strong> ${event.features[0].properties.buildingId}
-          <strong>NAME:</strong> ${event.features[0].properties.name}
-          <strong>VALUE:</strong> ${event.features[0].properties.value}`)
-          .addTo(map);
+
+        const popupNode = document.createElement("div")
+
+        ReactDOM.render(
+          <Popup
+            buildingname={event.features[0]?.properties?.buildingId}
+            metricname={event.features[0]?.properties?.name}
+            metricvalue={event.features[0]?.properties?.value}
+          />,
+          popupNode
+        )
+
+        popUpRef.current
+        .setLngLat(event.lngLat)
+        .setDOMContent(popupNode)
+        .addTo(map)
+        
+        // new mapboxgl.Popup()
+        //   .setLngLat(event.features[0].geometry.coordinates)
+        //   .setHTML(`
+        //   <strong>BuildingID:</strong> ${event.features[0].properties.buildingId}
+        //   <strong>NAME:</strong> ${event.features[0].properties.name}
+        //   <strong>VALUE:</strong> ${event.features[0].properties.value}`)
+        //   .addTo(map);
       });
 
       

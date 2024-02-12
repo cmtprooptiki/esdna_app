@@ -47,7 +47,8 @@ const BuildingMetric = db.define('BuildingMetric', {
       },
 
       year: {
-        type: DataTypes.DATEONLY, // Change the type to DATE
+        type: DataTypes.STRING,
+        // type: DataTypes.DATEONLY, // Change the type to DATE
         allowNull: false,
         validate:{
             notEmpty: true

@@ -21,17 +21,16 @@ const UserList = () => {
   return (
     <div>
         
-        <h1 className='title'>Users</h1>
-        <h2 className='subtitle'>List of Users</h2>
-        <Link to={"/users/add"} className='button is-primary mb-2'>Add New</Link>
+        <h1 className='title'>Χρήστες</h1>
+        <Link to={"/users/add"} className='button is-primary mb-2'>Προσθήκη Νέου</Link>
         <table className='table is-stripped is-fullwidth'>
             <thead>
                 <tr>
-                    <th>No</th>
-                    <th>Name</th>
+                    <th>#</th>
+                    <th>Όνομα Χρήστη</th>
                     <th>Email</th>
-                    <th>Role</th>
-                    <th>Actions</th>
+                    <th>Ρόλος</th>
+                    <th>Ενέργεια</th>
                 </tr>
             </thead>
             <tbody>
@@ -42,8 +41,8 @@ const UserList = () => {
                         <td>{user.email}</td>
                         <td>{user.role}</td>
                         <td>
-                            <Link to={`/users/edit/${user.uuid}`} className='button is-small is-info'>Edit</Link>
-                            <button onClick={()=>deleteUser(user.uuid)} className='button is-small is-danger'>Delete</button>
+                            <Link to={`/users/edit/${user.uuid}`} className='button is-small is-info'>Επεξεργασία</Link>
+                            <button onClick={()=>deleteUser(user.uuid)} className='button is-small is-danger'>Διαγραφή</button>
                         </td>
                     </tr>
                 ))}
