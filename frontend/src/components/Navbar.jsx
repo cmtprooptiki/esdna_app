@@ -43,7 +43,7 @@ const Navbar =()=>{
                     <div className="buttons">
                       
                       <button onClick={logout} className="button is-light">
-                        Log out
+                        Αποσύνδεση
                       </button>
                     </div>
                   </div>

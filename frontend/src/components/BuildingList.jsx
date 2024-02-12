@@ -1,6 +1,7 @@
 import React,{useState,useEffect} from 'react'
 import {Link} from "react-router-dom"
 import axios from 'axios'
+import '../buildinglist.css';
 
 const BuildingList = () => {
     const [buildings,setBuildings]=useState([]);
@@ -20,19 +21,19 @@ const BuildingList = () => {
 
   return (
     <div>
-        <h1 className='title'>Buildings</h1>
-        <h2 className='subtitle'>List of Buildings</h2>
-        <Link to={"/buildings/add"} className='button is-primary mb-2'>Add New</Link>
+        <h1 className='title'>Σημεία Μέτρησης</h1>
+        <Link to={"/buildings/add"} className='button is-primary mb-2'>Προσθήκη Νέου</Link>
         <table className='table is-stripped is-fullwidth'>
             <thead>
                 <tr>
 
-                    <th>Number2</th>
+                    <th>#</th>
 
-                    <th>Building Name</th>
-                    <th>Latitude</th>
-                    <th>Lon</th>
-                    <th>Category</th>
+                    <th>Όνομα Σημείου</th>
+                    <th>Γεωγραφικό πλάτος (Lat)</th>
+                    <th>Γεωγραφικό μήκος(Lon)</th>
+                    <th>Κατηγορία</th>
+                    <th>Εκτέλεση</th>
 
                 </tr>
             </thead>
@@ -45,9 +46,9 @@ const BuildingList = () => {
                         <td>{building.lon}</td>
                         <td>{building.category}</td>
                         <td>
-                            <Link to={`/buildings/profile/${building.uuid}`} className='button is-small is-info'>Profile</Link>
-                            <Link to={`/buildings/edit/${building.uuid}`} className='button is-small is-info'>Edit</Link>
-                            <button onClick={()=>deleteBuilding(building.uuid)} className='button is-small is-danger'>Delete</button>
+                            <Link to={`/buildings/profile/${building.uuid}`} className='button is-small is-info'>Προφίλ</Link>
+                            <Link to={`/buildings/edit/${building.uuid}`} className='button is-small is-info'>Επεξεργασία</Link>
+                            <button onClick={()=>deleteBuilding(building.uuid)} className='button is-small is-danger'>Διαγραφή</button>
                         </td>
                     </tr>
                 ))}

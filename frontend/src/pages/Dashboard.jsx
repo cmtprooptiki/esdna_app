@@ -4,18 +4,36 @@ import Welcome from '../components/Welcome';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { getMe } from '../features/authSlice';
+
 import axios from 'axios';
 import ApexCharts from 'react-apexcharts';
 import Select from 'react-select';
 import { v4 as uuidv4 } from 'uuid';
 import BuildingMetricsTable from '../components/BuildingMetricsTable';
-
+import {IconContext } from "react-icons";
+import { GiBubbles } from "react-icons/gi";
+import { HiOutlineLocationMarker } from "react-icons/hi";
+import '../dashboard.css';
 
 const Dashboard = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const {isError} = useSelector((state=>state.auth));
 
-  const { isError } = useSelector((state) => state.auth);
+  useEffect(()=>{
+      dispatch(getMe());
+  },[dispatch]);
+
+  useEffect(()=>{
+      if(isError){
+          navigate("/");
+      }
+  },[isError,navigate]);
+
+  // const dispatch = useDispatch();
+  // const navigate = useNavigate();
+
+  // const { isError } = useSelector((state) => state.auth);
 
   // State for building metrics
   const [buildingMetrics, setBuildingMetrics] = useState([]);
@@ -264,7 +282,7 @@ const getLimitAnnotation =(metricname)=>{
       enabled: false,
     },
     title: {
-      text: 'Page bar',
+      text: 'Ραβδόγραμμα Συγκέντρωσης Αερίου - Aνά Σημείο Μέτρησης και Aνά Περίοδο Μετρήσεων',
       align: 'left',
     },
   });
@@ -312,15 +330,18 @@ const getLimitAnnotation =(metricname)=>{
     fetchData();
   }, []);
 
-  useEffect(() => {
-    dispatch(getMe());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(getMe());
+  // }, [dispatch]);
 
-  useEffect(() => {
-    if (isError) {
-      navigate('/');
-    }
-  }, [isError, navigate]);
+  // useEffect(() => {
+  //   if (isError) {
+  //     navigate('/');
+  //   }
+  // }, [isError, navigate]);
+
+
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -389,37 +410,7 @@ const getLimitAnnotation =(metricname)=>{
             categories: uniqueYears,
           },
           annotations,
-          // annotations: {
-          //   yaxis: [
-          //     {
-          //       y: getLimitAnnotation(selectedMetric).max,
-          //       borderColor: '#ff0000',
-          //       label: {
-          //         borderColor: '#ff0000',
-          //         style: {
-          //           color: '#fff',
-          //           background: '#ff0000'
-          //         },
-          //         text: 'Max limit '+getLimitAnnotation(selectedMetric).max
-          //       }
-          //     },
-          //     {
-          //       y: getLimitAnnotation(selectedMetric).min,
-          //       borderColor: '#ff0000',
-          //       label: {
-          //         borderColor: '#ff0000',
-          //         style: {
-          //           color: '#fff',
-          //           background: '#ff0000'
-          //         },
-          //         text: 'Min limit '+getLimitAnnotation(selectedMetric).min
-          //       }
-          //     },
 
-
-
-          //   ]
-          // }
         });
 
 
@@ -513,52 +504,36 @@ const getLimitAnnotation =(metricname)=>{
       <Welcome />
       <div className="dashboard-container">
 
-      {/* Table for displaying building metrics */}
-      {/*<div  className="box">
-        <h1>Building Metrics:</h1>
-        <table className='table is-stripped is-fullwidth'>
-          <thead>
-            <tr>
-              <th>No</th>
-              <th>Building Name</th>
-              <th>Metric Name</th>
-              <th>Metric Value</th>
-              <th>concentration</th>
-              <th>Year</th>
-            </tr>
-          </thead>
-          <tbody>
-            {buildingMetrics.map((buildingMetric, index) => (
-              // <tr key={buildingMetric.id}>
-              <tr key={uuidv4()}>
-                <td>{index + 1}</td>
-                <td>{buildingMetric.building.name}</td>
-                <td>{buildingMetric.metric.name}</td>
-                <td>{buildingMetric.value}</td>
-                
-                  <span className={getColorClass2(buildingMetric.value, buildingMetric.metric.name).className}>
-                    <td>{getColorClass2(buildingMetric.value, buildingMetric.metric.name).label}</td>
-                  </span>
-                
-                <td>{buildingMetric.year}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-            </div>*/}
       {<BuildingMetricsTable buildingMetrics={buildingMetrics}></BuildingMetricsTable>}
 
         <div className="columns">
           <div className="column">
             <div className="box">
-              <h3>Συνολικός αριθμός σημείων μέτρησης</h3>
-              <p>{buildingNames.length}</p>
+              <IconContext.Provider value={{ color: "white", size:'0.6em', className: "global-class-name" }}>
+
+              <div className="icon-div">
+              <HiOutlineLocationMarker />
+              </div>
+              </IconContext.Provider>
+              <div className="layout-kpis">
+
+              <h3  className="totals-text">Συνολικός αριθμός σημείων μέτρησης</h3>
+              <p class="kpis-number">{buildingNames.length}</p>
+              </div>
             </div> 
           </div>
           <div className="column">
             <div className="box">
-              <h3>Συνολικός αριθμός Αερίων</h3>
-              <p>{uniqueMetricNames.size}</p>
+            <IconContext.Provider value={{ color: "white", size:'0.6em', className: "global-class-name" }}>
+
+              <div className="icon-div">
+              <GiBubbles/>
+              </div>
+            </IconContext.Provider>
+              <div className="layout-kpis">
+              <h3 className="totals-text">Συνολικός αριθμός καταχωρημένων ρύπων</h3>
+              <p class="kpis-number">{uniqueMetricNames.size}</p>
+              </div>
             </div> 
           </div>
         
@@ -570,7 +545,7 @@ const getLimitAnnotation =(metricname)=>{
 
       <div className="box">
 
-      <label>Select Building for kpis:</label>
+      <label>Επιλέξτε Σημείο Μέτρησης</label>
           <Select
             value={{ label: selectedBuilding, value: selectedBuilding }}
             onChange={(selectedOption) => setSelectedBuilding(selectedOption.value)}
@@ -579,7 +554,7 @@ const getLimitAnnotation =(metricname)=>{
 
 
 
-          <label>Select Metric for linechart and kpis:</label>
+          <label>Επιλέξτε ρύπο</label>
           <Select
             value={{ label: selectedMetric, value: selectedMetric }}
             onChange={(selectedOption) => setSelectedMetric(selectedOption.value)}
@@ -596,11 +571,11 @@ const getLimitAnnotation =(metricname)=>{
         <table className='table is-stripped is-fullwidth'>
           <thead>
             <tr>
-              <th>No</th>
-              <th>Building Name</th>
-              <th>Metric Name</th>
-              <th>Metric Value</th>
-              <th>Year</th>
+              <th>#</th>
+              <th>Όνομα Σημείου</th>
+              <th>Όνομα Ρύπου</th>
+              <th>Τιμή</th>
+              <th>Περίοδος Μέτρησης</th>
             </tr>
           </thead>
           <tbody>
@@ -687,14 +662,14 @@ const getLimitAnnotation =(metricname)=>{
         </div> */}
         <div className="box">
 
-        <label>Select Metric for Bar:</label>
+        <label>Επιλέξτε ρύπο</label>
           <Select
             value={{ label: selectedMetric2, value: selectedMetric2 }}
             onChange={(selectedOption) => setSelectedMetric2(selectedOption.value)}
             options={[...uniqueMetricNames].map((metricName) => ({ label: metricName, value: metricName,key:uuidv4()}))}
           />
 
-          <label>Select Period for Bar:</label>
+          <label>Επιλέξτε περίοδο μετρήσεων</label>
           <Select
             value={{ label: selectedPeriod, value: selectedPeriod }}
             onChange={(selectedOption) => setSelectedPeriod(selectedOption.value)}
@@ -709,11 +684,11 @@ const getLimitAnnotation =(metricname)=>{
         <table className='table is-stripped is-fullwidth'>
           <thead>
             <tr>
-              <th>No</th>
-              <th>Building Name</th>
-              <th>Metric Name</th>
-              <th>Metric Value</th>
-              <th>Year</th>
+              <th>#</th>
+              <th>Όνομα Σημείου</th>
+              <th>Όνομα Ρύπου</th>
+              <th>Τιμή</th>
+              <th>Περίοδος Μέτρησης</th>
             </tr>
           </thead>
           <tbody>
@@ -733,7 +708,6 @@ const getLimitAnnotation =(metricname)=>{
 
       {/* BarChart */}
       <div className="box">
-        <h1>Bar Plot </h1>
         <ApexCharts options={chartOptions2} series={chartSeries2} type='bar' height={350} />
       </div>
 

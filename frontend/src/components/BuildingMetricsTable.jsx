@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import ChatGPTAdviser  from './ChatGPTAdviser';
 
 const BuildingMetricsTable = ({ buildingMetrics }) => {
   const itemsPerPage = 25;
@@ -10,6 +11,8 @@ const BuildingMetricsTable = ({ buildingMetrics }) => {
   const currentItems = buildingMetrics.slice(indexOfFirstItem, indexOfLastItem);
 
   const totalPages = Math.ceil(buildingMetrics.length / itemsPerPage);
+
+  
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -82,16 +85,17 @@ const BuildingMetricsTable = ({ buildingMetrics }) => {
 
   return (
     <div className="box">
-      <h1>Building Metrics:</h1>
+      <h1>Συγκεντρωτικός Πίνακας Μετρήσεων</h1>
       <table className='table is-stripped is-fullwidth'>
         <thead>
           <tr>
-            <th>No</th>
-            <th>Building Name</th>
-            <th>Metric Name</th>
-            <th>Metric Value</th>
-            <th>Concentration</th>
-            <th>Year</th>
+            <th>#</th>
+              <th>Όνομα Σημείου</th>
+              <th>Όνομα Αερίου</th>
+              <th>Τιμή</th>
+              <th>Ερμηνεία AI</th>
+            <th>Συγκέντρωση</th>
+            <th>Περίοδος Μέτρησης</th>
           </tr>
         </thead>
         <tbody>
@@ -101,6 +105,7 @@ const BuildingMetricsTable = ({ buildingMetrics }) => {
               <td>{buildingMetric.building.name}</td>
               <td>{buildingMetric.metric.name}</td>
               <td>{buildingMetric.value}</td>
+              <td><ChatGPTAdviser metricname={buildingMetric.metric.name} value={buildingMetric.value}></ChatGPTAdviser></td>
               <td>
                 <span className={getColorClass2(buildingMetric.value, buildingMetric.metric.name).className}>
                   {getColorClass2(buildingMetric.value, buildingMetric.metric.name).label}

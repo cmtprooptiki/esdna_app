@@ -1,14 +1,23 @@
 import React from 'react'
 import {NavLink} from "react-router-dom"
 import {IoPerson,IoPricetag,IoHome,IoLogOut} from "react-icons/io5";
+import { FaMap } from "react-icons/fa";
+import { GiBubbles } from "react-icons/gi";
+import { MdScience } from "react-icons/md";
+import { AiFillDashboard } from "react-icons/ai";
+
+
 import { useDispatch,useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import {LogOut, LoginUser,reset} from "../features/authSlice"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faWind,faDroplet,faTemperatureLow,faTemperatureHigh } from '@fortawesome/free-solid-svg-icons';
 
 export const Sidebar = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const {user} = useSelector((state)=>state.auth)
+    
     const logout = ()=>{
         dispatch(LogOut());
         dispatch(reset());
@@ -17,29 +26,28 @@ export const Sidebar = () => {
   return (
     <div>
         <aside className="menu pl-2 has-shadow">
-            <p className="menu-label">General</p>
+            <p className="menu-label">Γενικα</p>
             <ul className="menu-list">
-                <li><NavLink to="/dashboard"><IoHome/>Dashboard</NavLink></li>
-                <li><NavLink to="/map"><IoHome/>Map</NavLink></li>
+                <li><NavLink to="/dashboard"><AiFillDashboard/> Dashboard</NavLink></li>
+                <li><NavLink to="/map"><FaMap /> Χάρτης</NavLink></li>
 
-                <li><NavLink to="/products"><IoPricetag/> Products</NavLink></li>
-                <li><NavLink to="/buildings"><IoPricetag/> Buildings</NavLink></li>
-                <li><NavLink to="/metrics"><IoPricetag/> Metrics</NavLink></li>
-                <li><NavLink to="/buildingmetrics"><IoPricetag/> BuildingMetrics</NavLink></li>
+                <li><NavLink to="/buildings"><IoPricetag/> Σημεία Μέτρησης</NavLink></li>
+                <li><NavLink to="/metrics"><GiBubbles/> Ρύποι</NavLink></li>
+                <li><NavLink to="/buildingmetrics"><MdScience/> Μετρήσεις Ρύπων</NavLink></li>
 
             </ul>
             {user && user.role ==="admin" && (
                 <div>
-                    <p className="menu-label">Admin</p>
+                    <p className="menu-label">Διαχειρηστης</p>
                     <ul className="menu-list">
-                        <li><NavLink to="/users"><IoPerson/> Users</NavLink></li>
+                        <li><NavLink to="/users"><IoPerson/> Χρήστες</NavLink></li>
                     </ul>
                 </div>
             )}
             
-            <p className="menu-label">Settings</p>
+            <p className="menu-label">Ρυθμησεις</p>
             <ul className="menu-list">
-                <li><button onClick={logout} className='button is-white'><IoLogOut/> Logout</button></li>
+                <li><button onClick={logout} className='button is-white'><IoLogOut/> Αποσύνδεση</button></li>
             </ul>
         </aside>
     </div>

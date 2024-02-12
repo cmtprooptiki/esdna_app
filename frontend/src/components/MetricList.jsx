@@ -19,17 +19,17 @@ const MetricList = () => {
     }
   return (
     <div>
-        <h1 className='title'>Metrics</h1>
-        <h2 className='subtitle'>List of Metrics</h2>
-        <Link to={"/metrics/add"} className='button is-primary mb-2'>Add New</Link>
+        <h1 className='title'>Αέριοι Ρύποι</h1>
+
+        <Link to={"/metrics/add"} className='button is-primary mb-2'>Προσθήκη Νέου</Link>
         <table className='table is-stripped is-fullwidth'>
             <thead>
                 <tr>
-                    <th>No</th>
-                    <th>Metric Name</th>
-                    <th>Metric Unit Measure</th>
-                    <th>Metric Description</th>
-
+                    <th>#</th>
+                    <th>Όνομα Ρύπου</th>
+                    <th>Μονάδα Μέτρησης ρύπου</th>
+                    <th>Περιγραφή</th>
+                    <th>Εκτέλεση</th>
                 </tr>
             </thead>
             <tbody>
@@ -41,8 +41,8 @@ const MetricList = () => {
                         <td>{metric.unit_desc}</td>
 
                         <td>
-                            <Link to={`/metrics/edit/${metric.uuid}`} className='button is-small is-info'>Edit</Link>
-                            <button onClick={()=>deleteMetric(metric.uuid)} className='button is-small is-danger'>Delete</button>
+                            <Link to={`/metrics/edit/${metric.uuid}`} className='button is-small is-info'>Επεξεργασία</Link>
+                            <button onClick={()=>deleteMetric(metric.uuid)} className='button is-small is-danger'>Διαγραφή</button>
                         </td>
                     </tr>
                 ))}

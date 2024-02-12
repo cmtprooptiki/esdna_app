@@ -99,14 +99,14 @@ const MapPolution = () => {
   <div>
   <div className="box">
 
-<label>Select Metric for Bar:</label>
+<label>Επιλέξτε ρύπο αερίου</label>
   <Select
     value={{ label: selectedMetric2, value: selectedMetric2 }}
     onChange={(selectedOption) => setSelectedMetric2(selectedOption.value)}
     options={[...uniqueMetricNames].map((metricName) => ({ label: metricName, value: metricName,key:uuidv4()}))}
   />
 
-  <label>Select Period for Bar:</label>
+  <label>Επιλέξτε περίοδο μετρήσεων</label>
   <Select
     value={{ label: selectedPeriod, value: selectedPeriod }}
     onChange={(selectedOption) => setSelectedPeriod(selectedOption.value)}

@@ -120,6 +120,38 @@ export const getGeoMetrics = async (req, res) => {
                 ]
               });
 
+        }else {
+
+            response = await BuildingMetric.findAll({
+                attributes: [
+                  'id',
+                  'uuid',
+                  [Building.sequelize.literal('building.id'), 'buildingId'],
+                  [Metric.sequelize.literal('metric.id'), 'metricId'],
+                  [Building.sequelize.literal('building.name'), 'buildingName'],
+                  [Metric.sequelize.literal('metric.name'), 'metricName'],
+                  'value',
+                  'year',
+                  [Building.sequelize.literal('building.lat'), 'lat'],
+                  [Building.sequelize.literal('building.lon'), 'lon']                ],
+                include: [
+                  {
+                    model: Building,
+                    attributes: [],
+                    where: {
+                      id: BuildingMetric.sequelize.col('buildingId')
+                    }
+                  },
+                  {
+                    model: Metric,
+                    attributes: [],
+                    where: {
+                      id: BuildingMetric.sequelize.col('metricId')
+                    }
+                  }
+                ]
+              });
+
         }
         res.status(200).json(response);
 
@@ -190,6 +222,28 @@ export const getBuildingMetrics = async(req,res)=>{
 
 
             });
+        }else {
+
+            response=await BuildingMetric.findAll({
+                attributes:['uuid','year','value'] ,
+                include:[
+                    {
+                    model:Building,
+                    attributes:['name','lat','lon','category'],
+                },
+                {
+                    model:Metric,
+                    attributes:['name','unit','unit_desc']
+                            
+                }
+           ],
+           order: [['year', 'ASC']] // Add this line to order by 'year' in ascending order
+
+
+            });
+
+
+
         }
         
      
