@@ -93,7 +93,7 @@ const BuildingMetricsTable = ({ buildingMetrics }) => {
               <th>Όνομα Σημείου</th>
               <th>Όνομα Αερίου</th>
               <th>Τιμή</th>
-              <th>Ερμηνεία AI</th>
+              {/* <th>Ερμηνεία AI</th> */}
             <th>Συγκέντρωση</th>
             <th>Περίοδος Μέτρησης</th>
           </tr>
@@ -105,7 +105,7 @@ const BuildingMetricsTable = ({ buildingMetrics }) => {
               <td>{buildingMetric.building.name}</td>
               <td>{buildingMetric.metric.name}</td>
               <td>{buildingMetric.value}</td>
-              <td><ChatGPTAdviser metricname={buildingMetric.metric.name} value={buildingMetric.value}></ChatGPTAdviser></td>
+              {/* <td><ChatGPTAdviser metricname={buildingMetric.metric.name} value={buildingMetric.value}></ChatGPTAdviser></td> */}
               <td>
                 <span className={getColorClass2(buildingMetric.value, buildingMetric.metric.name).className}>
                   {getColorClass2(buildingMetric.value, buildingMetric.metric.name).label}
