@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 
 
-export const HelperComponent = () => {
+
 
     
-const getColorClass2 = (value, metricname) => {
+export const getColorClass2 = (value, metricname) => {
     // Define color cases based on metricname
     switch (metricname) {
       case 'PM10':
@@ -70,7 +70,7 @@ const getColorClass2 = (value, metricname) => {
   };
 
 
-  const getLimitAnnotation =(metricname)=>{
+export  const getLimitAnnotation =(metricname)=>{
     switch (metricname) {
       case 'PM10':
         return{
@@ -130,9 +130,81 @@ const getColorClass2 = (value, metricname) => {
     }
   };
 
-  return null;
+export const circleColorArray= (metricname)=>{
+  
+  switch (metricname) {
+    case 'PM10':
+      return{
+        colorArray:[[0, 'rgba(0,255,0,0)'],
+        [10, 'rgb(0,255,0)'],
+        [20, 'rgb(0,255,0)'],
+        [30, 'rgb(0,255,0)'],
+        [40, 'rgb(0,255,0)'],
+        [49, 'rgb(255,0,0)'],
+        [50, 'rgb(255,0,0)']] 
+        
+    };
+    // case 'PM2.5':
+    //   return{
+    //     max:20
+    // };
+    // case 'SO2':
+    //   return{
+    //     max: 125
+    // };
+    // case 'CO':
+    //   return{
+    //     max:10
+    // };
+    // case 'NO2':
+    //   return{
+    //     max:40 
+    // };
+    case 'TSP':
+      return {
+        colorArray:[[0, 'rgba(0,255,0,0)'],
+        [10, 'rgb(0,255,0)'],
+        [20, 'rgb(0,255,0)'],
+        [30, 'rgb(0,255,0)'],
+        [40, 'rgb(0,255,0)'],
+        [50, 'rgb(0,255,0)'],
+        [59, 'rgb(255,255,0)'],
+        [60, 'rgb(255,255,0)'],
+        [70, 'rgb(255,255,0)'],
+        [79, 'rgb(255,255,0)'],
+        [80, 'rgb(255,0,0)']
+      ] 
+    };
+    // case 'TEQ PCDD/Fs':
+    //   return {
+    //     min:42,
+    //     max:150 
+    // };
+    // case 'TEQ PCBS':
+    //   return {
+    //     min:10,
+    //     max:40 
+    // };
+    // case 'ind PCBs':
+    //   return {
+    //     min:60,
+    //     max:180 
+    // };
+    // case 'NO':
+    //   return {
+    //     min:10,
+    //     max:50 
+    // };
+    // case 'OC/EC':
+    //   return {
+    //     min:5/0.5,
+    //     max:20/2 
+    // };
+    // Add more cases as needed
+    default:
+      return {colorArray:[[0, 'rgba(0,255,0,0)']] }; // Default label and class name
+  }
+};
 
-}
-export default HelperComponent;
  
 

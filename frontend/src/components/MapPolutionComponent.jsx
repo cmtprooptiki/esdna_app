@@ -3,7 +3,7 @@ import mapboxgl from "mapbox-gl";
 import axios from 'axios';
 import ReactDOM from "react-dom";
 import LineChartComponent from './LineChartComponent';
-
+import {circleColorArray} from '../components/HelperComponent';
 
 // Grab the access token from your Mapbox account
 // I typically like to store sensitive things like this
@@ -20,7 +20,19 @@ mapboxgl.accessToken = "pk.eyJ1IjoiY210YWRtaW4iLCJhIjoiY2xyb3Q1bnRrMTlxMjJpcXpnN
 export const MapPolutionComponent = (props) => {
   const metricName=props.metricName;
   const year=props.year
-
+  let colorArray=circleColorArray(metricName);
+  console.log(circleColorArray(metricName));
+  // if(metricName==="PM10"){
+  //   colorArray = [
+  //     [0, 'rgba(236,222,239,0)'],
+  //     [10, 'rgb(236,222,239)'],
+  //     [20, 'rgb(208,209,230)'],
+  //     [30, 'rgb(166,189,219)'],
+  //     [40, 'rgb(103,169,207)'],
+  //     [50, 'rgb(28,144,153)'],
+  //     [60, 'rgb(1,108,89)']
+  // ];
+  // }
 
   function Popup({ buildingname, metricname, metricvalue }) {
     return (
@@ -193,97 +205,115 @@ antialias: true
           })),
         },
       });
-
-      map.addLayer(
-        {
-          id: 'trees-heat',
-          type: 'heatmap',
-          source: 'trees',
-          maxzoom: 20,
-          paint: {
-            // increase weight as diameter breast height increases
-            'heatmap-weight': {
-              property: 'value',
-              type: 'exponential',
-              stops: [
-                [1, 0],
-                [62, 1]
-                // [1,0],
-                // [15,20],
-                // [30,40],
-                // [45,60],
-                // [60,80]
+      
+      // map.addLayer(
+      //   {
+      //     id: 'trees-heat',
+      //     type: 'heatmap',
+      //     source: 'trees',
+      //     maxzoom: 20,
+      //     paint: {
+      //       // increase weight as diameter breast height increases
+      //       'heatmap-weight': {
+      //         property: 'value',
+      //         type: 'exponential',
+      //         stops: [
+      //           [1, 0],
+      //           [50, 10]
+      //           // [1,0],
+      //           // [15,20],
+      //           // [30,40],
+      //           // [45,60],
+      //           // [60,80]
                 
-              ]
-            },
-            // increase intensity as zoom level increases
-            'heatmap-intensity': {
-              stops: [
-                [11, 2],
-                [18, 5],
-                [20,15]
-              ]
-            },
-            // assign color values be applied to points depending on their density
-            'heatmap-color': [
-              'interpolate',
-              ['linear'],
-              ['heatmap-density'],
-              // 0,
-              // 'rgba(236,222,239,0)',
-              // 0.2,
-              // 'rgb(208,209,230)',
-              // 0.4,
-              // 'rgb(166,189,219)',
-              // 0.6,
-              // 'rgb(103,169,207)',
-              // 0.8,
-              // 'rgb(28,144,153)'
-              0,
-              'rgba(0, 0, 255, 0)',    // Adjusted color to emphasize heatmap effect
-              0.1,
-              'rgb(0, 0, 255)',
-              0.3,
-              'rgb(0, 255, 0)',
-              0.6,
-              'rgb(255, 255, 0)',
-              0.8,
-              'rgb(255, 165, 0)',
-              1,
-              'rgb(255, 0, 0)'
-            ],
-            // increase radius as zoom increases
-            'heatmap-radius': {
-              stops: [
-                // [1, 25],
-                [11, 30],
-                [18, 60],
-                [20,90]
-              ]
-            },
-            // 'heatmap-radius': [
-            //   'interpolate',
-            //   ['linear'],
-            //   ['zoom'],
-            //   0,
-            //   2,
-            //   9,
-            //   20
-            //   ],
-            // decrease opacity to transition into the circle layer
-            'heatmap-opacity': {
-              default: 1,
-              stops: [
-                [14, 1],
-                [15, 0]
-              ]
-            }
+      //         ]
+      //       },
+      //       // increase intensity as zoom level increases
+      //       'heatmap-intensity': {
+      //         stops: [
+      //           [11, 2],
+      //           [18, 5],
+      //           [20,15]
+      //         ]
+      //       },
+      //       // assign color values be applied to points depending on their density
+      //       'heatmap-color': [
+      //         'interpolate',
+      //         ['linear'],
+      //         ['heatmap-density'],
+      //         ['get', 'value'],
+      //         // 0,
+      //         // 'rgba(236,222,239,0)',
+      //         // 0.2,
+      //         // 'rgb(208,209,230)',
+      //         // 0.4,
+      //         // 'rgb(166,189,219)',
+      //         // 0.6,
+      //         // 'rgb(103,169,207)',
+      //         // 0.8,
+      //         // 'rgb(28,144,153)'
+      //         // 0,
+      //         // 'rgba(0, 0, 255, 0)',    // Adjusted color to emphasize heatmap effect
+      //         // 0.1,
+      //         // 'rgb(0, 0, 255)',
+      //         // 0.3,
+      //         // 'rgb(0, 255, 0)',
+      //         // 0.6,
+      //         // 'rgb(255, 255, 0)',
+      //         // 0.8,
+      //         // 'rgb(255, 165, 0)',
+      //         // 1,
+      //         // 'rgb(255, 0, 0)',
+      //         // 0,
+      //         // 'rgba(0, 0, 255, 0)',    // Adjusted color to emphasize heatmap effect
+      //         // 0.1,
+      //         // 'rgb(0, 255, 0)',
+      //         // 0.3,
+      //         // 'rgb(0, 255, 0)',
+      //         // 0.6,
+      //         // 'rgb(0, 255, 0)',
+      //         // 0.8,
+      //         // 'rgb(0, 255, 0)',
+      //         // 1,
+      //         // 'rgb(0, 255, 0)',
+      //         0, 'rgba(0, 255, 0, 0)', // Green for values <= 0
+      //          0.5, 'rgba(0, 255, 0, 1)', // Green for values <= 50
+      //           0.6, 'rgba(255, 0, 0, 1)', // Red for values > 50
+      //         0.8, 'rgba(255, 0, 0, 1)' // Red for values > 62
+              
+      //       ],
+      //       // increase radius as zoom increases
+      //       'heatmap-radius': {
+      //         stops: [
+      //           // [1, 25],
+      //           [11, 30],
+      //           [18, 60],
+      //           [20,90]
+      //         ]
+      //       },
+      //       // 'heatmap-radius': [
+      //       //   'interpolate',
+      //       //   ['linear'],
+      //       //   ['zoom'],
+      //       //   0,
+      //       //   2,
+      //       //   9,
+      //       //   20
+      //       //   ],
+      //       // decrease opacity to transition into the circle layer
+      //       'heatmap-opacity': {
+      //         default: 1,
+      //         stops: [
+      //           [14, 1],
+      //           [15, 0]
+      //         ]
+      //       }
             
                
-          }
-        },
-        'waterway-label'
-      );
+      //     }
+      //   },
+      //   'waterway-label'
+      // );
     
       map.addLayer(
         {
@@ -301,8 +331,8 @@ antialias: true
                 // [{ zoom: 12, value: 62 }, 10*2],
                 // [{ zoom: 22, value: 1 }, 20],
                 // [{ zoom: 22, value: 62 }, 50*2]
-                [{ zoom: 9, value: 1 }, 1],
-                [{ zoom: 9, value: 100 }, 10],
+                [{ zoom: 3, value: 1 }, 1],
+                [{ zoom: 3, value: 100 }, 10],
                 [{ zoom: 20, value: 1 }, 3],
                 [{ zoom: 20, value: 100 }, 30]
                 // [{ zoom: 20, value: 100 }, 3]
@@ -310,25 +340,18 @@ antialias: true
               ]
             },
             'circle-color': {
-              property: 'dbh',
+              property: 'value',
               type: 'exponential',
-              stops: [
-                [0, 'rgba(236,222,239,0)'],
-                [10, 'rgb(236,222,239)'],
-                [20, 'rgb(208,209,230)'],
-                [30, 'rgb(166,189,219)'],
-                [40, 'rgb(103,169,207)'],
-                [50, 'rgb(28,144,153)'],
-                [60, 'rgb(1,108,89)']
-              ]
+              stops: colorArray.colorArray
+              
             },
             'circle-stroke-color': 'white',
             'circle-stroke-width': 1,
             'circle-opacity': {
               stops: [
-                [14, 1],
-                [15, 0.5],  // Adjust opacity at zoom level 15 to make circles less visible
-                [18, 0]     // Set opacity to 0 at zoom level 18 to make circles fully transparent
+                [15, 1],
+                [20, 0.5],  // Adjust opacity at zoom level 15 to make circles less visible
+                [25, 0]     // Set opacity to 0 at zoom level 18 to make circles fully transparent
               ]
             }
           }

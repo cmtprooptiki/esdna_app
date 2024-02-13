@@ -1,10 +1,10 @@
 import React,{useState,useEffect} from 'react'
 import {Link} from "react-router-dom"
 import axios from 'axios'
-
+import { useSelector } from 'react-redux'
 const MetricList = () => {
     const [products,setMetrics]=useState([]);
-
+    const {user} = useSelector((state)=>state.auth)
     useEffect(()=>{
         getMetrics()
     },[]);
@@ -20,8 +20,9 @@ const MetricList = () => {
   return (
     <div>
         <h1 className='title'>Αέριοι Ρύποι</h1>
-
+        {user && user.role ==="admin" && (
         <Link to={"/metrics/add"} className='button is-primary mb-2'>Προσθήκη Νέου</Link>
+        )}
         <table className='table is-stripped is-fullwidth'>
             <thead>
                 <tr>
@@ -29,7 +30,9 @@ const MetricList = () => {
                     <th>Όνομα Ρύπου</th>
                     <th>Μονάδα Μέτρησης ρύπου</th>
                     <th>Περιγραφή</th>
+                    {user && user.role ==="admin" && (
                     <th>Εκτέλεση</th>
+                    )}
                 </tr>
             </thead>
             <tbody>
@@ -39,11 +42,12 @@ const MetricList = () => {
                         <td>{metric.name}</td>
                         <td>{metric.unit}</td>
                         <td>{metric.unit_desc}</td>
-
+                        {user && user.role ==="admin" && (
                         <td>
                             <Link to={`/metrics/edit/${metric.uuid}`} className='button is-small is-info'>Επεξεργασία</Link>
                             <button onClick={()=>deleteMetric(metric.uuid)} className='button is-small is-danger'>Διαγραφή</button>
                         </td>
+                        )}
                     </tr>
                 ))}
                 
