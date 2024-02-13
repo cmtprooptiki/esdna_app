@@ -30,6 +30,9 @@ const MetricList = () => {
                     <th>Όνομα Ρύπου</th>
                     <th>Μονάδα Μέτρησης ρύπου</th>
                     <th>Περιγραφή</th>
+                    <th>Περιγραφή Ορίου</th>
+                    <th>Κάτω Όριο</th>
+                    <th>Άνω Όριο</th>
                     {user && user.role ==="admin" && (
                     <th>Εκτέλεση</th>
                     )}
@@ -42,6 +45,9 @@ const MetricList = () => {
                         <td>{metric.name}</td>
                         <td>{metric.unit}</td>
                         <td>{metric.unit_desc}</td>
+                        <td>{metric.limit_desc}</td>
+                        <td>{metric.min}</td>                        
+                        <td>{metric.max}</td>                        
                         {user && user.role ==="admin" && (
                         <td>
                             <Link to={`/metrics/edit/${metric.uuid}`} className='button is-small is-info'>Επεξεργασία</Link>

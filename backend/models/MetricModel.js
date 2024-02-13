@@ -36,6 +36,24 @@ const Metrics = db.define('metric',{
             notEmpty: false,
             len: [1, 300]
         }
+    },
+    limit_desc:{
+        type: DataTypes.STRING,
+        allowNull: true,
+        validate:{
+            notEmpty: false,
+            
+        }
+    },
+    min:{
+        type: DataTypes.FLOAT,
+        allowNull: true,
+        
+    },
+    max:{
+        type: DataTypes.FLOAT,
+        allowNull: true,
+        
     }
   
    

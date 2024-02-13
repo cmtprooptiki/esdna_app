@@ -7,7 +7,9 @@ const FormEditMetric = () => {
     const[unit,setUnit]=useState("");
 
     const[unit_desc,setUnitDesc]=useState("");
-
+    const[limit_desc,setLimitDesc]=useState("");
+    const[min,setMin]=useState("");
+    const[max,setMax]=useState("");
     const[msg,setMsg]=useState("");
     const navigate = useNavigate();
 
@@ -20,7 +22,9 @@ const FormEditMetric = () => {
                 setName(response.data.name);
                 setUnit(response.data.unit);
                 setUnitDesc(response.data.unit_desc);
-
+                setLimitDesc(response.data.limit_desc);
+                setMin(response.data.min);
+                setMax(response.data.max);
             } catch (error) {
                 if(error.response){
                     setMsg(error.response.data.msg);
@@ -37,6 +41,9 @@ const FormEditMetric = () => {
                 name:name,
                 unit:unit,
                 unit_desc:unit_desc,
+                limit_desc:limit_desc,
+                min:min,
+                max:max
             });
 
             navigate("/metrics");
@@ -76,6 +83,26 @@ const FormEditMetric = () => {
                         </div>
                     </div>
 
+                    <div className="field">
+                        <label  className="label">Limit Description</label>
+                        <div className="control">
+                            <input type="text" className="input" value={limit_desc} onChange={(e)=> setLimitDesc(e.target.value)} placeholder='Limit Descreption'/>
+                        </div>
+                    </div>
+
+                    <div className="field">
+                        <label  className="label">Min Unit Measure</label>
+                        <div className="control">
+                            <input type="text" className="input" value={min !== null ? min : ''} onChange={(e) => setMin(e.target.value === '' ? null : parseFloat(e.target.value))} placeholder='Min Unit Measure'/>
+                        </div>
+                    </div>
+
+                    <div className="field">
+                        <label  className="label">Max Unit Measure</label>
+                        <div className="control">
+                            <input type="text" className="input" value={max !== null ? max : ''} onChange={(e)=> setMax(e.target.value === '' ? null : parseFloat(e.target.value))} placeholder='Max Unit Measure'/>
+                        </div>
+                    </div>
                     
                     <div className="field">
                         <div className="control">
