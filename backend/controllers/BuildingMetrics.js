@@ -214,7 +214,7 @@ export const getBuildingMetrics = async(req,res)=>{
                 },
                 {
                     model:Metric,
-                    attributes:['name','unit','unit_desc']
+                    attributes:['name','unit','unit_desc','unit','limit_desc']
                             
                 }
            ],
@@ -233,7 +233,7 @@ export const getBuildingMetrics = async(req,res)=>{
                 },
                 {
                     model:Metric,
-                    attributes:['name','unit','unit_desc']
+                    attributes:['name','unit','unit_desc','unit','limit_desc']
                             
                 }
            ],

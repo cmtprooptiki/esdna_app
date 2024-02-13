@@ -9,7 +9,7 @@ export const getMetrics= async(req,res)=>{
             response=await Metric.findAll({
                 // attributes:['uuid','name', ['ST_X(location)', 'latitude'], ['ST_Y(location)', 'longitude']],
 
-                attributes:['id','uuid','name','unit','unit_desc'],
+                attributes:['id','uuid','name','unit','unit_desc','limit_desc','min','max'],
                 // include:[{
                 //     model:User,
                 //     attributes:['name','email'],
@@ -20,7 +20,7 @@ export const getMetrics= async(req,res)=>{
             response = await Metric.findAll({
                 // attributes:['uuid','name', ['ST_X(location)', 'latitude'], ['ST_Y(location)', 'longitude']],
 
-                attributes:['id','uuid','name','unit','unit_desc'],
+                attributes:['id','uuid','name','unit','unit_desc','limit_desc','min','max'],
 
                 
             });
@@ -36,7 +36,7 @@ export const getMetricById = async(req,res)=>{
 
     try{
         const response = await Metric.findOne({
-            attributes:['id','uuid','name','unit','unit_desc'],
+            attributes:['id','uuid','name','unit','unit_desc','limit_desc','min','max'],
             where:{
                 uuid:req.params.id
             }
@@ -54,7 +54,9 @@ export const createMetric= async(req,res)=>{
     const {name} = req.body
     const {unit} = req.body
     const {unit_desc} = req.body
-
+    const {limit_desc} = req.body
+    const {min} = req.body
+    const {max} = req.body
     // const { name, coordinates } = req.body; // Assuming the request body contains 'name' and 'coordinates' for the building
 
 
@@ -63,7 +65,9 @@ export const createMetric= async(req,res)=>{
             name:name,
             unit:unit,
             unit_desc:unit_desc,
-
+            limit_desc:limit_desc,
+            min:min,
+            max:max
            
             
         });
@@ -90,10 +94,12 @@ export const updateMetric= async(req,res)=>{
         const {name} = req.body
         const {unit} = req.body
         const {unit_desc} = req.body
-
+        const {limit_desc} = req.body
+        const {min} = req.body
+        const {max} = req.body
         try{
 
-            await Metric.update({name,unit,unit_desc},{
+            await Metric.update({name,unit,unit_desc,limit_desc,min,max},{
                 where:{
                     id:metric.id
                 }

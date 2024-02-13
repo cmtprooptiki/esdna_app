@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import ChatGPTAdviser  from './ChatGPTAdviser';
+import { getColorClass2 } from './HelperComponent';
 
 const BuildingMetricsTable = ({ buildingMetrics }) => {
   const itemsPerPage = 25;
@@ -18,70 +19,70 @@ const BuildingMetricsTable = ({ buildingMetrics }) => {
     setCurrentPage(pageNumber);
   };
 
-  const getColorClass2 = (value, metricname) => {
-    // Define color cases based on metricname
-    switch (metricname) {
-      case 'PM10':
-        return{
-          label: value < 50 ?'Χαμηλή': 'Υψηλή',
-          className: value < 50 ? 'green-text' : 'red-text' 
-      };
-      case 'PM2.5':
-        return{
-          label: value < 20 ?'Χαμηλή': 'Υψηλή',
-          className: value < 20 ? 'green-text' : 'red-text' 
-      };
-      case 'SO2':
-        return{
-          label: value < 125 ?'Χαμηλή': 'Υψηλή',
-          className: value < 50 ? 'green-text' : 'red-text' 
-      };
-      case 'CO':
-        return{
-          label: value < 10 ?'Χαμηλή': 'Υψηλή',
-          className: value < 10 ? 'green-text' : 'red-text' 
-      };
-      case 'NO2':
-        return{
-          label: value < 40 ?'Χαμηλή': 'Υψηλή',
-          className: value < 40 ? 'green-text' : 'red-text' 
-      };
+  // const getColorClass2 = (value, metricname) => {
+  //   // Define color cases based on metricname
+  //   switch (metricname) {
+  //     case 'PM10':
+  //       return{
+  //         label: value < 50 ?'Χαμηλή': 'Υψηλή',
+  //         className: value < 50 ? 'green-text' : 'red-text' 
+  //     };
+  //     case 'PM2.5':
+  //       return{
+  //         label: value < 20 ?'Χαμηλή': 'Υψηλή',
+  //         className: value < 20 ? 'green-text' : 'red-text' 
+  //     };
+  //     case 'SO2':
+  //       return{
+  //         label: value < 125 ?'Χαμηλή': 'Υψηλή',
+  //         className: value < 50 ? 'green-text' : 'red-text' 
+  //     };
+  //     case 'CO':
+  //       return{
+  //         label: value < 10 ?'Χαμηλή': 'Υψηλή',
+  //         className: value < 10 ? 'green-text' : 'red-text' 
+  //     };
+  //     case 'NO2':
+  //       return{
+  //         label: value < 40 ?'Χαμηλή': 'Υψηλή',
+  //         className: value < 40 ? 'green-text' : 'red-text' 
+  //     };
   
-      case 'TSP':
-        return {
-          label:value < 50 ? 'Χαμηλή' : value >= 50 && value <= 80 ? 'Μέτρια' : 'Υψηλή',
-          className: value < 50 ? 'green-text' : value >= 50 && value <= 80 ? 'yellow-text' : 'red-text'
-      };
-      case 'TEQ PCDD/Fs':
-        return {
-          label:value < 42 ? 'Χαμηλή' : value >= 42 && value <= 150 ? 'Μέτρια' : 'Υψηλή',
-          className: value < 42 ? 'green-text' : value >= 42 && value <= 150 ? 'yellow-text' : 'red-text'
-      };
-      case 'TEQ PCBS':
-        return {
-          label:value < 10 ? 'Χαμηλή' : value >= 10 && value <= 40 ? 'Μέτρια' : 'Υψηλή',
-          className: value < 10 ? 'green-text' : value >= 10 && value <= 40 ? 'yellow-text' : 'red-text'
-      };
-      case 'ind PCBs':
-        return {
-          label:value < 60 ? 'Χαμηλή' : value >= 60 && value <= 180 ? 'Μέτρια' : 'Υψηλή',
-          className: value < 60 ? 'green-text' : value >= 60 && value <= 180 ? 'yellow-text' : 'red-text'
-      };
-      case 'NO':
-        return {
-          label:value < 10 ? 'Χαμηλή' : value >= 10 && value <= 50 ? 'Μέτρια' : 'Υψηλή',
-          className: value < 10 ? 'green-text' : value >= 10 && value <= 50 ? 'yellow-text' : 'red-text'
-      };
-      case 'OC/EC':
-        return {
-          label:value < 50 ? 'Χαμηλή' : value >= 50 && value <= 80 ? 'Μέτρια' : 'Υψηλή',
-          className: value < 50 ? 'green-text' : value >= 50 && value <= 80 ? 'yellow-text' : 'red-text'
-      };
-      // Add more cases as needed
-      default:
-        return { label: 'Άγνωστο', className: 'black-text' }; // Default label and class name
-    }
-  };
+  //     case 'TSP':
+  //       return {
+  //         label:value < 50 ? 'Χαμηλή' : value >= 50 && value <= 80 ? 'Μέτρια' : 'Υψηλή',
+  //         className: value < 50 ? 'green-text' : value >= 50 && value <= 80 ? 'yellow-text' : 'red-text'
+  //     };
+  //     case 'TEQ PCDD/Fs':
+  //       return {
+  //         label:value < 42 ? 'Χαμηλή' : value >= 42 && value <= 150 ? 'Μέτρια' : 'Υψηλή',
+  //         className: value < 42 ? 'green-text' : value >= 42 && value <= 150 ? 'yellow-text' : 'red-text'
+  //     };
+  //     case 'TEQ PCBS':
+  //       return {
+  //         label:value < 10 ? 'Χαμηλή' : value >= 10 && value <= 40 ? 'Μέτρια' : 'Υψηλή',
+  //         className: value < 10 ? 'green-text' : value >= 10 && value <= 40 ? 'yellow-text' : 'red-text'
+  //     };
+  //     case 'ind PCBs':
+  //       return {
+  //         label:value < 60 ? 'Χαμηλή' : value >= 60 && value <= 180 ? 'Μέτρια' : 'Υψηλή',
+  //         className: value < 60 ? 'green-text' : value >= 60 && value <= 180 ? 'yellow-text' : 'red-text'
+  //     };
+  //     case 'NO':
+  //       return {
+  //         label:value < 10 ? 'Χαμηλή' : value >= 10 && value <= 50 ? 'Μέτρια' : 'Υψηλή',
+  //         className: value < 10 ? 'green-text' : value >= 10 && value <= 50 ? 'yellow-text' : 'red-text'
+  //     };
+  //     case 'OC/EC':
+  //       return {
+  //         label:value < 50 ? 'Χαμηλή' : value >= 50 && value <= 80 ? 'Μέτρια' : 'Υψηλή',
+  //         className: value < 50 ? 'green-text' : value >= 50 && value <= 80 ? 'yellow-text' : 'red-text'
+  //     };
+  //     // Add more cases as needed
+  //     default:
+  //       return { label: 'Άγνωστο', className: 'black-text' }; // Default label and class name
+  //   }
+  // };
 
   return (
     <div className="box">
@@ -93,6 +94,8 @@ const BuildingMetricsTable = ({ buildingMetrics }) => {
               <th>Όνομα Σημείου</th>
               <th>Όνομα Αερίου</th>
               <th>Τιμή</th>
+              <th>Μονάδα Μέτρησης</th>
+              <th>Όριο</th>
               {/* <th>Ερμηνεία AI</th> */}
             <th>Συγκέντρωση</th>
             <th>Περίοδος Μέτρησης</th>
@@ -105,6 +108,8 @@ const BuildingMetricsTable = ({ buildingMetrics }) => {
               <td>{buildingMetric.building.name}</td>
               <td>{buildingMetric.metric.name}</td>
               <td>{buildingMetric.value}</td>
+              <td>{buildingMetric.metric.unit}</td>
+              <td>{buildingMetric.metric.limit_desc}</td>
               {/* <td><ChatGPTAdviser metricname={buildingMetric.metric.name} value={buildingMetric.value}></ChatGPTAdviser></td> */}
               <td>
                 <span className={getColorClass2(buildingMetric.value, buildingMetric.metric.name).className}>
