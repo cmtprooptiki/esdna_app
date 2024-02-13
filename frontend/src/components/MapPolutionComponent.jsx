@@ -37,7 +37,7 @@ export const MapPolutionComponent = (props) => {
   function Popup({ buildingname, metricname, metricvalue }) {
     return (
       <div className="box">
-        <LineChartComponent selectedMetric={metricName} buildingname={buildingname} />
+        
   
         <h3 className="route-name"><strong>{buildingname}</strong></h3>
         <div className="route-metric-row">
@@ -46,7 +46,7 @@ export const MapPolutionComponent = (props) => {
         <div className="route-metric-row">
           <h4 className="row-title"><strong>Τιμή για την επιλεγμένη περίοδο: </strong>{metricvalue}</h4>
         </div>
-  
+        <LineChartComponent selectedMetric={metricName} buildingname={buildingname} />
       </div>
     );
   }
@@ -320,7 +320,7 @@ antialias: true
           id: 'trees-point',
           type: 'circle',
           source: 'trees',
-          minzoom: 14,
+          minzoom: 10,
           paint: {
             // increase the radius of the circle as the zoom level and dbh value increases
             'circle-radius': {
