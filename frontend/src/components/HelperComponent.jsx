@@ -144,22 +144,49 @@ export const circleColorArray= (metricname)=>{
         [50, 'rgb(255,0,0)']] 
         
     };
-    // case 'PM2.5':
-    //   return{
-    //     max:20
-    // };
-    // case 'SO2':
-    //   return{
-    //     max: 125
-    // };
-    // case 'CO':
-    //   return{
-    //     max:10
-    // };
-    // case 'NO2':
-    //   return{
-    //     max:40 
-    // };
+    case 'PM2.5':
+      return{
+        colorArray:[[0, 'rgba(0,255,0,0)'],
+        [1, 'rgb(0,255,0)'],
+        [19, 'rgb(0,255,0)'],
+        [20, 'rgb(255,0,0)']] 
+        
+    };
+    case 'SO2':
+      return{
+        colorArray:[[0, 'rgba(0,255,0,0)'],
+        [10, 'rgb(0,255,0)'],
+        [20, 'rgb(0,255,0)'],
+        [30, 'rgb(0,255,0)'],
+        [40, 'rgb(0,255,0)'],
+        [50, 'rgb(0,255,0)'],
+        [60, 'rgb(0,255,0)'],
+        [70, 'rgb(0,255,0)'],
+        [80, 'rgb(0,255,0)'],
+        [90, 'rgb(0,255,0)'],
+        [124, 'rgb(0,255,0)'],
+        [125, 'rgb(255,0,0)']] 
+       
+    };
+    case 'CO':
+      return{
+        colorArray:[[0, 'rgba(0,255,0,0)'],
+        [1, 'rgb(0,255,0)'],
+        [9, 'rgb(0,255,0)'],
+        [10, 'rgb(255,0,0)']] 
+        
+    };
+    case 'NO2':
+      return{
+        colorArray:[[0, 'rgba(0,255,0,0)'],
+        [1, 'rgb(0,255,0)'],
+        [10, 'rgb(0,255,0)'],
+        [20, 'rgb(0,255,0)'],
+        [30, 'rgb(0,255,0)'],
+        [39, 'rgb(0,255,0)'],
+        [40, 'rgb(255,0,0)']]
+        
+    };
     case 'TSP':
       return {
         colorArray:[[0, 'rgba(0,255,0,0)'],
@@ -175,31 +202,67 @@ export const circleColorArray= (metricname)=>{
         [80, 'rgb(255,0,0)']
       ] 
     };
-    // case 'TEQ PCDD/Fs':
-    //   return {
-    //     min:42,
-    //     max:150 
-    // };
-    // case 'TEQ PCBS':
-    //   return {
-    //     min:10,
-    //     max:40 
-    // };
-    // case 'ind PCBs':
-    //   return {
-    //     min:60,
-    //     max:180 
-    // };
-    // case 'NO':
-    //   return {
-    //     min:10,
-    //     max:50 
-    // };
-    // case 'OC/EC':
-    //   return {
-    //     min:5/0.5,
-    //     max:20/2 
-    // };
+    case 'TEQ PCDD/Fs':
+      return {
+        colorArray:[[0, 'rgba(0,255,0,0)'],
+        [10, 'rgb(0,255,0)'],
+        [20, 'rgb(0,255,0)'],
+        [30, 'rgb(0,255,0)'],
+        [41, 'rgb(0,255,0)'],
+        [42, 'rgb(255,255,0)'],
+        [50, 'rgb(255,255,0)'],
+        [60, 'rgb(255,255,0)'],
+        [70, 'rgb(255,255,0)'],
+        [100, 'rgb(255,255,0)'],
+        [149, 'rgb(255,255,0)']
+        [150, 'rgb(255,0,0)']
+      ]
+        
+    };
+    case 'TEQ PCBS':
+      return {
+        colorArray:[[0, 'rgba(0,255,0,0)'],
+        [9, 'rgb(0,255,0)'],
+        [10, 'rgb(255,255,0)'],
+        [20, 'rgb(255,255,0)'],
+        [30, 'rgb(255,255,0)'],
+        [39, 'rgb(255,255,0)'],
+        [40, 'rgb(255,0,0)'],
+      ]
+    };
+    case 'ind PCBs':
+      return {
+        colorArray:[[0, 'rgba(0,255,0,0)'],
+        [10, 'rgb(0,255,0)'],
+        [59, 'rgb(0,255,0)'],
+        [60, 'rgb(255,255,0)'],
+        [70, 'rgb(255,255,0)'],
+        [80, 'rgb(255,255,0)'],
+        [179, 'rgb(255,255,0)'],
+        [180, 'rgb(255,0,0)'],
+        ]
+    };
+    case 'NO':
+      return {
+        colorArray:[[0, 'rgba(0,255,0,0)'],
+        [9, 'rgb(0,255,0)'],
+        [10, 'rgb(255,255,0)'],
+        [20, 'rgb(255,255,0)'],
+        [30, 'rgb(255,255,0)'],
+        [49, 'rgb(255,255,0)'],
+        [50, 'rgb(255,0,0)']
+        ]
+       
+    };
+    case 'OC/EC':
+      return {
+        colorArray:[[0, 'rgba(0,255,0,0)'],
+        [9, 'rgb(0,255,0)']
+        [10, 'rgb(255,255,0)']
+        [11, 'rgb(255,0,0)']]
+        // min:5/0.5,
+        // max:20/2 
+    };
     // Add more cases as needed
     default:
       return {colorArray:[[0, 'rgba(0,255,0,0)']] }; // Default label and class name
