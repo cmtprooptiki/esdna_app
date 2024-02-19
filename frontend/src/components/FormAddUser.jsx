@@ -1,6 +1,7 @@
 import React,{useState} from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import apiBaseUrl from '../apiConfig'
 
 const FormAddUser = () => {
     const[name,setName]=useState("");
@@ -14,7 +15,7 @@ const FormAddUser = () => {
     const saveUser = async (e) =>{
         e.preventDefault();
         try{
-            await axios.post('http://localhost:5000/users', {
+            await axios.post(`${apiBaseUrl}/users`, {
                 name:name,
                 email:email,
                 password:password,

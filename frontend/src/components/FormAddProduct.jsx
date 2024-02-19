@@ -2,6 +2,7 @@ import React,{useState} from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 
+import apiBaseUrl from '../apiConfig'
 
 const FormAddProduct = () => {
     const[name,setName]=useState("");
@@ -12,7 +13,7 @@ const FormAddProduct = () => {
     const saveProduct = async (e) =>{
         e.preventDefault();
         try{
-            await axios.post('http://localhost:5000/products', {
+            await axios.post(`${apiBaseUrl}/products`, {
                 name:name,
                 price:price,
             });

@@ -1,7 +1,7 @@
 import React,{useState} from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
-
+import apiBaseUrl from '../apiConfig'
 
 const FormAddMetric = () => {
     const[name,setName]=useState("");
@@ -18,7 +18,7 @@ const FormAddMetric = () => {
     const saveMetric = async (e) =>{
         e.preventDefault();
         try{
-            await axios.post('http://localhost:5000/metrics', {
+            await axios.post(`${apiBaseUrl}/metrics`, {
                 name:name,
                 unit:unit,
                 unit_desc:unit_desc,

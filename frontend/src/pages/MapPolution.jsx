@@ -9,7 +9,7 @@ import Select from 'react-select';
 import { v4 as uuidv4 } from 'uuid';
 import {Map} from '../components/MapComponent';
 import {MapPolutionComponent} from '../components/MapPolutionComponent';
-
+import apiBaseUrl from '../apiConfig';
 
 const MapPolution = () => {
   const dispatch = useDispatch();
@@ -43,7 +43,7 @@ const MapPolution = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/buildingmetrics');
+        const response = await axios.get(`${apiBaseUrl}/buildingmetrics`);
         const apiData = response.data;
         
         setBuildingMetrics(apiData);

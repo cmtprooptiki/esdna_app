@@ -1,7 +1,7 @@
 import React,{useState} from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
-
+import apiBaseUrl from '../apiConfig'
 
 const FormAddBuilding = () => {
     const[name,setName]=useState("");
@@ -15,7 +15,7 @@ const FormAddBuilding = () => {
     const saveBuilding = async (e) =>{
         e.preventDefault();
         try{
-            await axios.post('http://localhost:5000/buildings', {
+            await axios.post(`${apiBaseUrl}/buildings`, {
                 name:name,
                 lat:lat,
                 lon:lon,

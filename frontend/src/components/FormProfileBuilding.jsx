@@ -8,6 +8,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import ProfileMap from './ProfileMap';
 import WeatherComponent from './WeatherComponent';
+import apiBaseUrl from '../apiConfig';
 
 const FormProfileBuilding = () => {
     const[name,setName]=useState("");
@@ -26,7 +27,7 @@ const FormProfileBuilding = () => {
     useEffect(()=>{
         const getBuildingById = async()=>{
             try {
-                const response=await axios.get(`http://localhost:5000/buildings/${id}`);
+                const response=await axios.get(`${apiBaseUrl}/buildings/${id}`);
                 setName(response.data.name);
                 setLat(response.data.lat);
                 setLon(response.data.lon);

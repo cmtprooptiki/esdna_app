@@ -1,5 +1,5 @@
 // Create a user
-POST http://localhost:5000/users
+POST http://backend.paratiritirio-edsna.gr:5000/users
 Content-Type: application/json
 
 {
@@ -10,6 +10,20 @@ Content-Type: application/json
     "role":"user"
 
 }
+###
+// Create a useradmin
+POST http://backend.paratiritirio-edsna.gr:5000/users
+Content-Type: application/json
+
+{
+    "name":"admin",
+    "email":"admin@gmail.com",
+    "password":"123456",
+    "confPassword":"123456",
+    "role":"admin"
+
+}
+
 
 ###
 //get all users
@@ -38,7 +52,7 @@ DELETE http://localhost:5000/users/9cfa3afb-cbf8-43be-bf98-4d7d0d6c816f
 
 ###
 //Login user
-POST http://localhost:5000/login
+POST http://backend.paratiritirio-edsna.gr:5000/login
 Content-Type: application/json
 
 {
@@ -51,7 +65,7 @@ Content-Type: application/json
 GET http://localhost:5000/me
 
 ###
-DELETE http://localhost:5000/logout
+DELETE http://backend.paratiritirio-edsna.gr:5000/logout
 
 
 ###

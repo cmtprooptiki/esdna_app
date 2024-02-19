@@ -4,7 +4,7 @@ import axios from 'axios';
 import ReactDOM from "react-dom";
 import LineChartComponent from './LineChartComponent';
 import {circleColorArray} from '../components/HelperComponent';
-
+import apiBaseUrl from "../apiConfig";
 // Grab the access token from your Mapbox account
 // I typically like to store sensitive things like this
 // in a .env file
@@ -64,7 +64,7 @@ export const MapPolutionComponent = (props) => {
     const getBuildingMetricsGeo = async(metricName,year) =>{
 
       try {
-        const response = await axios.get('http://localhost:5000/buildingmetrics-geo');
+        const response = await axios.get(`${apiBaseUrl}/buildingmetrics-geo`);
 
         const filterCriteria = {
           metricname: metricName,

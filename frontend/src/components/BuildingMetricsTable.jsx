@@ -87,6 +87,8 @@ const BuildingMetricsTable = ({ buildingMetrics }) => {
   return (
     <div className="box">
       <h1>Συγκεντρωτικός Πίνακας Μετρήσεων</h1>
+      <div class="table-responsive-md">
+
       <table className='table is-stripped is-fullwidth'>
         <thead>
           <tr>
@@ -121,6 +123,8 @@ const BuildingMetricsTable = ({ buildingMetrics }) => {
           ))}
         </tbody>
       </table>
+      </div>
+
 
       <div className="pagination">
         <button onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>
@@ -135,6 +139,7 @@ const BuildingMetricsTable = ({ buildingMetrics }) => {
           Next
         </button>
       </div>
+
       <style jsx>{`
         .pagination {
           display: flex;

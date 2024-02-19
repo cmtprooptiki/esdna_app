@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
-
+import apiBaseUrl from '../apiConfig'
 
 const FormAddBuildingMetric = () => {
     const[buildingId,setBuildingId]=useState("");
@@ -14,7 +14,7 @@ const FormAddBuildingMetric = () => {
     const saveBuildingMetric = async (e) =>{
         e.preventDefault();
         try{
-            await axios.post('http://localhost:5000/createbuildingmetric', {
+            await axios.post(`${apiBaseUrl}/createbuildingmetric`, {
                 buildingId:buildingId,
                 metricId:metricId,
                 value:value,
@@ -37,11 +37,11 @@ const FormAddBuildingMetric = () => {
         getMetrics()
     },[]);
     const getBuildings = async() =>{
-        const response = await axios.get('http://localhost:5000/buildings');
+        const response = await axios.get(`${apiBaseUrl}/buildings`);
         setBuildings(response.data);
     }
     const getMetrics = async() =>{
-        const response = await axios.get('http://localhost:5000/metrics');
+        const response = await axios.get(`${apiBaseUrl}/metrics`);
         setMetrics(response.data);
     }
 
