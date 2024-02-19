@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from 'react'
 import axios from 'axios'
 import { useNavigate,useParams } from 'react-router-dom'
-
+import apiBaseUrl from '../apiConfig'
 const FormEditUser = () => {
     const[name,setName]=useState("");
     const[email,setEmail]=useState("");
@@ -15,7 +15,7 @@ const FormEditUser = () => {
     useEffect(()=>{
         const getUserById = async()=>{
             try {
-                const response=await axios.get(`http://localhost:5000/users/${id}`);
+                const response=await axios.get(`${apiBaseUrl}/users/${id}`);
                 setName(response.data.name);
                 setEmail(response.data.email);
                 setRole(response.data.role);
@@ -31,7 +31,7 @@ const FormEditUser = () => {
     const updateUser = async (e) =>{
         e.preventDefault();
         try{
-            await axios.patch(`http://localhost:5000/users/${id}`, {
+            await axios.patch(`${apiBaseUrl}/users/${id}`, {
                 name:name,
                 email:email,
                 password:password,

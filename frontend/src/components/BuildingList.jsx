@@ -3,6 +3,8 @@ import {Link} from "react-router-dom"
 import axios from 'axios'
 import { useSelector } from 'react-redux';
 import '../buildinglist.css';
+import apiBaseUrl from '../apiConfig'; // Update the path accordingly
+
 
 const BuildingList = () => {
     const [buildings,setBuildings]=useState([]);
@@ -12,11 +14,11 @@ const BuildingList = () => {
     },[]);
 
     const getBuildings = async() =>{
-        const response = await axios.get('http://localhost:5000/buildings');
+        const response = await axios.get(`${apiBaseUrl}/buildings`);
         setBuildings(response.data);
     }
     const deleteBuilding = async(buildingId)=>{
-        await axios.delete(`http://localhost:5000/buildings/${buildingId}`);
+        await axios.delete(`${apiBaseUrl}/buildings/${buildingId}`);
         getBuildings();
     }
 

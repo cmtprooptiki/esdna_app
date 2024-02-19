@@ -3,6 +3,7 @@ import React, { useState,useEffect } from 'react';
 import CSVReader from 'react-csv-reader';
 import axios from 'axios';
 import '../custom.css';
+import apiBaseUrl from '../apiConfig'; // Update the path accordingly
 
 const CSVReaderComponent = () => {
   const handleFile = (data, fileInfo) => {
@@ -14,7 +15,7 @@ const CSVReaderComponent = () => {
 
     if (userConfirmed) {
         console.log(data)
-        axios.post('http://localhost:5000/upload-csv', { data })
+        axios.post(`${apiBaseUrl}/upload-csv`, { data })
         .then(response => {
             console.log(response.data);
         })

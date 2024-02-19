@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import ApexCharts from 'react-apexcharts';
 import axios from 'axios';
 import { UseSelector, useSelector } from 'react-redux'
-
+import apiBaseUrl from '../apiConfig';
 const LineChartComponent = (props) =>{
 const buildingname=props.buildingname;
 const selectedMetric = props.selectedMetric;
@@ -123,7 +123,7 @@ const getLimitAnnotation =(metricname)=>{
 useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/buildingmetrics');
+        const response = await axios.get(`${apiBaseUrl}/buildingmetrics`);
         const apiData = response.data;
 
         setBuildingMetrics(apiData);

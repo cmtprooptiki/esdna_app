@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from 'react'
 import axios from 'axios'
 import { useNavigate,useParams } from 'react-router-dom'
-
+import apiBaseUrl from '../apiConfig'
 const FormEditBuildingMetric = () => {
     const[buildingName,setBuildingName]=useState("");
     const[metricName,setMetricName]=useState("");
@@ -15,7 +15,7 @@ const FormEditBuildingMetric = () => {
     useEffect(()=>{
         const getBuildingMetricById = async()=>{
             try {
-                const response=await axios.get(`http://localhost:5000/buildingmetrics/${id}`);
+                const response=await axios.get(`${apiBaseUrl}/buildingmetrics/${id}`);
                 setBuildingName(response.data.building.name);
                 setMetricName(response.data.metric.name);
                 setValue(response.data.value);
@@ -33,7 +33,7 @@ const FormEditBuildingMetric = () => {
     const updateBuildingMetric = async (e) =>{
         e.preventDefault();
         try{
-            await axios.patch(`http://localhost:5000/updatebuildingmetric/${id}`, {
+            await axios.patch(`${apiBaseUrl}/updatebuildingmetric/${id}`, {
                 value:value,
                 year:year
             });

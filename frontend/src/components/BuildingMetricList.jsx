@@ -5,6 +5,7 @@ import CSVReaderComponent from './CSVReaderComponent'
 
 import { useDispatch,useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import apiBaseUrl from '../apiConfig'; // Update the path accordingly
 
 
 const BuildingMetricList = () => {
@@ -19,11 +20,11 @@ const BuildingMetricList = () => {
     },[]);
 
     const getBuildingMetrics = async() =>{
-        const response = await axios.get('http://localhost:5000/buildingmetrics');
+        const response = await axios.get(`${apiBaseUrl}/buildingmetrics`);
         setBuildingMetrics(response.data);
     }
     const deleteBuildingMetric = async(buildingmetricId)=>{
-        await axios.delete(`http://localhost:5000/deletebuildingmetric/${buildingmetricId}`);
+        await axios.delete(`${apiBaseUrl}/deletebuildingmetric/${buildingmetricId}`);
         getBuildingMetrics();
     }
   return (

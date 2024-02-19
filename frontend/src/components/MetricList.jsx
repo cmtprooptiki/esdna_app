@@ -2,6 +2,7 @@ import React,{useState,useEffect} from 'react'
 import {Link} from "react-router-dom"
 import axios from 'axios'
 import { useSelector } from 'react-redux'
+import apiBaseUrl from '../apiConfig'
 const MetricList = () => {
     const [products,setMetrics]=useState([]);
     const {user} = useSelector((state)=>state.auth)
@@ -10,11 +11,11 @@ const MetricList = () => {
     },[]);
 
     const getMetrics = async() =>{
-        const response = await axios.get('http://localhost:5000/metrics');
+        const response = await axios.get(`${apiBaseUrl}/metrics`);
         setMetrics(response.data);
     }
     const deleteMetric = async(productId)=>{
-        await axios.delete(`http://localhost:5000/metrics/${productId}`);
+        await axios.delete(`${apiBaseUrl}/metrics/${productId}`);
         getMetrics();
     }
   return (

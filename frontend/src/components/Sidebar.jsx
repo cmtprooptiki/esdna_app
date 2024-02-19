@@ -5,12 +5,12 @@ import { FaMap } from "react-icons/fa";
 import { GiBubbles } from "react-icons/gi";
 import { MdScience } from "react-icons/md";
 import { AiFillDashboard } from "react-icons/ai";
-
-
+import { HiOutlineLocationMarker } from "react-icons/hi";
 import { useDispatch,useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import {LogOut, LoginUser,reset} from "../features/authSlice"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import '../sidebar.css'
 // import { faWind,faDroplet,faTemperatureLow,faTemperatureHigh } from '@fortawesome/free-solid-svg-icons';
 
 export const Sidebar = () => {
@@ -24,14 +24,14 @@ export const Sidebar = () => {
         navigate("/");
     };
   return (
-    <div>
+    <div className="sidebar">
         <aside className="menu pl-2 has-shadow">
             <p className="menu-label">Γενικα</p>
-            <ul className="menu-list">
-                <li><NavLink to="/dashboard"><AiFillDashboard/> Dashboard</NavLink></li>
+            <ul  className="menu-list">
+                <li ><NavLink to="/dashboard" ><AiFillDashboard/> Dashboard</NavLink></li>
                 <li><NavLink to="/map"><FaMap /> Χάρτης</NavLink></li>
 
-                <li><NavLink to="/buildings"><IoPricetag/> Σημεία Μέτρησης</NavLink></li>
+                <li><NavLink to="/buildings"><HiOutlineLocationMarker/> Σημεία Μέτρησης</NavLink></li>
                 <li><NavLink to="/metrics"><GiBubbles/> Ρύποι</NavLink></li>
                 <li><NavLink to="/buildingmetrics"><MdScience/> Μετρήσεις Ρύπων</NavLink></li>
 
@@ -47,7 +47,7 @@ export const Sidebar = () => {
             
             <p className="menu-label">Ρυθμησεις</p>
             <ul className="menu-list">
-                <li><button onClick={logout} className='button is-white'><IoLogOut/> Αποσύνδεση</button></li>
+                <li><button onClick={logout} className='button-logout'><IoLogOut/> Αποσύνδεση</button></li>
             </ul>
         </aside>
     </div>

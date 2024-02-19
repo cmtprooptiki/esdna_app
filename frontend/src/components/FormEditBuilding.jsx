@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from 'react'
 import axios from 'axios'
 import { useNavigate,useParams } from 'react-router-dom'
-
+import apiBaseUrl from '../apiConfig'
 const FormEditBuilding = () => {
     const[name,setName]=useState("");
     const[lat,setLat]=useState("");
@@ -17,7 +17,7 @@ const FormEditBuilding = () => {
     useEffect(()=>{
         const getBuildingById = async()=>{
             try {
-                const response=await axios.get(`http://localhost:5000/buildings/${id}`);
+                const response=await axios.get(`${apiBaseUrl}/buildings/${id}`);
                 setName(response.data.name);
                 setLat(response.data.lat);
                 setLon(response.data.lon);
@@ -34,7 +34,7 @@ const FormEditBuilding = () => {
     const updateBuilding = async (e) =>{
         e.preventDefault();
         try{
-            await axios.patch(`http://localhost:5000/buildings/${id}`, {
+            await axios.patch(`${apiBaseUrl}/buildings/${id}`, {
                 name:name,
                 lat:lat,
                 lon:lon,
