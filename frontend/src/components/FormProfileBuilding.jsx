@@ -9,6 +9,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import ProfileMap from './ProfileMap';
 import WeatherComponent from './WeatherComponent';
 import apiBaseUrl from '../apiConfig';
+import Select from 'react-select';
+import { v4 as uuidv4 } from 'uuid';
+
 
 const FormProfileBuilding = () => {
     const[name,setName]=useState("");
@@ -21,8 +24,11 @@ const FormProfileBuilding = () => {
 
     const{id} = useParams();
 
+    const [selectedPeriod, setSelectedPeriod] = useState('');
 
-    
+    const [uniqueYears, setUniqueYears] = useState(new Set());
+    const [filteredData,setFilteredData]=useState([]);
+
 
     useEffect(()=>{
         const getBuildingById = async()=>{
@@ -34,6 +40,28 @@ const FormProfileBuilding = () => {
                 setCategory(response.data.category);
                 
                 console.log(response.data)
+
+
+                //make another call on building metrics table
+                const response2 = await axios.get(`${apiBaseUrl}/buildingmetrics`);
+                const apiData=response2.data
+
+                const filterCriteria = {
+                  // metricname: selectedMetric2,
+                  year: selectedPeriod,
+                };
+                console.log("Print second response");
+
+                const filterData =apiData.filter(
+                  (item) => item.building.name === response.data.name && item.year === filterCriteria.year
+                );
+                setFilteredData(filterData);
+                console.log(filterData);
+
+                const uniqueYears = Array.from(new Set(apiData.map((item) => item.year)));
+                setUniqueYears(uniqueYears);
+                
+
             } catch (error) {
                 if(error.response){
                     setMsg(error.response.data.msg);
@@ -41,7 +69,7 @@ const FormProfileBuilding = () => {
             }
         };
         getBuildingById();
-    },[id]);
+    },[id,selectedPeriod]);
 
 
 // Define data for the pie chart
@@ -127,53 +155,34 @@ const pieChartData = {
         <div className="my-2 bg-light p-2">
           <p className="font-italic mb-0">The price is something not necessarily defined as financial. It could be time, effort, sacrifice, money or perhaps, something else.</p>
         </div>
-        <ul className="list list-unstyled mb-3">
-          <li className="text-secondary font-weight-normal mb-1">
-            <span className="ti-arrow-right pr-1 text-primary"></span>
-            Commitment is something that comes from understanding that!
-          </li>
-          <li className="text-secondary font-weight-normal mb-1">
-            <span className="ti-arrow-right pr-1 text-primary"></span>
-            Its price and then having the willingness to pay that price.
-          </li>
-          <li className="text-secondary font-weight-normal mb-1">
-            <span className="ti-arrow-right pr-1 text-primary"></span>
-            Out after the fact that the price was too high.
-          </li>
-          <li className="text-secondary font-weight-normal mb-1">
-            <span className="ti-arrow-right pr-1 text-primary"></span>
-            This is important because nobody wants to put significant.
-          </li>
-        </ul>
+
         <h5 className="font-weight-normal">Personal Experience</h5>
-        <p>It is truly amazing the damage that we, as parents, can inflict on our children. So why do we do it? For the most part, we don’t do it intentionally or with malice. In the majority of cases, the cause is a well-meaning but unskilled or un-thinking parent, who says the wrong thing at the wrong time, and the message sticks – as simple as that!</p>
         <div className="mb-2 mt-2 pt-1">
           <h5 className="font-weight-normal">Skill</h5>
         </div>
+
+        <label>Επιλέξτε περίοδο μετρήσεων</label>
+          <Select
+            value={{ label: selectedPeriod, value: selectedPeriod }}
+            onChange={(selectedOption) => setSelectedPeriod(selectedOption.value)}
+            options={[...uniqueYears].map((uniqueYear) => ({ label: uniqueYear, value: uniqueYear,key:uuidv4() }))}
+          />
+          
+
         <div className="py-1">
-          <div className="progress">
-            <div className="progress-bar" role="progressbar" style={{ width: '85%' }}  aria-valuenow="85" aria-valuemin="0" aria-valuemax="100">
-              <div className="progress-bar-title">Finance</div>
-              <span className="progress-bar-number">85%</span>
+        {filteredData.map((filterData, index) => (
+          <div  className="progress">
+            <div className="progress-bar-title"><p>{filterData.metric.name}</p></div>
+
+            <div className="progress-bar" role="progressbar" style={{ width: '85%' }}  aria-valuenow="54" aria-valuemin="0" aria-valuemax="100">
+              <span className="progress-bar-number">{filterData.value}</span>
             </div>
           </div>
+        ))}
         </div>
-        <div className="py-1">
-          <div className="progress">
-            <div className="progress-bar" role="progressbar" style={{ width: '70%' }}  aria-valuenow="70" aria-valuemin="0" aria-valuemax="100">
-              <div className="progress-bar-title">Information Technologies</div>
-              <span className="progress-bar-number">70%</span>
-            </div>
-          </div>
-        </div>
-        <div className="py-1">
-          <div className="progress">
-            <div className="progress-bar" role="progressbar" style={{ width: '77%' }}  aria-valuenow="77" aria-valuemin="0" aria-valuemax="100">
-              <div className="progress-bar-title">Education</div>
-              <span className="progress-bar-number">77%</span>
-            </div>
-          </div>
-        </div>
+
+        
+    
       </div>
 
 
