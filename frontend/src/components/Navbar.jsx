@@ -17,7 +17,7 @@ const Navbar =()=>{
 
     return(
         <div>
-            <nav className="navbar is-fixed-top has-shadow" style={{"z-index": "2000"}}role="navigation" aria-label="main navigation">
+            <nav className="navbar is-fixed-top has-shadow" style={{"zIndex": "2000"}}role="navigation" aria-label="main navigation">
               <div className="navbar-brand">
                 <NavLink className="navbar-item" to="dashboard">
                     <img 
