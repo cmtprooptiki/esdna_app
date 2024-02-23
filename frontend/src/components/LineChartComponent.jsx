@@ -96,7 +96,7 @@ const getLimitAnnotation =(metricname)=>{
       dashArray: [0, 8, 5],
     },
     title: {
-      text: 'Page Statistics',
+      text: 'Διαχρονική εξέλιξη',
       align: 'left',
     },
     legend: {

@@ -99,7 +99,7 @@ const MapPolution = () => {
   <div>
   <div className="box">
 
-<label>Επιλέξτε ρύπο αερίου</label>
+<label>Επιλέξτε ρύπο </label>
   <Select
     value={{ label: selectedMetric2, value: selectedMetric2 }}
     onChange={(selectedOption) => setSelectedMetric2(selectedOption.value)}

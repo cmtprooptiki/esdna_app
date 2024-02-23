@@ -20,7 +20,7 @@ const MetricList = () => {
     }
   return (
     <div>
-        <h1 className='title'>Αέριοι Ρύποι</h1>
+        <h1 className='title'>Περιγραφή Ρύπων</h1>
         {user && user.role ==="admin" && (
         <Link to={"/metrics/add"} className='button is-primary mb-2'>Προσθήκη Νέου</Link>
         )}
@@ -28,14 +28,14 @@ const MetricList = () => {
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>Όνομα Ρύπου</th>
-                    <th>Μονάδα Μέτρησης ρύπου</th>
+                    <th>Όνομα</th>
+                    <th>Μονάδα Μέτρησης</th>
                     <th>Περιγραφή</th>
-                    <th>Περιγραφή Ορίου</th>
+                    <th>Όρια</th>
                     <th>Κάτω Όριο</th>
                     <th>Άνω Όριο</th>
                     {user && user.role ==="admin" && (
-                    <th>Εκτέλεση</th>
+                    <th>Ενέργειες</th>
                     )}
                 </tr>
             </thead>
