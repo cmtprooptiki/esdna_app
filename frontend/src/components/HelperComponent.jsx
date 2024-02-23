@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-
+import Col from 'react-bootstrap/Col';
 
 
 
@@ -275,5 +275,25 @@ export const circleColorArray= (metricname)=>{
   }
 };
 
- 
+export const getbarcolor =(value,limits)=>{
+  if(value>=limits.max){
+    return 'danger';
+  }else if(value>=limits.min && value<=limits.max){
+    return 'warning';
+  }
+  else{
+    return 'success';
+  }
+}
 
+export const showcol =(value,limits,unit)=>{
+ 
+  if(value>=limits){
+    console.log('hello');
+    let val=value-limits;
+    return ( 
+      <p style={{color:'red', textAlign:'center'}}>Υπέρβαση ανωτάτου ορίου κατά {val} {unit}</p>
+    );
+  }
+  
+}

@@ -1,13 +1,15 @@
 import React from 'react';
 import Navbar from '../components/Navbar';
 import { Sidebar } from '../components/Sidebar';
+import { SidebarNew } from '../components/SidebarNew';
 const Layout = ({children}) => {
   return (
     <React.Fragment>
         <Navbar/>
         <div className="columns mt-6" style={{minHeight:"100vh", background:"white"}}>
             <div className="column is-2">
-                <Sidebar/>
+                {/* <Sidebar/> */}
+                <SidebarNew/>
             </div>
             <div className="column has-background-light">
                 <main>{children}</main>

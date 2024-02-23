@@ -94,7 +94,7 @@ const BuildingMetricsTable = ({ buildingMetrics }) => {
           <tr>
             <th>#</th>
               <th>Όνομα Σημείου</th>
-              <th>Όνομα Αερίου</th>
+              <th>Όνομα Ρύπου</th>
               <th>Τιμή</th>
               <th>Μονάδα Μέτρησης</th>
               <th>Όριο</th>

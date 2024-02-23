@@ -427,7 +427,8 @@ const Dashboard = () => {
 
    
 <div className="jumbotron" >
-
+<p style={{fontSize:'25px', fontWeight:'bold'}}>Σειμιακή Αποτύπωση Ρύπου</p>
+<br></br>
       <div className="box">
 
       <label>Επιλέξτε Σημείο Μέτρησης</label>
@@ -438,7 +439,7 @@ const Dashboard = () => {
           />
 
 
-
+          
           <label>Επιλέξτε ρύπο</label>
           <Select
             value={{ label: selectedMetric, value: selectedMetric }}
@@ -451,7 +452,7 @@ const Dashboard = () => {
 
 
         <div>
-        <div className="box">
+        {/* <div className="box">
         <h1>Filtered data Metrics:</h1>
         <div class="table-responsive-md">
 
@@ -479,7 +480,7 @@ const Dashboard = () => {
           </tbody>
         </table>
         </div>
-      </div>
+      </div> */}
         </div>
 
   <div className="columns">
@@ -515,10 +516,10 @@ const Dashboard = () => {
   </div>
 
   </div>
-
+  
 <div className="jumbotron" >
-
-
+<p style={{fontSize:'25px', fontWeight:'bold'}}>Διαχρονική Εξέλιξη Ρύπου</p>
+<br></br>
 <div className="box">
 
 <label>Επιλέξτε ρύπο</label>
@@ -567,7 +568,7 @@ const Dashboard = () => {
         </div>
 
         <div className="jumbotron" >
-
+        <p style={{fontSize:'25px', fontWeight:'bold'}}>Σύγκριση συγκέντρωσης ρύπου στα σημεία μέτρησης </p>
         <div className="box">
 
         <label>Επιλέξτε ρύπο</label>
@@ -615,9 +616,10 @@ const Dashboard = () => {
         </table>
         </div>
       </div>
-
+      <p style={{fontSize:"25px", fontWeight:"bold"}}>Ραβδόγραμμα συγκέντρωση {selectedMetric2}</p>
       {/* BarChart */}
       <div className="box">
+        
         <ApexCharts options={chartOptions2} series={chartSeries2} type='bar' height={350} />
       </div>
     </div>

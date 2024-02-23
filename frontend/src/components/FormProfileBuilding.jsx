@@ -11,7 +11,11 @@ import WeatherComponent from './WeatherComponent';
 import apiBaseUrl from '../apiConfig';
 import Select from 'react-select';
 import { v4 as uuidv4 } from 'uuid';
-
+import {getLimitAnnotation,getbarcolor,showcol} from './HelperComponent';
+import ProgressBar from 'react-bootstrap/ProgressBar';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 const FormProfileBuilding = () => {
     const[name,setName]=useState("");
@@ -113,24 +117,17 @@ const pieChartData = {
           {<WeatherComponent lat={lat} lon={lon}></WeatherComponent>}
         </div>
 
+        
+        
+      </div>
+      <div className="col-lg-7 col-md-6 pl-xl-3">
+        
+        <div className='box'>
         <div className="mb-2 d-flex">
-          <h4 className="font-weight-normal">{name}</h4>
-          <div className="social d-flex ml-auto">
-            <p className="pr-2 font-weight-normal">Follow on:</p>
-            <a href="#/" className="text-muted mr-1">
-              <i className="fab fa-facebook-f"></i>
-            </a>
-            <a href="#/" className="text-muted mr-1">
-              <i className="fab fa-twitter"></i>
-            </a>
-            <a href="#/" className="text-muted mr-1">
-              <i className="fab fa-instagram"></i>
-            </a>
-            <a href="#/" className="text-muted">
-              <i className="fab fa-linkedin"></i>
-            </a>
-          </div>
+          <h2 style={{fontWeight:'bolder', fontSize:'35px'}} >{name}</h2>
+          
         </div>
+        
         <div className="mb-2">
           <ul className="list-unstyled">
             <li className="media">
@@ -148,57 +145,69 @@ const pieChartData = {
            
           </ul>
         </div>
-      </div>
-      <div className="col-lg-7 col-md-6 pl-xl-3">
-        <h5 className="font-weight-normal">Place Description</h5>
-        <p>Along with your plans, you should consider developing an action orientation that will keep you motivated to move forward at all times. This requires a little self-discipline, but is a crucial component to achievement of any kind. Before starting any new activity, ask yourself if that activity will move you closer to your goals. If the answer is no, you may want to reconsider doing it at that time.</p>
-        <div className="my-2 bg-light p-2">
-          <p className="font-italic mb-0">The price is something not necessarily defined as financial. It could be time, effort, sacrifice, money or perhaps, something else.</p>
-        </div>
-
-        <h5 className="font-weight-normal">Personal Experience</h5>
-        <div className="mb-2 mt-2 pt-1">
-          <h5 className="font-weight-normal">Skill</h5>
-        </div>
-
+        
         <label>Επιλέξτε περίοδο μετρήσεων</label>
-          <Select
+          <Select 
             value={{ label: selectedPeriod, value: selectedPeriod }}
             onChange={(selectedOption) => setSelectedPeriod(selectedOption.value)}
             options={[...uniqueYears].map((uniqueYear) => ({ label: uniqueYear, value: uniqueYear,key:uuidv4() }))}
           />
           
 
-        <div className="py-1">
+        {/* <div className="py-1">
         {filteredData.map((filterData, index) => (
           <div  className="progress">
             <div className="progress-bar-title"><p>{filterData.metric.name}</p></div>
 
-            <div className="progress-bar" role="progressbar" style={{ width: '85%' }}  aria-valuenow="54" aria-valuemin="0" aria-valuemax="100">
+            <div className="progress-bar" role="progressbar" style={{ width: '85%' }}  aria-valuenow={filterData.value} aria-valuemin="0" aria-valuemax={getLimitAnnotation(filterData.metric.name).max}>
               <span className="progress-bar-number">{filterData.value}</span>
             </div>
           </div>
         ))}
         </div>
 
-        
+        <div className="py-2">
+        {filteredData.map((filterData, index) => (
+          <div  className="progress">
+              <label for={filterData.metric.name}>{filterData.metric.name}:</label>
+              <progress  id={filterData.metric.name} value={filterData.value} max={getLimitAnnotation(filterData.metric.name).max} className={filterData.value >= getLimitAnnotation(filterData.metric.name).max ? 'reached-max' : 'reached-min'}/>
+          </div>
+        ))}
+        </div> */}
+        <br></br>
+          <div  >
+              
+              <Container>
+              {filteredData.map((filterData, index) => (
+                <div className='box'>
+                <Row style={{backgroundColor:'#f2f2f266'}}>
+                
+                  <Col md="auto"><label for={filterData.metric.name}>{filterData.metric.name}</label>
+                  </Col>
+                  <Col>
+                  
+                  <ProgressBar label={filterData.value}  id={filterData.metric.name} variant={getbarcolor(filterData.value,getLimitAnnotation(filterData.metric.name))} now={filterData.value} max={getLimitAnnotation(filterData.metric.name).max} />
+                  {showcol(filterData.value,getLimitAnnotation(filterData.metric.name).max,filterData.metric.unit)}
+                  </Col>
+                  <Col xs lg="2">
+                  {filterData.value} {filterData.metric.unit}
+                  </Col>
+                  
+                </Row>
+                </div>
+
+                ))}
+              </Container>
+          </div>
+          </div>
     
       </div>
 
 
 
 
-      <div className="mt-3">
-        <ApexCharts
-          options={pieChartData.options}
-          series={pieChartData.series}
-          type="pie"
-          width="300"
-        />
-      </div>
-      <div>
-        
-      </div>
+     
+      
     </div>
   </div>
 		</div>
