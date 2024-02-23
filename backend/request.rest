@@ -199,6 +199,10 @@ DELETE http://localhost:5000/metrics/d1b10d14-7226-4362-b87a-bd2e0b08de87
 GET http://localhost:5000/buildingmetrics
 
 
+###GET PUBLIC BUILDING METRICS 
+GET http://backend.paratiritirio-edsna.gr:5000/buildingmetrics-public?api_key=37ca1953-2a98-4623-8a51-99729ca432da
+
+
 ###
 //Login user
 POST http://localhost:5000/login
