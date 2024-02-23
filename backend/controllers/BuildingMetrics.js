@@ -4,6 +4,8 @@ import Building from "../models/BuildingModel.js"
 import Metric from "../models/MetricModel.js"
 
 import { Sequelize,Op } from "sequelize";
+import dotenv from "dotenv";
+dotenv.config();
 
 
 export const importFromCSV = async(req,res)=>{
@@ -198,6 +200,42 @@ export const getBuildingMetricsAVG = async (req, res) => {
         res.status(500).json({ msg: error.message });
     }
 }
+
+//public getBuildingMetric function 
+export const getBuildingMetricsPublic = async(req,res)=>{
+    try{
+        const apiKey = req.query.api_key;
+
+        let response;
+        if (apiKey === process.env.API_KEY) {
+
+            response=await BuildingMetric.findAll({
+                attributes:['uuid','year','value'] ,
+                include:[
+                    {
+                    model:Building,
+                    attributes:['name','lat','lon','category'],
+                },
+                {
+                    model:Metric,
+                    attributes:['name','unit','unit_desc','unit','limit_desc']
+                            
+                }
+           ],
+           order: [['year', 'ASC']] // Add this line to order by 'year' in ascending order
+
+
+            });
+        }
+        
+     
+        res.status(200).json(response);
+    }catch (error){
+        res.status(500).json({msg:error.message});
+
+    }
+}
+
 
 
 

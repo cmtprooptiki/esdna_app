@@ -2,6 +2,7 @@ import express from "express";
 
 import {
     getBuildingMetrics,
+    getBuildingMetricsPublic,
     getBuildingMetricsById,
     createBuildingMetric,
     updateBuildingMetric,
@@ -19,6 +20,10 @@ import { verifyUser,adminOnly } from "../middleware/AuthUser.js";
 const router = express.Router();
 
 router.get('/buildingmetrics',verifyUser,getBuildingMetrics);
+//getBuildingMetrics for Public Use
+
+router.get('/buildingmetrics-public',getBuildingMetricsPublic);
+
 
 router.get('/buildingmetrics-avg',verifyUser,getBuildingMetricsAVG)
 router.get('/buildingmetrics-geo',verifyUser,getGeoMetrics);
