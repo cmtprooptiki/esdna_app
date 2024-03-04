@@ -29,13 +29,15 @@ const BuildingMetricList = () => {
     }
   return (
     <div>
-        <h1 className='title'>Καταχωρημένες Μετρήσεις Αέριων Ρύπων</h1>
+        <h1 className='title'>Καταχωρημένες Μετρήσεις Ρύπων</h1>
         <h2 className='subtitle'></h2>
         {user && user.role ==="admin" && (
+        
         <div className="columns">
+            
           <div className="column">
             
-                <Link to={"/buildingmetrics/add"} className='button is-primary mb-2'>Προσθήκη Νέου</Link>
+                <Link to={"/buildingmetrics/add"} className='button is-primary mb-2'>Προσθήκη Νέας Μέτρησης</Link>
             
           </div>
           <div className="column">
@@ -46,7 +48,7 @@ const BuildingMetricList = () => {
         
         </div>
    )}
-
+    <div className="table-responsive-md">
         <table className='table is-stripped is-fullwidth'>
             <thead>
                 <tr>
@@ -58,7 +60,7 @@ const BuildingMetricList = () => {
                     {user && user.role ==="admin" && (
 
 
-                    <th>Εκτέλεση</th>
+                    <th>Ενέργειες</th>
                     )}
                 </tr>
             </thead>
@@ -74,6 +76,7 @@ const BuildingMetricList = () => {
 
                         <td>
                             <Link to={`/buildingmetrics/edit/${buildingmetric.uuid}`} className='button is-small is-info'>Επεξεργασία</Link>
+                            &nbsp;
                             <button onClick={()=>deleteBuildingMetric(buildingmetric.uuid)} className='button is-small is-danger'>Διαγραφή</button>
                         </td>
                           )}
@@ -82,6 +85,7 @@ const BuildingMetricList = () => {
                 
             </tbody>
         </table>
+    </div>
     </div>
   )
 }

@@ -48,21 +48,21 @@ const FormAddBuildingMetric = () => {
 
   return (
     <div>
-        <h1 className='title'>Building Metrics</h1>
-        <h2 className='subtitle'>Add New Building Metric</h2>
+        <h1 className='title'>Διαχείριση Μετρησεων</h1>
+        <h2 className='subtitle'>Προσθήκη Νέας Μέτρησης</h2>
         <div className="card is-shadowless">
             <div className="card-content">
                 <div className="content">
                 <form onSubmit={saveBuildingMetric}>
                 <p className='has-text-centered'>{msg}</p>
                 <div className="field">
-                        <label  className="label">Building Id</label>
+                        <label  className="label">Σημείο Μέτρησης</label>
                         {/* <div className="control">
                             <input type="text" className="input" value={buildingId} onChange={(e)=> setBuildingId(e.target.value)} placeholder='Building Name'/>
                         </div> */}
                         <div className="control">
                             <select className='input' type="text" onChange={(e)=> setBuildingId(e.target.value)} >
-                                <option value=""></option>
+                                <option value="" disabled selected>Επιλέξτε Σημείο Μέτρησης</option>
                                 {buildings.map((building,index)=>(
                                     <option key={building.id} value={building.id}>{building.name}</option>
                                 ))}
@@ -73,13 +73,13 @@ const FormAddBuildingMetric = () => {
                         </div>
                     </div>
                     <div className="field">
-                        <label  className="label">Metric Id</label>
+                        <label  className="label">Ρύπος</label>
                         {/* <div className="control">
                             <input type="text" className="input" value={metricId} onChange={(e)=> setMetricId(e.target.value)} placeholder='Latitude'/>
                         </div> */}
                         <div className="control">
                             <select className='input' onChange={(e)=> setMetricId(e.target.value)}>
-                                <option value=""></option>
+                                <option value="" disabled selected>Επιλέξτε Ρύπο</option>
                                 {metrics.map((metric,index)=>(
                                     <option key={metric.id} value={metric.id}>{metric.name}</option>
                                 ))}
@@ -87,22 +87,23 @@ const FormAddBuildingMetric = () => {
                         </div>
                     </div>
                     <div className="field">
-                        <label  className="label">Value</label>
+                        <label  className="label">Τιμή</label>
                         <div className="control">
-                            <input type="text" className="input" value={value} onChange={(e)=> setValue(e.target.value)} placeholder='Lontitude'/>
+                            <input type="text" className="input" value={value} onChange={(e)=> setValue(e.target.value)} placeholder='Τιμή'/>
                         </div>
                     </div>
                     <div className="field">
-                        <label  className="label">Year</label>
+                        <label  className="label">Περίοδος Μέτρησης</label>
                         <div className="control">
-                            <input type="text" className="input" value={year} onChange={(e)=> setYear(e.target.value)} placeholder='Lontitude'/>
+                            <input type="text" className="input" value={year} onChange={(e)=> setYear(e.target.value)} placeholder='π.χ 2024-Περ Α: Φεβ - Μάρ'/>
+                        
                         </div>
                     </div>
                     
                     
                     <div className="field">
                         <div className="control">
-                            <button type="submit" className="button is-success is-fullwidth">Save</button>
+                            <button type="submit" className="button is-success is-fullwidth">Αποθήκευση</button>
                         </div>
                     </div>
                 </form>

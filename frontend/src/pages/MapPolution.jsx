@@ -97,6 +97,7 @@ const MapPolution = () => {
   return (
     <Layout>
   <div>
+  <h1 className='title'>Διαδραστικός Χάρτης</h1>
   <div className="box">
 
 <label>Επιλέξτε ρύπο </label>

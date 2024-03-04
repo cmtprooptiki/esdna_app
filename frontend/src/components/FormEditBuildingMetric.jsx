@@ -47,44 +47,44 @@ const FormEditBuildingMetric = () => {
     };
   return (
     <div>
-        <h1 className='title'>Buildings</h1>
-        <h2 className='subtitle'>Edit Building</h2>
+        <h1 className='title'>Διαχείριση Μετρησεων</h1>
+        <h2 className='subtitle'>Επεξεργασία Μέτρησης</h2>
         <div className="card is-shadowless">
             <div className="card-content">
                 <div className="content">
                 <form onSubmit={updateBuildingMetric}>
                     <p className='has-text-centered'>{msg}</p>
                 <div className="field">
-                        <label  className="label">Building Name</label>
+                        <label  className="label">Σημείο Μέτρησης</label>
                         <div className="control">
                             <p>{buildingName}</p>
                             {/* <input type="text" className="input" value={buildingId} onChange={(e)=> setBuildingId(e.target.value)} placeholder='Building Name'/> */}
                         </div>
                     </div>
                     <div className="field">
-                        <label  className="label">Metric Name</label>
+                        <label  className="label">Ρύπος</label>
                         <div className="control">
                             <p>{metricName}</p>
                             {/* <input type="text" className="input" value={metricId} onChange={(e)=> setMetricId(e.target.value)} placeholder='Latitude'/> */}
                         </div>
                     </div>
                     <div className="field">
-                        <label  className="label">Value</label>
+                        <label  className="label">Τιμή</label>
                         <div className="control">
-                            <input type="text" className="input" value={value} onChange={(e)=> setValue(e.target.value)} placeholder='Longitude'/>
+                            <input type="text" className="input" value={value} onChange={(e)=> setValue(e.target.value)} placeholder='Τιμή'/>
                         </div>
                     </div>
                     <div className="field">
-                        <label  className="label">Year</label>
+                        <label  className="label">Περίοδος Μέτρησης</label>
                         <div className="control">
-                            <input type="text" className="input" value={year} onChange={(e)=> setYear(e.target.value)} placeholder='Longitude'/>
+                            <input type="text" className="input" value={year} onChange={(e)=> setYear(e.target.value)} placeholder='Περίοδος Μέτρησης'/>
                         </div>
                     </div>
                     
                     
                     <div className="field">
                         <div className="control">
-                            <button type="submit" className="button is-success is-fullwidth">Update</button>
+                            <button type="submit" className="button is-success is-fullwidth">Ενημέρωση</button>
                         </div>
                     </div>
                 </form>

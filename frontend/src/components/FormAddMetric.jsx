@@ -37,58 +37,58 @@ const FormAddMetric = () => {
 
   return (
     <div>
-        <h1 className='title'>Metrics</h1>
-        <h2 className='subtitle'>Add New Metric</h2>
+        <h1 className='title'>Διαχείριση Ρύπων</h1>
+        <h2 className='subtitle'>Προσθήκη Νέου Ρύπου</h2>
         <div className="card is-shadowless">
             <div className="card-content">
                 <div className="content">
                 <form onSubmit={saveMetric}>
                 <p className='has-text-centered'>{msg}</p>
                 <div className="field">
-                        <label  className="label">Name</label>
+                        <label  className="label">Όνομα</label>
                         <div className="control">
-                            <input type="text" className="input" value={name} onChange={(e)=> setName(e.target.value)} placeholder='Metric Name'/>
+                            <input type="text" className="input" value={name} onChange={(e)=> setName(e.target.value)} placeholder='Όνομα Ρύπου'/>
                         </div>
                     </div>
 
                     <div className="field">
-                        <label  className="label">Metric Unit Measure</label>
+                        <label  className="label">Μονάδα Μέτρησης Ρύπου</label>
                         <div className="control">
-                            <input type="text" className="input" value={unit} onChange={(e)=> setUnit(e.target.value)} placeholder='Metric Unit Measure'/>
+                            <input type="text" className="input" value={unit} onChange={(e)=> setUnit(e.target.value)} placeholder='Μονάδα Μέτρησης Ρύπου'/>
                         </div>
                     </div>
 
                     <div className="field">
-                        <label  className="label">Metric Unit Description</label>
+                        <label  className="label">Περιγραφή Ρύπου</label>
                         <div className="control">
-                            <input type="text" className="input" value={unit_desc} onChange={(e)=> setUnitDesc(e.target.value)} placeholder='Metric Unit Descreption'/>
+                            <input type="text" className="input" value={unit_desc} onChange={(e)=> setUnitDesc(e.target.value)} placeholder='Περιγραφή Ρύπου'/>
                         </div>
                     </div>
 
                     <div className="field">
-                        <label  className="label">Limit Description</label>
+                        <label  className="label">Όρια</label>
                         <div className="control">
-                            <input type="text" className="input" value={limit_desc} onChange={(e)=> setLimitDesc(e.target.value)} placeholder='Limit Descreption'/>
+                            <input type="text" className="input" value={limit_desc} onChange={(e)=> setLimitDesc(e.target.value)} placeholder='Όρια'/>
                         </div>
                     </div>
 
                     <div className="field">
-                        <label  className="label">Min Unit Measure</label>
+                        <label  className="label">Κάτω Όριο</label>
                         <div className="control">
-                            <input type="text" className="input" value={min !== null ? min : ''} onChange={(e) => setMin(e.target.value === '' ? null : parseFloat(e.target.value))} placeholder='Min Unit Measure'/>
+                            <input type="text" className="input" value={min !== null ? min : ''} onChange={(e) => setMin(e.target.value === '' ? null : parseFloat(e.target.value))} placeholder='Κάτω Όριο'/>
                         </div>
                     </div>
 
                     <div className="field">
-                        <label  className="label">Max Unit Measure</label>
+                        <label  className="label">Άνω Όριο</label>
                         <div className="control">
-                            <input type="text" className="input" value={max !== null ? max : ''} onChange={(e)=> setMax(e.target.value === '' ? null : parseFloat(e.target.value))} placeholder='Max Unit Measure'/>
+                            <input type="text" className="input" value={max !== null ? max : ''} onChange={(e)=> setMax(e.target.value === '' ? null : parseFloat(e.target.value))} placeholder='Άνω Όριο'/>
                         </div>
                     </div>
                     
                     <div className="field">
                         <div className="control">
-                            <button type="submit" className="button is-success is-fullwidth">Save</button>
+                            <button type="submit" className="button is-success is-fullwidth">Αποθήκευση</button>
                         </div>
                     </div>
                 </form>

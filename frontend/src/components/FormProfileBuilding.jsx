@@ -108,12 +108,13 @@ const pieChartData = {
 <div className="container">
     <div className="row">
       <div className="col-lg-5 col-md-6">
-        <div className="mb-2">
+        <div className="mb-2 d-flex" style={{zIndex:"10"}}>
           {/* <img className="w-25" src="https://bootdey.com/img/Content/avatar/avatar7.png" alt=""/> */}
-          {<ProfileMap name={name} lat={lat} lon={lon}></ProfileMap>}
+          {<ProfileMap  name={name} lat={lat} lon={lon}></ProfileMap>}
         </div>
-        <div className="mb-2">
+        <div className="mb-2 d-flex">
           {/* <img className="w-25" src="https://bootdey.com/img/Content/avatar/avatar7.png" alt=""/> */}
+
           {<WeatherComponent lat={lat} lon={lon}></WeatherComponent>}
         </div>
 
@@ -123,24 +124,24 @@ const pieChartData = {
       <div className="col-lg-7 col-md-6 pl-xl-3">
         
         <div className='box'>
-        <div className="mb-2 d-flex">
-          <h2 style={{fontWeight:'bolder', fontSize:'35px'}} >{name}</h2>
-          
-        </div>
+          <div className="mb-2 d-flex">
+            <h2 style={{fontWeight:'bolder', fontSize:'35px'}} >{name}</h2>
+            
+          </div>
         
-        <div className="mb-2">
+        <div className="mb-2 d-flex">
+          
           <ul className="list-unstyled">
             <li className="media">
-              <span className="w-25 text-black font-weight-normal">Latitude:</span>
-              <label className="media-body">{lat}</label>
+              <span className="w-5 text-black font-weight-normal">Γεωγραφικό Πλάτος: &nbsp;</span><label className="media-body"> {lat}</label>
             </li>
             <li className="media">
-              <span className="w-25 text-black font-weight-normal">Longitude: </span>
-              <label className="media-body">{lon}</label>
+              <span className="w-5 text-black font-weight-normal">Γεωγραφικό Μήκος: &nbsp; </span>
+              <label className="media-body"> {lon}</label>
             </li>
             <li className="media">
-              <span className="w-25 text-black font-weight-normal">Κατηγορία Σημείου Μέτρησης: </span>
-              <label className="media-body">{category}</label>
+              <span className="w-5 text-black font-weight-normal">Κατηγορία Σημείου Μέτρησης: &nbsp;</span>
+              <label className="media-body"> {category}</label>
             </li>
            
           </ul>
@@ -204,9 +205,6 @@ const pieChartData = {
       </div>
 
 
-
-
-     
       
     </div>
   </div>
