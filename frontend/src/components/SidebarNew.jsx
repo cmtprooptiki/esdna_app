@@ -16,6 +16,9 @@ import '../sidebar.css'
 import Expander from './ExpanderComponent';
 import apiBaseUrl from '../apiConfig';
 import { HiLocationMarker } from "react-icons/hi";
+import { Link } from "react-router-dom";
+import edsna from "../logo4.png";
+
 export const SidebarNew = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -43,34 +46,56 @@ export const SidebarNew = () => {
         console.log("hello")
     }
     return(
-        <div style={{ display: "flex", height: "100vh" }}>
-      <Sidebar className="app">
-        <Menu>
-          <MenuItem> <NavLink to="/dashboard" ><AiFillDashboard/> Επισκόπηση</NavLink></MenuItem>
-          <MenuItem> <NavLink to="/map"><FaMap /> Διαδραστικός Χάρτης</NavLink> </MenuItem>
-          <MenuItem> <NavLink to="/metrics"><GiBubbles/> Περιγραφή Ρύπων</NavLink> </MenuItem>
-          <MenuItem> <NavLink to="/buildingmetrics"><MdScience/> Καταγραφή Ρύπων</NavLink> </MenuItem>
-          <SubMenu label="Σημεία">
+      <div className="sidebar">
+                <aside className="menu pl-2 has-shadow">
+
+        {/* <div style={{ display: "block", height: "100vh" }}> */}
+      <Sidebar className="app" backgroundColor="#06603a">
+        <Menu backgroundColor="#06603a" renderMenuItemStyles={() => ({
+      '.menu-anchor': {
+            backgroundColor: 'red',
+            '&:hover': {
+              backgroundColor: 'green',
+            },
+        },
+      })}><br/>
+        <div className="field is-flex is-justify-content-center">
+        
+          <img 
+            src={edsna}
+            width="120" 
+            height="80"
+            alt="logo"
+          />
+          </div>
+          <MenuItem  component={<Link to="/dashboard"/>}><AiFillDashboard/> Επισκόπηση</MenuItem>
+          <MenuItem  component={<Link to="/map"/>}> <FaMap /> Διαδραστικός Χάρτης </MenuItem>
+          <MenuItem  component={<Link to="/metrics"/>}> <GiBubbles/> Περιγραφή Ρύπων</MenuItem>
+          <MenuItem  component={<Link to="/buildingmetrics"/>}> <MdScience/> Καταγραφή Ρύπων </MenuItem>
+          <SubMenu  label="Σημεία">
           {buildings.map((building, index) => (
                      
-                    <MenuItem><NavLink to={`/buildings/profile/${building.uuid}`} ><HiOutlineLocationMarker/> {building.name}</NavLink> </MenuItem>
+                    <MenuItem  component={<Link to={`/buildings/profile/${building.uuid}`}/>}><HiOutlineLocationMarker/> {building.name} </MenuItem>
                 ))}  
             
           </SubMenu>
           {user && user.role ==="admin" && (
-            <SubMenu label="Διαχειριστής" defaultOpen={isSubMenuOpen}>
+            <SubMenu  label="Διαχειριστής" defaultOpen={isSubMenuOpen}>
                 
-                <MenuItem onChange={() =>setIsSubMenuOpen(true)}><NavLink to="/users" ><IoPerson/> Χρήστες</NavLink></MenuItem>
-                <MenuItem onChange={() => setIsSubMenuOpen(true)}> <NavLink to="/buildings" ><HiOutlineLocationMarker/> Διαχείρηση Σημείων <br/>Μέτρησης</NavLink> </MenuItem>
+                <MenuItem  onChange={() =>setIsSubMenuOpen(true)} component={<Link to="/users"/>}><IoPerson/> Χρήστες</MenuItem>
+                <MenuItem  onChange={() => setIsSubMenuOpen(true)} component={<Link to="/buildings"/>}> <HiOutlineLocationMarker/> Διαχείριση Σημείων <br/>Μέτρησης</MenuItem>
 
             </SubMenu>
             )}
           
-          <MenuItem> <button onClick={logout} className='button-logout'><IoLogOut/> Αποσύνδεση</button></MenuItem>
+          {/* <MenuItem> <button onClick={logout} className='button-logout'><IoLogOut/> Αποσύνδεση</button></MenuItem> */}
           {/* <MenuItem> <NavLink  onClick={logout}><AiFillDashboard/> Dashboard</NavLink></MenuItem> */}
+          <MenuItem onClick={logout} ><IoLogOut/> Αποσύνδεση</MenuItem>
         </Menu>
       </Sidebar>
       
+    {/* </div> */}
+    </aside>
     </div>
     );
 };

@@ -50,42 +50,42 @@ const FormEditBuilding = () => {
     };
   return (
     <div>
-        <h1 className='title'>Buildings</h1>
-        <h2 className='subtitle'>Edit Building</h2>
+        <h1 className='title'>Διαχείριση Σημείων Μέτρησης</h1>
+        <h2 className='subtitle'>Επεξεργασία Σημείων Μέτρησης</h2>
         <div className="card is-shadowless">
             <div className="card-content">
                 <div className="content">
                 <form onSubmit={updateBuilding}>
                     <p className='has-text-centered'>{msg}</p>
                 <div className="field">
-                        <label  className="label">Name</label>
+                        <label  className="label">Όνομα Σημέιου</label>
                         <div className="control">
-                            <input type="text" className="input" value={name} onChange={(e)=> setName(e.target.value)} placeholder='Building Name'/>
+                            <input type="text" className="input" value={name} onChange={(e)=> setName(e.target.value)} placeholder='Όνομα Σημέιου'/>
                         </div>
                     </div>
                     <div className="field">
-                        <label  className="label">Latitude</label>
+                        <label  className="label">Γεωγραφικό πλάτος (Lat)</label>
                         <div className="control">
-                            <input type="text" className="input" value={lat} onChange={(e)=> setLat(e.target.value)} placeholder='Latitude'/>
+                            <input type="text" className="input" value={lat} onChange={(e)=> setLat(e.target.value)} placeholder='Γεωγραφικό πλάτος (Lat)'/>
                         </div>
                     </div>
                     <div className="field">
-                        <label  className="label">Longitude</label>
+                        <label  className="label">Γεωγραφικό μήκος(Lon)</label>
                         <div className="control">
-                            <input type="text" className="input" value={lon} onChange={(e)=> setLon(e.target.value)} placeholder='Longitude'/>
+                            <input type="text" className="input" value={lon} onChange={(e)=> setLon(e.target.value)} placeholder='Γεωγραφικό μήκος(Lon)'/>
                         </div>
                     </div>
                     <div className="field">
-                        <label  className="label">Category</label>
+                        <label  className="label">Κατηγορία</label>
                         <div className="control">
-                            <input type="text" className="input" value={category} onChange={(e)=> setCategory(e.target.value)} placeholder='Category'/>
+                            <input type="text" className="input" value={category} onChange={(e)=> setCategory(e.target.value)} placeholder='Κατηγορία'/>
                         </div>
                     </div>
                     
                     
                     <div className="field">
                         <div className="control">
-                            <button type="submit" className="button is-success is-fullwidth">Update</button>
+                            <button type="submit" className="button is-success is-fullwidth">Ενημέρωση</button>
                         </div>
                     </div>
                 </form>

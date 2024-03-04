@@ -86,8 +86,8 @@ const BuildingMetricsTable = ({ buildingMetrics }) => {
 
   return (
     <div className="box">
-      <h1>Συγκεντρωτικός Πίνακας Μετρήσεων</h1>
-      <div class="table-responsive-md">
+      
+      <div className="table-responsive-md">
 
       <table className='table is-stripped is-fullwidth'>
         <thead>

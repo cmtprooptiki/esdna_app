@@ -101,7 +101,7 @@ const setIcon = ({ properties }, latlng) => {
       <div>
         
       
-        <MapContainer center={[38.068968,23.65545900]} zoom={12} ref={mapRef} style={{height: "25vh", width: "25vw"}}>
+        <MapContainer center={[38.068968,23.65545900]} zoom={12} ref={mapRef} style={{height: "25vh", width: "25vw", zIndex:"10"}}>
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

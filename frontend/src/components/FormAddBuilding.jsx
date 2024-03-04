@@ -40,25 +40,25 @@ const FormAddBuilding = () => {
                 <div className="field">
                         <label  className="label">Όνομα Σημέιου</label>
                         <div className="control">
-                            <input type="text" className="input" value={name} onChange={(e)=> setName(e.target.value)} placeholder='Building Name'/>
+                            <input type="text" className="input" value={name} onChange={(e)=> setName(e.target.value)} placeholder='Όνομα Σημέιου'/>
                         </div>
                     </div>
                     <div className="field">
                         <label  className="label">Γεωγραφικό πλάτος (Lat)</label>
                         <div className="control">
-                            <input type="text" className="input" value={lat} onChange={(e)=> setLat(e.target.value)} placeholder='Latitude'/>
+                            <input type="text" className="input" value={lat} onChange={(e)=> setLat(e.target.value)} placeholder='Γεωγραφικό πλάτος (Lat)'/>
                         </div>
                     </div>
                     <div className="field">
                         <label  className="label">Γεωγραφικό μήκος(Lon)</label>
                         <div className="control">
-                            <input type="text" className="input" value={lon} onChange={(e)=> setLon(e.target.value)} placeholder='Lontitude'/>
+                            <input type="text" className="input" value={lon} onChange={(e)=> setLon(e.target.value)} placeholder='Γεωγραφικό μήκος (Lon)'/>
                         </div>
                     </div>
                     <div className="field">
                         <label  className="label">Κατηγορία</label>
                         <div className="control">
-                            <input type="text" className="input" value={category} onChange={(e)=> setCategory(e.target.value)} placeholder='Category'/>
+                            <input type="text" className="input" value={category} onChange={(e)=> setCategory(e.target.value)} placeholder='Κατηγορία'/>
                         </div>
                     </div>
                     

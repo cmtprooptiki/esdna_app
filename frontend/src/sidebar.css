@@ -84,3 +84,49 @@
     padding: 12px !important;
 
 }
+
+
+.logout {
+    color:#485fc7;
+}
+.logout:hover{
+    color:black;
+    text-decoration: underline;
+}
+
+
+/* .sidebar{
+    background-color: #06603a;
+    color:#569f80
+}
+
+.sidebar:hover{
+    color:red;
+    background-color: yellow !important;
+} */
+
+.sidebar{
+    background-color: #06603a;
+    padding-top: 22px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.ps-menu-button{
+    background:#06603a !important;
+    color:#bedfd1 !important;
+}
+.ps-menu-button:hover{
+    background:#2b7858 !important;
+    color:white !important;
+    border-radius: 10px;
+}
+.ps-submenu-content{
+    background:#06603a !important;
+
+}
+.css-1wvake5 {
+    
+    border-color: #06603a !important;
+    
+}

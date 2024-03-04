@@ -385,8 +385,9 @@ const Dashboard = () => {
   return (
     <Layout>
       <Welcome />
+      
       <div className="dashboard-container">
-
+      <p style={{fontSize:'25px', fontWeight:'bold'}}>Συγκεντρωτικός Πίνακας Μετρήσεων</p><br/>
       {<BuildingMetricsTable buildingMetrics={buildingMetrics}></BuildingMetricsTable>}
       <div className="jumbotron" >
 
@@ -568,7 +569,7 @@ const Dashboard = () => {
         </div>
 
         <div className="jumbotron" >
-        <p style={{fontSize:'25px', fontWeight:'bold'}}>Σύγκριση συγκέντρωσης ρύπου στα σημεία μέτρησης </p>
+        <p style={{fontSize:'25px', fontWeight:'bold'}}>Σύγκριση συγκέντρωσης ρύπου στα σημεία μέτρησης </p><br/>
         <div className="box">
 
         <label>Επιλέξτε ρύπο</label>
@@ -588,7 +589,7 @@ const Dashboard = () => {
 
 
       {/* Table for displaying building metrics for selected period */}
-      <div className="box">
+      {/* <div className="box">
         <h1>Building Metrics:</h1>
         <div class="table-responsive-md">
         <table className='table is-stripped is-fullwidth'>
@@ -615,8 +616,8 @@ const Dashboard = () => {
           </tbody>
         </table>
         </div>
-      </div>
-      <p style={{fontSize:"25px", fontWeight:"bold"}}>Ραβδόγραμμα συγκέντρωση {selectedMetric2}</p>
+      </div> */}
+      <p style={{fontSize:"25px", fontWeight:"bold"}}>Ραβδόγραμμα συγκέντρωση {selectedMetric2}</p><br/>
       {/* BarChart */}
       <div className="box">
         

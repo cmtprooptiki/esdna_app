@@ -22,8 +22,9 @@ const MetricList = () => {
     <div>
         <h1 className='title'>Περιγραφή Ρύπων</h1>
         {user && user.role ==="admin" && (
-        <Link to={"/metrics/add"} className='button is-primary mb-2'>Προσθήκη Νέου</Link>
+        <Link to={"/metrics/add"} className='button is-primary mb-2'>Προσθήκη Νέου Ρύπου</Link>
         )}
+        <div className="table-responsive-md">
         <table className='table is-stripped is-fullwidth'>
             <thead>
                 <tr>
@@ -60,6 +61,7 @@ const MetricList = () => {
                 
             </tbody>
         </table>
+        </div>
     </div>
   )
 }

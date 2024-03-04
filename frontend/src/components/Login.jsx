@@ -2,8 +2,9 @@ import React,{useState,useEffect} from 'react'
 import { useDispatch,useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import {LoginUser,reset} from "../features/authSlice"
-import logo from "../logo2.png";
+import logo from "../logo3.png";
 import '../login.css';
+import edsna from "../logo2.svg";
 
 const Login = () => {
     const [email,setEmail]=useState("");
@@ -17,7 +18,7 @@ const Login = () => {
     }
 
     useEffect(()=>{
-        if(user ||isSuccess){
+        if(user && isSuccess){
             navigate("/dashboard");
         }
         dispatch(reset());
@@ -35,16 +36,23 @@ const Login = () => {
   <div className="column is-4">
 
   <form onSubmit={Auth} className='box'>
-                    {isError && <p className='has-text-centered'>{message}</p>}
                     <div className="field is-flex is-justify-content-center">
                   <img 
                     src={logo}
-                    width="250" 
+                    width="320" 
                     height="80"
                     alt="logo"
                   />
                 </div>
-                    <h2 style={{color: "black",textAlign:"center"}}>ΥΠΟΣΥΣΤΗΜΑ ΚΑΤΑΧΩΡΗΣΗΣ & ΕΠΕΞΕΡΓΑΣΙΑΣ ΠΕΡΙΒΑΛΛΟΝΤΙΚΩΝ ΔΕΔΟΜΕΝΩΝ</h2>
+                <div className="field is-flex is-justify-content-center">
+                  <img 
+                    src={edsna}
+                    width="120" 
+                    height="80"
+                    alt="logo"
+                  />
+                </div>
+                    <h2 style={{color: "black",fontWeight:"bold",textAlign:"center"}}>ΥΠΟΣΥΣΤΗΜΑ ΚΑΤΑΧΩΡΗΣΗΣ & ΕΠΕΞΕΡΓΑΣΙΑΣ ΠΕΡΙΒΑΛΛΟΝΤΙΚΩΝ ΔΕΔΟΜΕΝΩΝ</h2>
                     <div className="field">
                         <label  className="label">Email</label>
                         <div className="control">
@@ -60,6 +68,8 @@ const Login = () => {
                     <div className="field mt-5">
                         <button type="submit" className="button is-success is-fullwidth">{isLoading ?"Loading..." : "Είσοδος"}</button>
                     </div>
+                    {isError && <p className='has-text-centered alert alert-danger'>{message}</p>}
+
                 </form>
                 </div>
                 

@@ -13,27 +13,27 @@ const WeatherComponent = (props) => {
 
   const toDateFunction = () => { 
     const months = [ 
-        'January', 
-        'February', 
-        'March', 
-        'April', 
-        'May', 
-        'June', 
-        'July', 
-        'August', 
-        'September', 
-        'October', 
-        'November', 
-        'December', 
+        'Ιανουάριος', 
+        'Φεβρουάριος', 
+        'Μάρτιος', 
+        'Απρίλιος', 
+        'Μάϊος', 
+        'Ιούνιος', 
+        'Ιούλιος', 
+        'Αύγουστος', 
+        'Σεπτέμβριος', 
+        'Οκτώμβριος', 
+        'Νοέμβριος', 
+        'Δεκέμβριος', 
     ]; 
     const WeekDays = [ 
-        'Sunday', 
-        'Monday', 
-        'Tuesday', 
-        'Wednesday', 
-        'Thursday', 
-        'Friday', 
-        'Saturday', 
+        'Κυριακή', 
+        'Δευτέρα', 
+        'Τρίτη', 
+        'Τετάρτη', 
+        'Πέμπτη', 
+        'Παρασκευή', 
+        'Σάββατο', 
     ]; 
     const currentDate = new Date(); 
     const date = `${WeekDays[currentDate.getDay()]} ${currentDate.getDate()} ${months[currentDate.getMonth()] 
@@ -112,7 +112,7 @@ const WeatherComponent = (props) => {
                 <p> <FontAwesomeIcon icon={faDroplet} /> {weatherData.main.humidity}%</p> 
             </div> 
             <div className="des-wind"> 
-                <p>Pressure: {weatherData.main.pressure}</p> 
+                <p>Pressure: {weatherData.main.pressure}mbar</p> 
             </div> 
 
         </div> 
