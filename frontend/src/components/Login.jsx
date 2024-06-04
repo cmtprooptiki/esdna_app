@@ -2,7 +2,7 @@ import React,{useState,useEffect} from 'react'
 import { useDispatch,useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import {LoginUser,reset} from "../features/authSlice"
-import logo from "../logo3.png";
+import logo from "../Logo- ΕΔΣΝΑ.svg";
 import '../login.css';
 import edsna from "../logo2.svg";
 
@@ -39,18 +39,18 @@ const Login = () => {
                     <div className="field is-flex is-justify-content-center">
                   <img 
                     src={logo}
-                    width="320" 
+                    width="520" 
                     height="80"
                     alt="logo"
                   />
                 </div>
                 <div className="field is-flex is-justify-content-center">
-                  <img 
+                  {/* <img 
                     src={edsna}
                     width="120" 
                     height="80"
                     alt="logo"
-                  />
+                  /> */}
                 </div>
                     <h2 style={{color: "black",fontWeight:"bold",textAlign:"center"}}>ΥΠΟΣΥΣΤΗΜΑ ΚΑΤΑΧΩΡΗΣΗΣ & ΕΠΕΞΕΡΓΑΣΙΑΣ ΠΕΡΙΒΑΛΛΟΝΤΙΚΩΝ ΔΕΔΟΜΕΝΩΝ</h2>
                     <div className="field">

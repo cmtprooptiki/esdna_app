@@ -5,7 +5,7 @@ import axios from 'axios';
 import '../custom.css';
 import apiBaseUrl from '../apiConfig'; // Update the path accordingly
 
-const CSVReaderComponent = () => {
+const CSVReaderComponent = ({onUploadSuccess}) => {
   const handleFile = (data, fileInfo) => {
     // Send data to Node.js server
 
@@ -18,9 +18,12 @@ const CSVReaderComponent = () => {
         axios.post(`${apiBaseUrl}/upload-csv`, { data })
         .then(response => {
             console.log(response.data);
+            onUploadSuccess();
         })
         .catch(error => {
             console.error(error);
+            onUploadSuccess();
+            
         });
     }else{
     // User clicked "Cancel," do nothing or handle as needed
