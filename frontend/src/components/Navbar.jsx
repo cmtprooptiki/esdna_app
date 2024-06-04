@@ -1,6 +1,6 @@
 import React from "react";
 import {NavLink} from "react-router-dom";
-import logo from "../logo2.png";
+import logo from "../Logo- ΕΔΣΝΑ.svg";
 import { useDispatch,useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import {LogOut, LoginUser,reset} from "../features/authSlice"
@@ -92,7 +92,7 @@ const Navbar =()=>{
                     <NavLink className="navbar-item" to="/dashboard">
                               <img 
                                   src={logo}
-                                  width="220" 
+                                  width="250" 
                                   height="80"
                                   alt="logo"
                               />

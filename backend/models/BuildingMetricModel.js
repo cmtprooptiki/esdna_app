@@ -39,7 +39,7 @@ const BuildingMetric = db.define('BuildingMetric', {
       
     },
     value: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT,
         allowNull: false,
         validate:{
             notEmpty: true

@@ -14,10 +14,17 @@ const BuildingMetricList = () => {
     const {user} = useSelector((state)=>state.auth)
 
     const [buildingmetrics,setBuildingMetrics]=useState([]);
+    const [csvUploaded, setCsvUploaded] = useState(false); // State to track CSV upload
 
     useEffect(()=>{
         getBuildingMetrics()
     },[]);
+    useEffect(() => {
+        if (csvUploaded) {
+          getBuildingMetrics();
+          setCsvUploaded(false); // Reset the CSV upload state
+        }
+      }, [csvUploaded]);
 
     const getBuildingMetrics = async() =>{
         const response = await axios.get(`${apiBaseUrl}/buildingmetrics`);
@@ -42,7 +49,7 @@ const BuildingMetricList = () => {
           </div>
           <div className="column">
             
-            <CSVReaderComponent/>
+            <CSVReaderComponent onUploadSuccess={() => setCsvUploaded(true)}/>
            
           </div>
         
