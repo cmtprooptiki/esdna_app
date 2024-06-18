@@ -75,14 +75,14 @@ const FormAddMetric = () => {
                     <div className="field">
                         <label  className="label">Κάτω Όριο</label>
                         <div className="control">
-                            <input type="text" className="input" value={min !== null ? min : ''} onChange={(e) => setMin(e.target.value === '' ? null : parseFloat(e.target.value))} placeholder='Κάτω Όριο'/>
+                            <input type="number" className="input" value={min !== null ? min : ''} onChange={(e) => setMin(e.target.value === '' ? null : parseFloat(e.target.value))} placeholder='Κάτω Όριο'/>
                         </div>
                     </div>
 
                     <div className="field">
                         <label  className="label">Άνω Όριο</label>
                         <div className="control">
-                            <input type="text" className="input" value={max !== null ? max : ''} onChange={(e)=> setMax(e.target.value === '' ? null : parseFloat(e.target.value))} placeholder='Άνω Όριο'/>
+                            <input type="number" className="input" value={max !== null ? max : ''} onChange={(e)=> setMax(e.target.value === '' ? null : parseFloat(e.target.value))} placeholder='Άνω Όριο'/>
                         </div>
                     </div>
                     

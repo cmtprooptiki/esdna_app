@@ -17,11 +17,46 @@ export const getColorClass2 = (value, metricname) => {
           label: value < 20 ?'Χαμηλή': 'Υψηλή',
           className: value < 20 ? 'green-text' : 'red-text' 
       };
+      case 'benzene':
+        return{
+          label: value < 5 ?'Χαμηλή': 'Υψηλή',
+          className: value < 5 ? 'green-text' : 'red-text' 
+      };
+      case 'benzo(a)pyrene':
+        return{
+          label: value < 1 ?'Χαμηλή': 'Υψηλή',
+          className: value < 1 ? 'green-text' : 'red-text' 
+      };
       case 'SO2':
         return{
           label: value < 125 ?'Χαμηλή': 'Υψηλή',
-          className: value < 50 ? 'green-text' : 'red-text' 
+          className: value < 125 ? 'green-text' : 'red-text' 
       };
+
+      case 'Pb':
+        return{
+          label: value < 1 ?'Χαμηλή': 'Υψηλή',
+          className: value < 1 ? 'green-text' : 'red-text' 
+      };
+      
+      case 'Ni':
+        return{
+          label: value < 20 ?'Χαμηλή': 'Υψηλή',
+          className: value < 20 ? 'green-text' : 'red-text' 
+      };
+
+      case 'Cd':
+        return{
+          label: value < 5 ?'Χαμηλή': 'Υψηλή',
+          className: value < 5 ? 'green-text' : 'red-text' 
+      };
+      
+      case 'As':
+        return{
+          label: value < 6 ?'Χαμηλή': 'Υψηλή',
+          className: value < 6 ? 'green-text' : 'red-text' 
+      };
+
       case 'CO':
         return{
           label: value < 10 ?'Χαμηλή': 'Υψηλή',
@@ -58,10 +93,15 @@ export const getColorClass2 = (value, metricname) => {
           label:value < 10 ? 'Χαμηλή' : value >= 10 && value <= 50 ? 'Μέτρια' : 'Υψηλή',
           className: value < 10 ? 'green-text' : value >= 10 && value <= 50 ? 'yellow-text' : 'red-text'
       };
-      case 'OC/EC':
+      case 'OC':
         return {
-          label:value < 50 ? 'Χαμηλή' : value >= 50 && value <= 80 ? 'Μέτρια' : 'Υψηλή',
-          className: value < 50 ? 'green-text' : value >= 50 && value <= 80 ? 'yellow-text' : 'red-text'
+          label:value < 5 ? 'Χαμηλή' : value >= 5 && value <= 20 ? 'Μέτρια' : 'Υψηλή',
+          className: value < 5 ? 'green-text' : value >= 5 && value <= 20 ? 'yellow-text' : 'red-text'
+      };
+      case 'EC':
+        return {
+          label:value < 0.5 ? 'Χαμηλή' : value >= 0.5 && value <= 2 ? 'Μέτρια' : 'Υψηλή',
+          className: value < 0.5 ? 'green-text' : value >= 0.5 && value <= 2 ? 'yellow-text' : 'red-text'
       };
       // Add more cases as needed
       default:
@@ -81,6 +121,43 @@ export  const getLimitAnnotation =(metricname)=>{
         return{
           max:20
       };
+
+      
+      case 'benzene':
+        return{
+          max:5
+      };
+
+      case 'benzo(a)pyrene':
+        return{
+          max:1
+      };
+
+
+      case 'Pb':
+        return{
+          max:1
+      };
+
+      
+      case 'Ni':
+        return{
+          max:20
+      };
+
+      case 'Cd':
+        return{
+          max:5
+      };
+
+      case 'As':
+        return{
+          max:6
+      };
+
+
+
+
       case 'SO2':
         return{
           max: 125
@@ -119,10 +196,15 @@ export  const getLimitAnnotation =(metricname)=>{
           min:10,
           max:50 
       };
-      case 'OC/EC':
+      case 'OC':
         return {
-          min:5/0.5,
-          max:20/2 
+          min:5,
+          max:20 
+      };
+      case 'EC':
+        return {
+          min:0.5,
+          max:2 
       };
       // Add more cases as needed
       default:
@@ -259,16 +341,84 @@ export const circleColorArray= (metricname)=>{
         ]
        
     };
-    case 'OC/EC':
+    case 'OC':
       return {
         colorArray:[[0, 'rgba(0,255,0,0)'],
-        [9, 'rgb(0,255,0)'],
+        [5, 'rgb(0,255,0)'],
         [10, 'rgb(255,255,0)'],
-        [11, 'rgb(255,0,0)']
+        [20, 'rgb(255,0,0)']
       ]
         // min:5/0.5,
         // max:20/2 
     };
+
+    case 'EC':
+      return {
+        colorArray:[[0, 'rgba(0,255,0,0)'],
+        [0.5, 'rgb(0,255,0)'],
+        [1, 'rgb(255,255,0)'],
+        [2, 'rgb(255,0,0)']
+      ]
+        // min:5/0.5,
+        // max:20/2 
+    };
+    case 'benzene':
+      return {
+        colorArray:[[0, 'rgba(0,255,0,0)'],
+        [1, 'rgb(0,255,0)'],
+        [4, 'rgb(0,255,0)'],
+        [5, 'rgb(255,0,0)']
+      ]
+        // min:5/0.5,
+        // max:20/2 
+    };
+    case 'benzo(a)pyrene':
+      return {
+        colorArray:[[0, 'rgba(0,255,0,0)'],
+        [1, 'rgb(255,0,0)']
+      ]
+        // min:5/0.5,
+        // max:20/2 
+    };
+    case 'Pb':
+      return {
+        colorArray:[[0, 'rgba(0,255,0,0)'],
+        [1, 'rgb(255,0,0)']
+      ]
+        // min:5/0.5,
+        // max:20/2 
+    };
+    case 'Ni':
+      return {
+        colorArray:[[0, 'rgba(0,255,0,0)'],
+        [1, 'rgb(0,255,0)'],
+        [19, 'rgb(0,255,0)'],
+        [20, 'rgb(255,0,0)']
+      ]
+        // min:5/0.5,
+        // max:20/2 
+    };
+    case 'Cd':
+      return {
+        colorArray:[[0, 'rgba(0,255,0,0)'],
+        [1, 'rgb(0,255,0)'],
+        [4, 'rgb(0,255,0)'],
+        [5, 'rgb(255,0,0)']
+      ]
+        // min:5/0.5,
+        // max:20/2 
+    };
+    case 'As':
+      return {
+        colorArray:[[0, 'rgba(0,255,0,0)'],
+        [1, 'rgb(0,255,0)'],
+        [5, 'rgb(0,255,0)'],
+        [6, 'rgb(255,0,0)']
+      ]
+        // min:5/0.5,
+        // max:20/2 
+    };
+
     // Add more cases as needed
     default:
       return {colorArray:[[0, 'rgba(0,255,0,0)']] }; // Default label and class name

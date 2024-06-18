@@ -71,7 +71,8 @@ const FormEditBuildingMetric = () => {
                     <div className="field">
                         <label  className="label">Τιμή</label>
                         <div className="control">
-                            <input type="text" className="input" value={value} onChange={(e)=> setValue(e.target.value)} placeholder='Τιμή'/>
+                            {/* <input type="text" className="input" value={value} onChange={(e)=> setValue(e.target.value)} placeholder='Τιμή'/> */}
+                            <input type="number" className="input" value={value !== null ? value : ''} onChange={(e)=> setValue(e.target.value === '' ? null : parseFloat(e.target.value))} placeholder='Τιμή'/>
                         </div>
                     </div>
                     <div className="field">

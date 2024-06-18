@@ -7,10 +7,10 @@ import { Sequelize } from "sequelize";
 // });
 
 
-const db=new Sequelize('auth_db','root','',{
+const db=new Sequelize('auth_db2','root','',{
     host:"localhost",
     dialect:"mysql",
-    port:3306
+    port:3308
 });
 
 
